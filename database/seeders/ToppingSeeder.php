@@ -14,8 +14,34 @@ class ToppingSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('toppings')->insert([
-            'name' => '',
-        ]);
+        DB::table('toppings')->insert([[
+            'name' => 'Cheese',
+        ],[
+            'name' => 'Tomato sauce',
+        ],[
+            'name' => 'Pepperoni',
+        ],[
+            'name' => 'Ham',
+        ],[
+            'name' => 'Chicken',
+        ],[
+            'name' => 'Minced beef',
+        ],[
+            'name' => 'Onions',
+        ],[
+            'name' => 'Green peppers',
+        ],[
+            'name' => 'Mushrooms',
+        ],[
+            'name' => 'Sweetcorn',
+        ],[
+            'name' => 'Jalapeno peppers',
+        ],[
+            'name' => 'Pineapple',
+        ],[
+            'name' => 'Sausage',
+        ],[
+            'name' => 'Bacon',
+        ]]);
     }
 }
