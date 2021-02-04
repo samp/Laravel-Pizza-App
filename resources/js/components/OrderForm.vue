@@ -62,6 +62,13 @@
             >
           </div>
         </div>
+        <div class="container-row">
+          <div class="col">
+            <label class="form-check-label">{{
+              pizza.toppings.split(",").join(", ") | capitalize
+            }}</label>
+          </div>
+        </div>
       </div>
     </fieldset>
     <br />
@@ -117,11 +124,7 @@
       style="display: flex; flex-flow: row wrap"
       v-if="selectedPizza == 'Create your own'"
     >
-      <div
-        class="col-4"
-        v-for="topping in toppings"
-        :key="topping.id"
-      >
+      <div class="col-4" v-for="topping in toppings" :key="topping.id">
         <input
           class="form-check-input"
           type="checkbox"
@@ -139,8 +142,8 @@
     <br />
     <h3>Your order:</h3>
     <p>Selected pizza: {{ selectedPizza }}</p>
-    <p>Selected size: {{ selectedSize }}</p>
-    <p>Selected topping: {{ selectedToppings.join(", ") }}</p>
+    <p>Size: {{ selectedSize }}</p>
+    <p>Toppings: {{ lowercaseToppings.join(", ") | capitalize }}</p>
     <br />
     <h3>Total: {{ "£" + orderTotal.toFixed(2) }}</h3>
     <div class="text-center">
@@ -163,6 +166,15 @@ export default {
       orderTotal: 0,
     };
   },
+  computed: {
+    lowercaseToppings() {
+      var out = [];
+      for (var i = 0; i < this.selectedToppings.length; i++) {
+        out.push(this.selectedToppings[i].toLowerCase());
+      }
+      return out;
+    },
+  },
   methods: {
     calculateTotal: function () {
       this.orderTotal = 0;
@@ -179,8 +191,18 @@ export default {
             this.orderTotal += parseFloat(pizza.largeprice);
             this.orderTotal += this.selectedToppings.length * 1.15;
           }
+          if (pizza.name != "Create your own") {
+            this.selectedToppings = pizza.toppings.split(",");
+          }
         }
       }
+    },
+  },
+  filters: {
+    capitalize: function (value) {
+      if (!value) return "";
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
     },
   },
 };

@@ -8,7 +8,7 @@
                     <div class="card-header">{{ __('Create Order') }}</div>
 
                     <div class="card-body">
-                        <order v-bind:pizzas="{{ $pizzas }}" v-bind:toppings="{{ $toppings }}"></order>
+                        <orderform v-bind:pizzas="{{ $pizzas }}" v-bind:toppings="{{ $toppings }}"></orderform>
                     </div>
                 </div>
             </div>

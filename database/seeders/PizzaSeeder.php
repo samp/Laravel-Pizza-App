@@ -42,5 +42,12 @@ class PizzaSeeder extends Seeder
             'mediumprice' => 13,
             'largeprice' => 15,
         ]);
+        DB::table('pizzas')->insert([
+            'name' => 'Create your own',
+            'toppings' => '',
+            'smallprice' => 8,
+            'mediumprice' => 9,
+            'largeprice' => 11,
+        ]);
     }
 }
