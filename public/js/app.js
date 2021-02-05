@@ -2034,12 +2034,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["pizzas", "toppings"],
-  mounted: function mounted() {//console.log("");
+  props: ['auth_user', "pizzas", "toppings"],
+  mounted: function mounted() {//console.log(this.auth_user);
   },
   data: function data() {
     return {
+      loggedin: false,
       selectedPizza: "",
       selectedSize: "",
       selectedToppings: [],
@@ -2054,6 +2064,15 @@ __webpack_require__.r(__webpack_exports__);
         out.push(this.selectedToppings[i].toLowerCase());
       }
 
+      out = out.sort();
+      return out;
+    },
+    fields: function fields() {
+      var out = {
+        pizza: this.selectedPizza,
+        size: this.selectedSize,
+        toppings: this.selectedToppings
+      };
       return out;
     }
   },
@@ -2075,12 +2094,24 @@ __webpack_require__.r(__webpack_exports__);
             this.orderTotal += parseFloat(pizza.largeprice);
             this.orderTotal += this.selectedToppings.length * 1.15;
           }
-
-          if (pizza.name != "Create your own") {
-            this.selectedToppings = pizza.toppings.split(",");
-          }
         }
       }
+    },
+    submit: function submit() {
+      var _this = this;
+
+      this.errors = {};
+      axios.post("/submit", this.fields).then(function (response) {
+        alert("Message sent!");
+      })["catch"](function (error) {
+        if (error.response.status === 422) {
+          _this.errors = error.response.data.errors || {};
+        }
+
+        if (error.response.status === 401) {
+          _this.errors = error.response.data.errors || {};
+        }
+      });
     }
   },
   filters: {
@@ -37711,290 +37742,178 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "position-ref" }, [
-    _c("h3", [_vm._v("Named Pizzas")]),
-    _vm._v(" "),
-    _c("div", { staticClass: "form-check" }, [
-      _c("div", { staticClass: "container row" }, [
-        _c("div", { staticClass: "col-6" }, [
-          _c("h6", [_c("strong", [_vm._v(_vm._s("Name"))])])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-2" }, [
-          _c("h6", [_c("strong", [_vm._v(_vm._s("Small"))])])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-2" }, [
-          _c("h6", [_c("strong", [_vm._v(_vm._s("Medium"))])])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-2" }, [
-          _c("h6", [_c("strong", [_vm._v(_vm._s("Large"))])])
-        ])
-      ])
-    ]),
-    _vm._v(" "),
     _c(
-      "fieldset",
-      { staticClass: "form-check" },
-      _vm._l(_vm.pizzas, function(pizza) {
-        return _c("div", { key: pizza.id }, [
-          pizza.name == "Create your own" ? _c("br") : _vm._e(),
-          _vm._v(" "),
-          pizza.name == "Create your own"
-            ? _c("p", { staticClass: "text-center" }, [_vm._v("or")])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", { staticClass: "container row" }, [
-            _c("br"),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-6" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.selectedPizza,
-                    expression: "selectedPizza"
-                  }
-                ],
-                staticClass: "form-check-input",
-                attrs: { type: "radio", name: "pizzaRadios", id: pizza.name },
-                domProps: {
-                  value: pizza.name,
-                  checked: _vm._q(_vm.selectedPizza, pizza.name)
-                },
-                on: {
-                  change: [
-                    function($event) {
-                      _vm.selectedPizza = pizza.name
-                    },
-                    _vm.calculateTotal
-                  ]
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                { staticClass: "form-check-label", attrs: { for: pizza.name } },
-                [_vm._v(_vm._s(pizza.name))]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-2" }, [
-              _c(
-                "label",
-                { staticClass: "form-check-label", attrs: { for: pizza.name } },
-                [_vm._v("£" + _vm._s(pizza.smallprice))]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-2" }, [
-              _c(
-                "label",
-                { staticClass: "form-check-label", attrs: { for: pizza.name } },
-                [_vm._v("£" + _vm._s(pizza.mediumprice))]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-2" }, [
-              _c(
-                "label",
-                { staticClass: "form-check-label", attrs: { for: pizza.name } },
-                [_vm._v("£" + _vm._s(pizza.largeprice))]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "container-row" }, [
-            _c("div", { staticClass: "col" }, [
-              _c("label", { staticClass: "form-check-label" }, [
-                _vm._v(
-                  _vm._s(
-                    _vm._f("capitalize")(pizza.toppings.split(",").join(", "))
-                  )
-                )
-              ])
-            ])
-          ])
-        ])
-      }),
-      0
-    ),
-    _vm._v(" "),
-    _c("br"),
-    _vm._v(" "),
-    _c("h3", [_vm._v("Size")]),
-    _vm._v(" "),
-    _c(
-      "fieldset",
+      "form",
       {
-        staticClass: "form-check conatiner form-check-inline",
-        staticStyle: { display: "flex", "flex-flow": "row wrap" }
+        on: {
+          submit: function($event) {
+            $event.preventDefault()
+            return _vm.submit($event)
+          }
+        }
       },
       [
-        _c("div", { staticClass: "col-4" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.selectedSize,
-                expression: "selectedSize"
-              }
-            ],
-            staticClass: "form-check-input",
-            attrs: {
-              type: "radio",
-              name: "sizeRadios",
-              id: "small",
-              value: "Small"
-            },
-            domProps: { checked: _vm._q(_vm.selectedSize, "Small") },
-            on: {
-              change: [
-                function($event) {
-                  _vm.selectedSize = "Small"
-                },
-                _vm.calculateTotal
-              ]
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "form-check-label", attrs: { for: "small" } },
-            [_vm._v(_vm._s("Small"))]
-          )
+        _c("h3", [_vm._v("Named Pizzas")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "form-check" }, [
+          _c("div", { staticClass: "container row" }, [
+            _c("div", { staticClass: "col-6" }, [
+              _c("h6", [_c("strong", [_vm._v(_vm._s("Name"))])])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-2" }, [
+              _c("h6", [_c("strong", [_vm._v(_vm._s("Small"))])])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-2" }, [
+              _c("h6", [_c("strong", [_vm._v(_vm._s("Medium"))])])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-2" }, [
+              _c("h6", [_c("strong", [_vm._v(_vm._s("Large"))])])
+            ])
+          ])
         ]),
         _vm._v(" "),
-        _c("div", { staticClass: "col-4" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.selectedSize,
-                expression: "selectedSize"
-              }
-            ],
-            staticClass: "form-check-input",
-            attrs: {
-              type: "radio",
-              name: "sizeRadios",
-              id: "medium",
-              value: "Medium"
-            },
-            domProps: { checked: _vm._q(_vm.selectedSize, "Medium") },
-            on: {
-              change: [
-                function($event) {
-                  _vm.selectedSize = "Medium"
-                },
-                _vm.calculateTotal
-              ]
-            }
+        _c(
+          "fieldset",
+          { staticClass: "form-check" },
+          _vm._l(_vm.pizzas, function(pizza) {
+            return _c("div", { key: pizza.id }, [
+              pizza.name == "Create your own" ? _c("br") : _vm._e(),
+              _vm._v(" "),
+              pizza.name == "Create your own"
+                ? _c("p", { staticClass: "text-center" }, [_vm._v("or")])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("div", { staticClass: "container row" }, [
+                _c("br"),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-6" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.selectedPizza,
+                        expression: "selectedPizza"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "radio",
+                      name: "pizzaRadios",
+                      id: pizza.name
+                    },
+                    domProps: {
+                      value: pizza.name,
+                      checked: _vm._q(_vm.selectedPizza, pizza.name)
+                    },
+                    on: {
+                      change: [
+                        function($event) {
+                          _vm.selectedPizza = pizza.name
+                        },
+                        _vm.calculateTotal
+                      ]
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: pizza.name }
+                    },
+                    [_vm._v(_vm._s(pizza.name))]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-2" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: pizza.name }
+                    },
+                    [_vm._v("£" + _vm._s(pizza.smallprice))]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-2" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: pizza.name }
+                    },
+                    [_vm._v("£" + _vm._s(pizza.mediumprice))]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-2" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: pizza.name }
+                    },
+                    [_vm._v("£" + _vm._s(pizza.largeprice))]
+                  )
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "container-row" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("label", { staticClass: "form-check-label" }, [
+                    _vm._v(
+                      _vm._s(
+                        _vm._f("capitalize")(
+                          pizza.toppings.split(",").join(", ")
+                        )
+                      )
+                    )
+                  ])
+                ])
+              ])
+            ])
           }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "form-check-label", attrs: { for: "medium" } },
-            [_vm._v(_vm._s("Medium"))]
-          )
-        ]),
+          0
+        ),
         _vm._v(" "),
-        _c("div", { staticClass: "col-4" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.selectedSize,
-                expression: "selectedSize"
-              }
-            ],
-            staticClass: "form-check-input",
-            attrs: {
-              type: "radio",
-              name: "sizeRadios",
-              id: "large",
-              value: "Large"
-            },
-            domProps: { checked: _vm._q(_vm.selectedSize, "Large") },
-            on: {
-              change: [
-                function($event) {
-                  _vm.selectedSize = "Large"
-                },
-                _vm.calculateTotal
-              ]
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "label",
-            { staticClass: "form-check-label", attrs: { for: "large" } },
-            [_vm._v(_vm._s("Large"))]
-          )
-        ])
-      ]
-    ),
-    _vm._v(" "),
-    _c("br"),
-    _vm._v(" "),
-    _vm.selectedPizza == "Create your own"
-      ? _c("h3", [_vm._v("Toppings")])
-      : _vm._e(),
-    _vm._v(" "),
-    _vm.selectedPizza == "Create your own"
-      ? _c(
+        _c("br"),
+        _vm._v(" "),
+        _c("h3", [_vm._v("Size")]),
+        _vm._v(" "),
+        _c(
           "fieldset",
           {
-            staticClass: "form-check container form-check-inline",
+            staticClass: "form-check conatiner form-check-inline",
             staticStyle: { display: "flex", "flex-flow": "row wrap" }
           },
-          _vm._l(_vm.toppings, function(topping) {
-            return _c("div", { key: topping.id, staticClass: "col-4" }, [
+          [
+            _c("div", { staticClass: "col-4" }, [
               _c("input", {
                 directives: [
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.selectedToppings,
-                    expression: "selectedToppings"
+                    value: _vm.selectedSize,
+                    expression: "selectedSize"
                   }
                 ],
                 staticClass: "form-check-input",
                 attrs: {
-                  type: "checkbox",
-                  name: "toppingCheckboxes",
-                  id: topping.name
+                  type: "radio",
+                  name: "sizeRadios",
+                  id: "small",
+                  value: "Small"
                 },
-                domProps: {
-                  value: topping.name,
-                  checked: Array.isArray(_vm.selectedToppings)
-                    ? _vm._i(_vm.selectedToppings, topping.name) > -1
-                    : _vm.selectedToppings
-                },
+                domProps: { checked: _vm._q(_vm.selectedSize, "Small") },
                 on: {
                   change: [
                     function($event) {
-                      var $$a = _vm.selectedToppings,
-                        $$el = $event.target,
-                        $$c = $$el.checked ? true : false
-                      if (Array.isArray($$a)) {
-                        var $$v = topping.name,
-                          $$i = _vm._i($$a, $$v)
-                        if ($$el.checked) {
-                          $$i < 0 && (_vm.selectedToppings = $$a.concat([$$v]))
-                        } else {
-                          $$i > -1 &&
-                            (_vm.selectedToppings = $$a
-                              .slice(0, $$i)
-                              .concat($$a.slice($$i + 1)))
-                        }
-                      } else {
-                        _vm.selectedToppings = $$c
-                      }
+                      _vm.selectedSize = "Small"
                     },
                     _vm.calculateTotal
                   ]
@@ -38003,38 +37922,193 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "label",
-                {
-                  staticClass: "form-check-label",
-                  attrs: { for: topping.name }
+                { staticClass: "form-check-label", attrs: { for: "small" } },
+                [_vm._v(_vm._s("Small"))]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-4" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedSize,
+                    expression: "selectedSize"
+                  }
+                ],
+                staticClass: "form-check-input",
+                attrs: {
+                  type: "radio",
+                  name: "sizeRadios",
+                  id: "medium",
+                  value: "Medium"
                 },
-                [_vm._v(_vm._s(topping.name))]
+                domProps: { checked: _vm._q(_vm.selectedSize, "Medium") },
+                on: {
+                  change: [
+                    function($event) {
+                      _vm.selectedSize = "Medium"
+                    },
+                    _vm.calculateTotal
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                { staticClass: "form-check-label", attrs: { for: "medium" } },
+                [_vm._v(_vm._s("Medium"))]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-4" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedSize,
+                    expression: "selectedSize"
+                  }
+                ],
+                staticClass: "form-check-input",
+                attrs: {
+                  type: "radio",
+                  name: "sizeRadios",
+                  id: "large",
+                  value: "Large"
+                },
+                domProps: { checked: _vm._q(_vm.selectedSize, "Large") },
+                on: {
+                  change: [
+                    function($event) {
+                      _vm.selectedSize = "Large"
+                    },
+                    _vm.calculateTotal
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                { staticClass: "form-check-label", attrs: { for: "large" } },
+                [_vm._v(_vm._s("Large"))]
               )
             ])
-          }),
-          0
-        )
-      : _vm._e(),
-    _vm._v(" "),
-    _c("br"),
-    _vm._v(" "),
-    _c("h3", [_vm._v("Your order:")]),
-    _vm._v(" "),
-    _c("p", [_vm._v("Selected pizza: " + _vm._s(_vm.selectedPizza))]),
-    _vm._v(" "),
-    _c("p", [_vm._v("Size: " + _vm._s(_vm.selectedSize))]),
-    _vm._v(" "),
-    _c("p", [
-      _vm._v(
-        "Toppings: " +
-          _vm._s(_vm._f("capitalize")(_vm.lowercaseToppings.join(", ")))
-      )
-    ]),
-    _vm._v(" "),
-    _c("br"),
-    _vm._v(" "),
-    _c("h3", [_vm._v("Total: " + _vm._s("£" + _vm.orderTotal.toFixed(2)))]),
-    _vm._v(" "),
-    _vm._m(0)
+          ]
+        ),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _vm.selectedPizza == "Create your own"
+          ? _c("h3", [_vm._v("Toppings")])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.selectedPizza == "Create your own"
+          ? _c(
+              "fieldset",
+              {
+                staticClass: "form-check container form-check-inline",
+                staticStyle: { display: "flex", "flex-flow": "row wrap" }
+              },
+              _vm._l(_vm.toppings, function(topping) {
+                return _c("div", { key: topping.id, staticClass: "col-4" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.selectedToppings,
+                        expression: "selectedToppings"
+                      }
+                    ],
+                    staticClass: "form-check-input",
+                    attrs: {
+                      type: "checkbox",
+                      name: "toppingCheckboxes",
+                      id: topping.name
+                    },
+                    domProps: {
+                      value: topping.name,
+                      checked: Array.isArray(_vm.selectedToppings)
+                        ? _vm._i(_vm.selectedToppings, topping.name) > -1
+                        : _vm.selectedToppings
+                    },
+                    on: {
+                      change: [
+                        function($event) {
+                          var $$a = _vm.selectedToppings,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = topping.name,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                (_vm.selectedToppings = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.selectedToppings = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.selectedToppings = $$c
+                          }
+                        },
+                        _vm.calculateTotal
+                      ]
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "label",
+                    {
+                      staticClass: "form-check-label",
+                      attrs: { for: topping.name }
+                    },
+                    [_vm._v(_vm._s(topping.name))]
+                  )
+                ])
+              }),
+              0
+            )
+          : _vm._e(),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _vm.selectedPizza != ""
+          ? _c("div", [
+              _c("h3", [_vm._v("Your order:")]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Selected pizza: " + _vm._s(_vm.selectedPizza))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Size: " + _vm._s(_vm.selectedSize))]),
+              _vm._v(" "),
+              _vm.selectedToppings.length > 0
+                ? _c("p", [
+                    _vm._v(
+                      "\n        Toppings: " +
+                        _vm._s(
+                          _vm._f("capitalize")(_vm.lowercaseToppings.join(", "))
+                        ) +
+                        "\n      "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("h3", [
+                _vm._v("Total: " + _vm._s("£" + _vm.orderTotal.toFixed(2)))
+              ])
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm._m(0)
+      ]
+    )
   ])
 }
 var staticRenderFns = [
@@ -38046,7 +38120,7 @@ var staticRenderFns = [
       _c(
         "button",
         { staticClass: "btn btn-primary btn-lg", attrs: { type: "submit" } },
-        [_vm._v("Order")]
+        [_vm._v("\n        Place order\n      ")]
       )
     ])
   }

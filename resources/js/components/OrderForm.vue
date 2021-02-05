@@ -1,165 +1,175 @@
  <template>
   <div class="position-ref">
-    <h3>Named Pizzas</h3>
-    <div class="form-check">
-      <div class="container row">
-        <div class="col-6">
-          <h6>
-            <strong>{{ "Name" }}</strong>
-          </h6>
-        </div>
-        <div class="col-2">
-          <h6>
-            <strong>{{ "Small" }}</strong>
-          </h6>
-        </div>
-        <div class="col-2">
-          <h6>
-            <strong>{{ "Medium" }}</strong>
-          </h6>
-        </div>
-        <div class="col-2">
-          <h6>
-            <strong>{{ "Large" }}</strong>
-          </h6>
-        </div>
-      </div>
-    </div>
-
-    <fieldset class="form-check">
-      <div v-for="pizza in pizzas" :key="pizza.id">
-        <br v-if="pizza.name == 'Create your own'" />
-        <p v-if="pizza.name == 'Create your own'" class="text-center">or</p>
+    <form @submit.prevent="submit">
+      <h3>Named Pizzas</h3>
+      <div class="form-check">
         <div class="container row">
-          <br />
           <div class="col-6">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="pizzaRadios"
-              :id="pizza.name"
-              :value="pizza.name"
-              v-model="selectedPizza"
-              @change="calculateTotal"
-            />
-            <label class="form-check-label" :for="pizza.name">{{
-              pizza.name
-            }}</label>
+            <h6>
+              <strong>{{ "Name" }}</strong>
+            </h6>
           </div>
           <div class="col-2">
-            <label class="form-check-label" :for="pizza.name"
-              >£{{ pizza.smallprice }}</label
-            >
+            <h6>
+              <strong>{{ "Small" }}</strong>
+            </h6>
           </div>
           <div class="col-2">
-            <label class="form-check-label" :for="pizza.name"
-              >£{{ pizza.mediumprice }}</label
-            >
+            <h6>
+              <strong>{{ "Medium" }}</strong>
+            </h6>
           </div>
           <div class="col-2">
-            <label class="form-check-label" :for="pizza.name"
-              >£{{ pizza.largeprice }}</label
-            >
-          </div>
-        </div>
-        <div class="container-row">
-          <div class="col">
-            <label class="form-check-label">{{
-              pizza.toppings.split(",").join(", ") | capitalize
-            }}</label>
+            <h6>
+              <strong>{{ "Large" }}</strong>
+            </h6>
           </div>
         </div>
       </div>
-    </fieldset>
-    <br />
 
-    <h3>Size</h3>
+      <fieldset class="form-check">
+        <div v-for="pizza in pizzas" :key="pizza.id">
+          <br v-if="pizza.name == 'Create your own'" />
+          <p v-if="pizza.name == 'Create your own'" class="text-center">or</p>
+          <div class="container row">
+            <br />
+            <div class="col-6">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="pizzaRadios"
+                :id="pizza.name"
+                :value="pizza.name"
+                v-model="selectedPizza"
+                @change="calculateTotal"
+              />
+              <label class="form-check-label" :for="pizza.name">{{
+                pizza.name
+              }}</label>
+            </div>
+            <div class="col-2">
+              <label class="form-check-label" :for="pizza.name"
+                >£{{ pizza.smallprice }}</label
+              >
+            </div>
+            <div class="col-2">
+              <label class="form-check-label" :for="pizza.name"
+                >£{{ pizza.mediumprice }}</label
+              >
+            </div>
+            <div class="col-2">
+              <label class="form-check-label" :for="pizza.name"
+                >£{{ pizza.largeprice }}</label
+              >
+            </div>
+          </div>
+          <div class="container-row">
+            <div class="col">
+              <label class="form-check-label">{{
+                pizza.toppings.split(",").join(", ") | capitalize
+              }}</label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <br />
 
-    <fieldset
-      class="form-check conatiner form-check-inline"
-      style="display: flex; flex-flow: row wrap"
-    >
-      <div class="col-4">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="sizeRadios"
-          id="small"
-          value="Small"
-          v-model="selectedSize"
-          @change="calculateTotal"
-        />
-        <label class="form-check-label" for="small">{{ "Small" }}</label>
-      </div>
-      <div class="col-4">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="sizeRadios"
-          id="medium"
-          value="Medium"
-          v-model="selectedSize"
-          @change="calculateTotal"
-        />
-        <label class="form-check-label" for="medium">{{ "Medium" }}</label>
-      </div>
-      <div class="col-4">
-        <input
-          class="form-check-input"
-          type="radio"
-          name="sizeRadios"
-          id="large"
-          value="Large"
-          v-model="selectedSize"
-          @change="calculateTotal"
-        />
-        <label class="form-check-label" for="large">{{ "Large" }}</label>
-      </div>
-    </fieldset>
-    <br />
+      <h3>Size</h3>
 
-    <h3 v-if="selectedPizza == 'Create your own'">Toppings</h3>
-    <fieldset
-      class="form-check container form-check-inline"
-      style="display: flex; flex-flow: row wrap"
-      v-if="selectedPizza == 'Create your own'"
-    >
-      <div class="col-4" v-for="topping in toppings" :key="topping.id">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          name="toppingCheckboxes"
-          :id="topping.name"
-          :value="topping.name"
-          v-model="selectedToppings"
-          @change="calculateTotal"
-        />
-        <label class="form-check-label" :for="topping.name">{{
-          topping.name
-        }}</label>
+      <fieldset
+        class="form-check conatiner form-check-inline"
+        style="display: flex; flex-flow: row wrap"
+      >
+        <div class="col-4">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="sizeRadios"
+            id="small"
+            value="Small"
+            v-model="selectedSize"
+            @change="calculateTotal"
+          />
+          <label class="form-check-label" for="small">{{ "Small" }}</label>
+        </div>
+        <div class="col-4">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="sizeRadios"
+            id="medium"
+            value="Medium"
+            v-model="selectedSize"
+            @change="calculateTotal"
+          />
+          <label class="form-check-label" for="medium">{{ "Medium" }}</label>
+        </div>
+        <div class="col-4">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="sizeRadios"
+            id="large"
+            value="Large"
+            v-model="selectedSize"
+            @change="calculateTotal"
+          />
+          <label class="form-check-label" for="large">{{ "Large" }}</label>
+        </div>
+      </fieldset>
+      <br />
+
+      <h3 v-if="selectedPizza == 'Create your own'">Toppings</h3>
+      <fieldset
+        class="form-check container form-check-inline"
+        style="display: flex; flex-flow: row wrap"
+        v-if="selectedPizza == 'Create your own'"
+      >
+        <div class="col-4" v-for="topping in toppings" :key="topping.id">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            name="toppingCheckboxes"
+            :id="topping.name"
+            :value="topping.name"
+            v-model="selectedToppings"
+            @change="calculateTotal"
+          />
+          <label class="form-check-label" :for="topping.name">{{
+            topping.name
+          }}</label>
+        </div>
+      </fieldset>
+      <br />
+      <div v-if="selectedPizza != ''">
+        <h3>Your order:</h3>
+        <p>Selected pizza: {{ selectedPizza }}</p>
+        <p>Size: {{ selectedSize }}</p>
+        <p v-if="selectedToppings.length > 0">
+          Toppings: {{ lowercaseToppings.join(", ") | capitalize }}
+        </p>
+        <br />
+        <h3>Total: {{ "£" + orderTotal.toFixed(2) }}</h3>
       </div>
-    </fieldset>
-    <br />
-    <h3>Your order:</h3>
-    <p>Selected pizza: {{ selectedPizza }}</p>
-    <p>Size: {{ selectedSize }}</p>
-    <p>Toppings: {{ lowercaseToppings.join(", ") | capitalize }}</p>
-    <br />
-    <h3>Total: {{ "£" + orderTotal.toFixed(2) }}</h3>
-    <div class="text-center">
-      <button type="submit" class="btn btn-primary btn-lg">Order</button>
-    </div>
+
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary btn-lg">
+          Place order
+        </button>
+      </div>
+    </form>
   </div>
 </template>
 
     <script>
 export default {
-  props: ["pizzas", "toppings"],
+  props: ['auth_user', "pizzas", "toppings"],
   mounted() {
-    //console.log("");
+    //console.log(this.auth_user);
   },
   data() {
     return {
+      loggedin: false,
       selectedPizza: "",
       selectedSize: "",
       selectedToppings: [],
@@ -168,10 +178,19 @@ export default {
   },
   computed: {
     lowercaseToppings() {
-      var out = [];
+      let out = [];
       for (var i = 0; i < this.selectedToppings.length; i++) {
         out.push(this.selectedToppings[i].toLowerCase());
       }
+      out = out.sort();
+      return out;
+    },
+    fields() {
+      let out = {
+        pizza: this.selectedPizza,
+        size: this.selectedSize,
+        toppings: this.selectedToppings,
+      };
       return out;
     },
   },
@@ -191,13 +210,27 @@ export default {
             this.orderTotal += parseFloat(pizza.largeprice);
             this.orderTotal += this.selectedToppings.length * 1.15;
           }
-          if (pizza.name != "Create your own") {
-            this.selectedToppings = pizza.toppings.split(",");
-          }
         }
       }
     },
+    submit() {
+      this.errors = {};
+      axios
+        .post("/submit", this.fields)
+        .then((response) => {
+          alert("Message sent!");
+        })
+        .catch((error) => {
+          if (error.response.status === 422) {
+            this.errors = error.response.data.errors || {};
+          }
+          if (error.response.status === 401) {
+            this.errors = error.response.data.errors || {};
+          }
+        });
+    },
   },
+
   filters: {
     capitalize: function (value) {
       if (!value) return "";

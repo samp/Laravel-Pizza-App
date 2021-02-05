@@ -22,3 +22,4 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/order', [App\Http\Controllers\OrderController::class, 'index']);
+Route::post('/submit', [App\Http\Controllers\OrderController::class, 'submit'])->middleware('auth');
