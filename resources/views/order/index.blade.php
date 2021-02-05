@@ -9,7 +9,7 @@
 
                     <div class="card-body">
                         
-                        <orderform v-bind:auth_user="@json($auth_user)" v-bind:pizzas="{{ $pizzas }}" v-bind:toppings="{{ $toppings }}"></orderform>
+                        <orderform v-bind:auth_user="{{ $auth_user }}" v-bind:pizzas="{{ $pizzas }}" v-bind:toppings="{{ $toppings }}"></orderform>
                     </div>
                 </div>
             </div>

@@ -153,27 +153,43 @@
       </div>
 
       <div class="text-center">
-        <button type="submit" class="btn btn-primary btn-lg">
+        <button
+          type="submit"
+          class="btn btn-primary btn-lg"
+          data-toggle="modal"
+          data-target="#myModal"
+        >
           Place order
         </button>
+        <br v-if="(pizzaerror == true || sizeerror == true)" />
+        <br v-if="(pizzaerror == true || sizeerror == true)" />
+        <p class="text-danger mb-0" v-if="pizzaerror == true">
+          You must select a pizza.
+        </p>
+        <p class="text-danger mb-0" v-if="sizeerror == true">
+          You must select a size.
+        </p>
       </div>
+      <login-popup v-if="autherror == true"></login-popup>
     </form>
   </div>
 </template>
 
     <script>
 export default {
-  props: ['auth_user', "pizzas", "toppings"],
+  props: ["auth_user", "pizzas", "toppings"],
   mounted() {
     //console.log(this.auth_user);
   },
   data() {
     return {
-      loggedin: false,
       selectedPizza: "",
       selectedSize: "",
       selectedToppings: [],
       orderTotal: 0,
+      autherror: false,
+      pizzaerror: false,
+      sizeerror: false,
     };
   },
   computed: {
@@ -215,19 +231,35 @@ export default {
     },
     submit() {
       this.errors = {};
-      axios
-        .post("/submit", this.fields)
-        .then((response) => {
-          alert("Message sent!");
-        })
-        .catch((error) => {
-          if (error.response.status === 422) {
-            this.errors = error.response.data.errors || {};
-          }
-          if (error.response.status === 401) {
-            this.errors = error.response.data.errors || {};
-          }
-        });
+      console.log(this.fields);
+      if (this.fields.pizza == "") {
+        this.pizzaerror = true;
+      } else {
+        this.pizzaerror = false;
+      }
+
+      if (this.fields.size == "") {
+        this.sizeerror = true;
+      } else {
+        this.sizeerror = false;
+      }
+      if (this.pizzaerror == false && this.sizeerror == false) {
+        axios
+          .post("/submit", this.fields)
+          .then((response) => {
+            alert("Post OK");
+          })
+          .catch((error) => {
+            if (error.response.status === 422) {
+              this.errors = error.response.data.errors || {};
+              console.log(this.errors);
+            }
+            if (error.response.status === 401) {
+              this.errors = error.response.data.errors || {};
+              this.autherror = true;
+            }
+          });
+      }
     },
   },
 
