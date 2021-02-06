@@ -1,6 +1,7 @@
  <template>
   <div class="position-ref">
-    <form @submit.prevent="submit">
+    <form @submit.prevent="submit" method="POST">
+        
       <h3>Named Pizzas</h3>
       <div class="form-check container">
         <div class="container row">
@@ -206,7 +207,7 @@
           class="btn btn-primary btn-lg"
           
         >
-          Place order
+          Add to cart
         </button>
       </div>
       <login-popup></login-popup>
@@ -298,9 +299,9 @@ export default {
         this.methoderror == false
       ) {
         axios
-          .post("/submit", this.fields)
+          .post("/addtocart", this.fields)
           .then((response) => {
-            alert("Post OK");
+            //alert("Posted OK");
           })
           .catch((error) => {
             if (error.response.status === 422) {

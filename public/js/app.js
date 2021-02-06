@@ -2132,6 +2132,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["auth_user", "pizzas", "toppings"],
   mounted: function mounted() {//console.log(this.auth_user);
@@ -2216,8 +2217,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (this.pizzaerror == false && this.sizeerror == false && this.methoderror == false) {
-        axios.post("/submit", this.fields).then(function (response) {
-          alert("Post OK");
+        axios.post("/addtocart", this.fields).then(function (response) {//alert("Posted OK");
         })["catch"](function (error) {
           if (error.response.status === 422) {
             _this.errors = error.response.data.errors || {};
@@ -38000,6 +38000,7 @@ var render = function() {
     _c(
       "form",
       {
+        attrs: { method: "POST" },
         on: {
           submit: function($event) {
             $event.preventDefault()
@@ -38482,7 +38483,7 @@ var staticRenderFns = [
       _c(
         "button",
         { staticClass: "btn btn-primary btn-lg", attrs: { type: "submit" } },
-        [_vm._v("\n        Place order\n      ")]
+        [_vm._v("\n        Add to cart\n      ")]
       )
     ])
   }

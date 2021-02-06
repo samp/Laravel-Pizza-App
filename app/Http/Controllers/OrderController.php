@@ -31,18 +31,28 @@ class OrderController extends Controller
         return view('order.confirm');
     }
 
-    public function submit(Request $request)
+    public function addtocart(Request $request)
     {
+
         $this->validate($request, [
             'pizza' => 'required|string',
             'size' => 'required|string',
             'toppings' => 'nullable|array',
             'method' => 'required|string'
         ]);
-        /*
-          Add mail functionality here.
-        */
 
-        return response()->json(null, 200);
+        $cart = [
+                "pizza" => "",
+                "size" => 1,
+                "toppings" => "",
+                "price" => ""
+            
+        ];
+        //session($cart);
+        session(['key' => 'value']);
+        $request->session()->put("cart", "default");
+
+        //return response()->json(null, 200);
+        return redirect('cart');
     }
 }

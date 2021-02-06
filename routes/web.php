@@ -20,5 +20,6 @@ Auth::routes();
 Route::redirect('/', '/order');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/order', [App\Http\Controllers\OrderController::class, 'index']);
-Route::get('/order/confirm', [App\Http\Controllers\OrderController::class, 'confirm'])->middleware('auth');;
-Route::post('/submit', [App\Http\Controllers\OrderController::class, 'submit'])->middleware('auth');
+Route::get('/cart', function () {return view('cart');});
+Route::get('/order/confirm', [App\Http\Controllers\OrderController::class, 'confirm'])->middleware('auth');
+Route::post('addtocart', [App\Http\Controllers\OrderController::class, 'addtocart'])->middleware('web');;
