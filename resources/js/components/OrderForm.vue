@@ -2,7 +2,7 @@
   <div class="position-ref">
     <form @submit.prevent="submit">
       <h3>Named Pizzas</h3>
-      <div class="form-check">
+      <div class="form-check container">
         <div class="container row">
           <div class="col-6">
             <h6>
@@ -27,12 +27,11 @@
         </div>
       </div>
 
-      <fieldset class="form-check">
+      <fieldset class="form-check container">
         <div v-for="pizza in pizzas" :key="pizza.id">
           <br v-if="pizza.name == 'Create your own'" />
           <p v-if="pizza.name == 'Create your own'" class="text-center">or</p>
           <div class="container row">
-            <br />
             <div class="col-6">
               <input
                 class="form-check-input"
@@ -63,7 +62,7 @@
               >
             </div>
           </div>
-          <div class="container-row">
+          <div class="container-row" v-if="pizza.name != 'Create your own'">
             <div class="col">
               <label class="form-check-label">{{
                 pizza.toppings.split(",").join(", ") | capitalize
@@ -72,12 +71,15 @@
           </div>
         </div>
       </fieldset>
+      <p class="text-danger mb-0 pl-3" v-if="pizzaerror == true">
+        You must select a pizza.
+      </p>
+
       <br />
 
       <h3>Size</h3>
-
       <fieldset
-        class="form-check conatiner form-check-inline"
+        class="form-check container form-check-inline"
         style="display: flex; flex-flow: row wrap"
       >
         <div class="col-4">
@@ -117,6 +119,10 @@
           <label class="form-check-label" for="large">{{ "Large" }}</label>
         </div>
       </fieldset>
+      <p class="text-danger mb-0 pl-3" v-if="sizeerror == true">
+        You must select a size.
+      </p>
+
       <br />
 
       <h3 v-if="selectedPizza == 'Create your own'">Toppings</h3>
@@ -140,7 +146,49 @@
           }}</label>
         </div>
       </fieldset>
+
       <br />
+
+      <h3>Delivery Method</h3>
+      <fieldset
+        class="form-check container form-check-inline"
+        style="display: flex; flex-flow: row wrap"
+      >
+        <div class="col-4">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="deliveryRadios"
+            id="collection"
+            value="Collection"
+            v-model="selectedMethod"
+            @change="calculateTotal"
+          />
+          <label class="form-check-label" for="collection">{{
+            "Collection"
+          }}</label>
+        </div>
+        <div class="col-8">
+          <input
+            class="form-check-input"
+            type="radio"
+            name="deliveryRadios"
+            id="delivery"
+            value="Delivery"
+            v-model="selectedMethod"
+            @change="calculateTotal"
+          />
+          <label class="form-check-label" for="delivery">{{
+            "Delivery"
+          }}</label>
+        </div>
+      </fieldset>
+      <p class="text-danger mb-0 pl-3" v-if="methoderror == true">
+        You must select a delivery method.
+      </p>
+
+      <br />
+
       <div v-if="selectedPizza != ''">
         <h3>Your order:</h3>
         <p>Selected pizza: {{ selectedPizza }}</p>
@@ -156,21 +204,12 @@
         <button
           type="submit"
           class="btn btn-primary btn-lg"
-          data-toggle="modal"
-          data-target="#myModal"
+          
         >
           Place order
         </button>
-        <br v-if="(pizzaerror == true || sizeerror == true)" />
-        <br v-if="(pizzaerror == true || sizeerror == true)" />
-        <p class="text-danger mb-0" v-if="pizzaerror == true">
-          You must select a pizza.
-        </p>
-        <p class="text-danger mb-0" v-if="sizeerror == true">
-          You must select a size.
-        </p>
       </div>
-      <login-popup v-if="autherror == true"></login-popup>
+      <login-popup></login-popup>
     </form>
   </div>
 </template>
@@ -186,10 +225,12 @@ export default {
       selectedPizza: "",
       selectedSize: "",
       selectedToppings: [],
+      selectedMethod: "",
       orderTotal: 0,
       autherror: false,
       pizzaerror: false,
       sizeerror: false,
+      methoderror: false,
     };
   },
   computed: {
@@ -206,6 +247,7 @@ export default {
         pizza: this.selectedPizza,
         size: this.selectedSize,
         toppings: this.selectedToppings,
+        method: this.selectedMethod,
       };
       return out;
     },
@@ -232,6 +274,7 @@ export default {
     submit() {
       this.errors = {};
       console.log(this.fields);
+
       if (this.fields.pizza == "") {
         this.pizzaerror = true;
       } else {
@@ -243,7 +286,17 @@ export default {
       } else {
         this.sizeerror = false;
       }
-      if (this.pizzaerror == false && this.sizeerror == false) {
+
+      if (this.fields.method == "") {
+        this.methoderror = true;
+      } else {
+        this.methoderror = false;
+      }
+      if (
+        this.pizzaerror == false &&
+        this.sizeerror == false &&
+        this.methoderror == false
+      ) {
         axios
           .post("/submit", this.fields)
           .then((response) => {
@@ -257,6 +310,7 @@ export default {
             if (error.response.status === 401) {
               this.errors = error.response.data.errors || {};
               this.autherror = true;
+              $('#loginModal').modal()
             }
           });
       }

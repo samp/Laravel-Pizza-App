@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="modal fade" id="myModal">
+    <div class="modal fade" id="loginModal">
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="card-header">{{ "Login" }}</div>

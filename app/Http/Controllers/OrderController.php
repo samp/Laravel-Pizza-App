@@ -36,7 +36,8 @@ class OrderController extends Controller
         $this->validate($request, [
             'pizza' => 'required|string',
             'size' => 'required|string',
-            'toppings' => 'nullable|array'
+            'toppings' => 'nullable|array',
+            'method' => 'required|string'
         ]);
         /*
           Add mail functionality here.

@@ -2093,6 +2093,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["auth_user", "pizzas", "toppings"],
   mounted: function mounted() {//console.log(this.auth_user);
@@ -2102,10 +2141,12 @@ __webpack_require__.r(__webpack_exports__);
       selectedPizza: "",
       selectedSize: "",
       selectedToppings: [],
+      selectedMethod: "",
       orderTotal: 0,
       autherror: false,
       pizzaerror: false,
-      sizeerror: false
+      sizeerror: false,
+      methoderror: false
     };
   },
   computed: {
@@ -2123,7 +2164,8 @@ __webpack_require__.r(__webpack_exports__);
       var out = {
         pizza: this.selectedPizza,
         size: this.selectedSize,
-        toppings: this.selectedToppings
+        toppings: this.selectedToppings,
+        method: this.selectedMethod
       };
       return out;
     }
@@ -2167,7 +2209,13 @@ __webpack_require__.r(__webpack_exports__);
         this.sizeerror = false;
       }
 
-      if (this.pizzaerror == false && this.sizeerror == false) {
+      if (this.fields.method == "") {
+        this.methoderror = true;
+      } else {
+        this.methoderror = false;
+      }
+
+      if (this.pizzaerror == false && this.sizeerror == false && this.methoderror == false) {
         axios.post("/submit", this.fields).then(function (response) {
           alert("Post OK");
         })["catch"](function (error) {
@@ -2179,6 +2227,7 @@ __webpack_require__.r(__webpack_exports__);
           if (error.response.status === 401) {
             _this.errors = error.response.data.errors || {};
             _this.autherror = true;
+            $('#loginModal').modal();
           }
         });
       }
@@ -37885,7 +37934,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "modal fade", attrs: { id: "myModal" } }, [
+    _c("div", { staticClass: "modal fade", attrs: { id: "loginModal" } }, [
       _c("div", { staticClass: "modal-dialog modal-dialog-centered" }, [
         _c("div", { staticClass: "modal-content" }, [
           _c("div", { staticClass: "card-header" }, [_vm._v(_vm._s("Login"))]),
@@ -37961,7 +38010,7 @@ var render = function() {
       [
         _c("h3", [_vm._v("Named Pizzas")]),
         _vm._v(" "),
-        _c("div", { staticClass: "form-check" }, [
+        _c("div", { staticClass: "form-check container" }, [
           _c("div", { staticClass: "container row" }, [
             _c("div", { staticClass: "col-6" }, [
               _c("h6", [_c("strong", [_vm._v(_vm._s("Name"))])])
@@ -37983,7 +38032,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "fieldset",
-          { staticClass: "form-check" },
+          { staticClass: "form-check container" },
           _vm._l(_vm.pizzas, function(pizza) {
             return _c("div", { key: pizza.id }, [
               pizza.name == "Create your own" ? _c("br") : _vm._e(),
@@ -37993,8 +38042,6 @@ var render = function() {
                 : _vm._e(),
               _vm._v(" "),
               _c("div", { staticClass: "container row" }, [
-                _c("br"),
-                _vm._v(" "),
                 _c("div", { staticClass: "col-6" }, [
                   _c("input", {
                     directives: [
@@ -38069,23 +38116,31 @@ var render = function() {
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "container-row" }, [
-                _c("div", { staticClass: "col" }, [
-                  _c("label", { staticClass: "form-check-label" }, [
-                    _vm._v(
-                      _vm._s(
-                        _vm._f("capitalize")(
-                          pizza.toppings.split(",").join(", ")
+              pizza.name != "Create your own"
+                ? _c("div", { staticClass: "container-row" }, [
+                    _c("div", { staticClass: "col" }, [
+                      _c("label", { staticClass: "form-check-label" }, [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("capitalize")(
+                              pizza.toppings.split(",").join(", ")
+                            )
+                          )
                         )
-                      )
-                    )
+                      ])
+                    ])
                   ])
-                ])
-              ])
+                : _vm._e()
             ])
           }),
           0
         ),
+        _vm._v(" "),
+        _vm.pizzaerror == true
+          ? _c("p", { staticClass: "text-danger mb-0 pl-3" }, [
+              _vm._v("\n      You must select a pizza.\n    ")
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
@@ -38094,7 +38149,7 @@ var render = function() {
         _c(
           "fieldset",
           {
-            staticClass: "form-check conatiner form-check-inline",
+            staticClass: "form-check container form-check-inline",
             staticStyle: { display: "flex", "flex-flow": "row wrap" }
           },
           [
@@ -38205,6 +38260,12 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
+        _vm.sizeerror == true
+          ? _c("p", { staticClass: "text-danger mb-0 pl-3" }, [
+              _vm._v("\n      You must select a size.\n    ")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _c("br"),
         _vm._v(" "),
         _vm.selectedPizza == "Create your own"
@@ -38284,6 +38345,98 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
+        _c("h3", [_vm._v("Delivery Method")]),
+        _vm._v(" "),
+        _c(
+          "fieldset",
+          {
+            staticClass: "form-check container form-check-inline",
+            staticStyle: { display: "flex", "flex-flow": "row wrap" }
+          },
+          [
+            _c("div", { staticClass: "col-4" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedMethod,
+                    expression: "selectedMethod"
+                  }
+                ],
+                staticClass: "form-check-input",
+                attrs: {
+                  type: "radio",
+                  name: "deliveryRadios",
+                  id: "collection",
+                  value: "Collection"
+                },
+                domProps: { checked: _vm._q(_vm.selectedMethod, "Collection") },
+                on: {
+                  change: [
+                    function($event) {
+                      _vm.selectedMethod = "Collection"
+                    },
+                    _vm.calculateTotal
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                {
+                  staticClass: "form-check-label",
+                  attrs: { for: "collection" }
+                },
+                [_vm._v(_vm._s("Collection"))]
+              )
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-8" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.selectedMethod,
+                    expression: "selectedMethod"
+                  }
+                ],
+                staticClass: "form-check-input",
+                attrs: {
+                  type: "radio",
+                  name: "deliveryRadios",
+                  id: "delivery",
+                  value: "Delivery"
+                },
+                domProps: { checked: _vm._q(_vm.selectedMethod, "Delivery") },
+                on: {
+                  change: [
+                    function($event) {
+                      _vm.selectedMethod = "Delivery"
+                    },
+                    _vm.calculateTotal
+                  ]
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "label",
+                { staticClass: "form-check-label", attrs: { for: "delivery" } },
+                [_vm._v(_vm._s("Delivery"))]
+              )
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _vm.methoderror == true
+          ? _c("p", { staticClass: "text-danger mb-0 pl-3" }, [
+              _vm._v("\n      You must select a delivery method.\n    ")
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
         _vm.selectedPizza != ""
           ? _c("div", [
               _c("h3", [_vm._v("Your order:")]),
@@ -38312,44 +38465,28 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
-        _c("div", { staticClass: "text-center" }, [
-          _c(
-            "button",
-            {
-              staticClass: "btn btn-primary btn-lg",
-              attrs: {
-                type: "submit",
-                "data-toggle": "modal",
-                "data-target": "#myModal"
-              }
-            },
-            [_vm._v("\n        Place order\n      ")]
-          ),
-          _vm._v(" "),
-          _vm.pizzaerror == true || _vm.sizeerror == true ? _c("br") : _vm._e(),
-          _vm._v(" "),
-          _vm.pizzaerror == true || _vm.sizeerror == true ? _c("br") : _vm._e(),
-          _vm._v(" "),
-          _vm.pizzaerror == true
-            ? _c("p", { staticClass: "text-danger mb-0" }, [
-                _vm._v("\n        You must select a pizza.\n      ")
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.sizeerror == true
-            ? _c("p", { staticClass: "text-danger mb-0" }, [
-                _vm._v("\n        You must select a size.\n      ")
-              ])
-            : _vm._e()
-        ]),
+        _vm._m(0),
         _vm._v(" "),
-        _vm.autherror == true ? _c("login-popup") : _vm._e()
+        _c("login-popup")
       ],
       1
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-primary btn-lg", attrs: { type: "submit" } },
+        [_vm._v("\n        Place order\n      ")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 
