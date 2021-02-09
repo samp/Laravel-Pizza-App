@@ -1,7 +1,7 @@
  <template>
   <div class="position-ref">
-    <form @submit.prevent="submit" method="POST">
-        
+    <form method="POST" action="/order">
+      <input type="hidden" name="_token" :value="csrf" />
       <h3>Named Pizzas</h3>
       <div class="form-check container">
         <div class="container row">
@@ -136,7 +136,7 @@
           <input
             class="form-check-input"
             type="checkbox"
-            name="toppingCheckboxes"
+            name="toppingCheckboxes[]"
             :id="topping.name"
             :value="topping.name"
             v-model="selectedToppings"
@@ -202,11 +202,7 @@
       </div>
 
       <div class="text-center">
-        <button
-          type="submit"
-          class="btn btn-primary btn-lg"
-          
-        >
+        <button type="submit" class="btn btn-primary btn-lg">
           Add to cart
         </button>
       </div>
@@ -223,6 +219,9 @@ export default {
   },
   data() {
     return {
+      csrf: document
+        .querySelector('meta[name="csrf-token"]')
+        .getAttribute("content"),
       selectedPizza: "",
       selectedSize: "",
       selectedToppings: [],
@@ -276,7 +275,7 @@ export default {
       this.errors = {};
       console.log(this.fields);
 
-      if (this.fields.pizza == "") {
+      /*if (this.fields.pizza == "") {
         this.pizzaerror = true;
       } else {
         this.pizzaerror = false;
@@ -314,7 +313,7 @@ export default {
               $('#loginModal').modal()
             }
           });
-      }
+      }*/
     },
   },
 

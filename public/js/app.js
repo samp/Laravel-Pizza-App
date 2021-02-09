@@ -2129,16 +2129,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["auth_user", "pizzas", "toppings"],
   mounted: function mounted() {//console.log(this.auth_user);
   },
   data: function data() {
     return {
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
       selectedPizza: "",
       selectedSize: "",
       selectedToppings: [],
@@ -2193,44 +2190,45 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     submit: function submit() {
-      var _this = this;
-
       this.errors = {};
       console.log(this.fields);
-
-      if (this.fields.pizza == "") {
+      /*if (this.fields.pizza == "") {
         this.pizzaerror = true;
       } else {
         this.pizzaerror = false;
       }
-
-      if (this.fields.size == "") {
+        if (this.fields.size == "") {
         this.sizeerror = true;
       } else {
         this.sizeerror = false;
       }
-
-      if (this.fields.method == "") {
+        if (this.fields.method == "") {
         this.methoderror = true;
       } else {
         this.methoderror = false;
       }
-
-      if (this.pizzaerror == false && this.sizeerror == false && this.methoderror == false) {
-        axios.post("/addtocart", this.fields).then(function (response) {//alert("Posted OK");
-        })["catch"](function (error) {
-          if (error.response.status === 422) {
-            _this.errors = error.response.data.errors || {};
-            console.log(_this.errors);
-          }
-
-          if (error.response.status === 401) {
-            _this.errors = error.response.data.errors || {};
-            _this.autherror = true;
-            $('#loginModal').modal();
-          }
-        });
-      }
+      if (
+        this.pizzaerror == false &&
+        this.sizeerror == false &&
+        this.methoderror == false
+      ) {
+        axios
+          .post("/addtocart", this.fields)
+          .then((response) => {
+            //alert("Posted OK");
+          })
+          .catch((error) => {
+            if (error.response.status === 422) {
+              this.errors = error.response.data.errors || {};
+              console.log(this.errors);
+            }
+            if (error.response.status === 401) {
+              this.errors = error.response.data.errors || {};
+              this.autherror = true;
+              $('#loginModal').modal()
+            }
+          });
+      }*/
     }
   },
   filters: {
@@ -37999,16 +37997,13 @@ var render = function() {
   return _c("div", { staticClass: "position-ref" }, [
     _c(
       "form",
-      {
-        attrs: { method: "POST" },
-        on: {
-          submit: function($event) {
-            $event.preventDefault()
-            return _vm.submit($event)
-          }
-        }
-      },
+      { attrs: { method: "POST", action: "/order" } },
       [
+        _c("input", {
+          attrs: { type: "hidden", name: "_token" },
+          domProps: { value: _vm.csrf }
+        }),
+        _vm._v(" "),
         _c("h3", [_vm._v("Named Pizzas")]),
         _vm._v(" "),
         _c("div", { staticClass: "form-check container" }, [
@@ -38294,7 +38289,7 @@ var render = function() {
                     staticClass: "form-check-input",
                     attrs: {
                       type: "checkbox",
-                      name: "toppingCheckboxes",
+                      name: "toppingCheckboxes[]",
                       id: topping.name
                     },
                     domProps: {
