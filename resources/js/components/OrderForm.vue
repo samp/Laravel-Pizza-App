@@ -150,46 +150,6 @@
 
       <br />
 
-      <h3>Delivery Method</h3>
-      <fieldset
-        class="form-check container form-check-inline"
-        style="display: flex; flex-flow: row wrap"
-      >
-        <div class="col-4">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="deliveryRadios"
-            id="collection"
-            value="Collection"
-            v-model="selectedMethod"
-            @change="calculateTotal"
-          />
-          <label class="form-check-label" for="collection">{{
-            "Collection"
-          }}</label>
-        </div>
-        <div class="col-8">
-          <input
-            class="form-check-input"
-            type="radio"
-            name="deliveryRadios"
-            id="delivery"
-            value="Delivery"
-            v-model="selectedMethod"
-            @change="calculateTotal"
-          />
-          <label class="form-check-label" for="delivery">{{
-            "Delivery"
-          }}</label>
-        </div>
-      </fieldset>
-      <p class="text-danger mb-0 pl-3" v-if="methoderror == true">
-        You must select a delivery method.
-      </p>
-
-      <br />
-
       <div v-if="selectedPizza != ''">
         <h3>Your order:</h3>
         <p>Selected pizza: {{ selectedPizza }}</p>
@@ -263,7 +223,7 @@ export default {
             this.orderTotal += this.selectedToppings.length * 0.9;
           } else if (this.selectedSize == "Medium") {
             this.orderTotal += parseFloat(pizza.mediumprice);
-            this.orderTotal += this.selectedToppings.length * 1;
+            this.orderTotal += this.selectedToppings.length;
           } else if (this.selectedSize == "Large") {
             this.orderTotal += parseFloat(pizza.largeprice);
             this.orderTotal += this.selectedToppings.length * 1.15;

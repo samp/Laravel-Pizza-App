@@ -22,6 +22,7 @@ window.Vue = require('vue').default;
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('orderform', require('./components/OrderForm.vue').default);
 Vue.component('login-popup', require('./components/LoginPopup.vue').default);
+Vue.component('cart', require('./components/Cart.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
