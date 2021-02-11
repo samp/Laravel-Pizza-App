@@ -1975,7 +1975,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   methods: {},
-  filters: {}
+  filters: {
+    capitalize: function capitalize(value) {
+      if (!value) return "";
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+  }
 });
 
 /***/ }),
@@ -2236,8 +2242,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["auth_user", "pizzas", "toppings"],
-  mounted: function mounted() {//console.log(this.auth_user);
+  props: ["auth_user", "pizzas", "toppings", "errors"],
+  mounted: function mounted() {
+    //console.log(this.auth_user);
+    console.log(this.errors);
   },
   data: function data() {
     return {
@@ -2245,12 +2253,7 @@ __webpack_require__.r(__webpack_exports__);
       selectedPizza: "",
       selectedSize: "",
       selectedToppings: [],
-      selectedMethod: "",
-      orderTotal: 0,
-      autherror: false,
-      pizzaerror: false,
-      sizeerror: false,
-      methoderror: false
+      orderTotal: 0
     };
   },
   computed: {
@@ -2263,16 +2266,17 @@ __webpack_require__.r(__webpack_exports__);
 
       out = out.sort();
       return out;
-    },
-    fields: function fields() {
-      var out = {
+    }
+    /*fields() {
+      let out = {
         pizza: this.selectedPizza,
         size: this.selectedSize,
         toppings: this.selectedToppings,
-        method: this.selectedMethod
+        method: this.selectedMethod,
       };
       return out;
-    }
+    },*/
+
   },
   methods: {
     calculateTotal: function calculateTotal() {
@@ -2294,48 +2298,11 @@ __webpack_require__.r(__webpack_exports__);
           }
         }
       }
-    },
-    submit: function submit() {
-      this.errors = {};
-      console.log(this.fields);
-      /*if (this.fields.pizza == "") {
-        this.pizzaerror = true;
-      } else {
-        this.pizzaerror = false;
-      }
-        if (this.fields.size == "") {
-        this.sizeerror = true;
-      } else {
-        this.sizeerror = false;
-      }
-        if (this.fields.method == "") {
-        this.methoderror = true;
-      } else {
-        this.methoderror = false;
-      }
-      if (
-        this.pizzaerror == false &&
-        this.sizeerror == false &&
-        this.methoderror == false
-      ) {
-        axios
-          .post("/addtocart", this.fields)
-          .then((response) => {
-            //alert("Posted OK");
-          })
-          .catch((error) => {
-            if (error.response.status === 422) {
-              this.errors = error.response.data.errors || {};
-              console.log(this.errors);
-            }
-            if (error.response.status === 401) {
-              this.errors = error.response.data.errors || {};
-              this.autherror = true;
-              $('#loginModal').modal()
-            }
-          });
-      }*/
     }
+    /*submit() {
+      console.log(this.fields);
+    },*/
+
   },
   filters: {
     capitalize: function capitalize(value) {
@@ -38502,7 +38469,7 @@ var render = function() {
           0
         ),
         _vm._v(" "),
-        _vm.pizzaerror == true
+        this.errors.pizzaRadios
           ? _c("p", { staticClass: "text-danger mb-0 pl-3" }, [
               _vm._v("\n      You must select a pizza.\n    ")
             ])
@@ -38626,7 +38593,7 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
-        _vm.sizeerror == true
+        this.errors.sizeRadios
           ? _c("p", { staticClass: "text-danger mb-0 pl-3" }, [
               _vm._v("\n      You must select a size.\n    ")
             ])

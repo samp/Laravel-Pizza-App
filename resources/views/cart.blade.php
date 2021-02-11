@@ -8,7 +8,12 @@
                     <div class="card-header">{{ __('Cart') }}</div>
                     <div class="card-body">
                         @if ($cart == null)
-                            {{ "Your cart is currently empty!" }}
+                            <p class="text-center">{{ 'Your cart is currently empty!' }}</p>
+                            <div class="text-center">
+                                <a href="/order" role="button" class="btn btn-primary btn-lg">
+                                    Start an order
+                                </a>
+                            </div>
                         @else
                             <cart v-bind:cart="{{ json_encode($cart) }}"></cart>
                         @endif

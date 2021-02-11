@@ -72,7 +72,7 @@
           </div>
         </div>
       </fieldset>
-      <p class="text-danger mb-0 pl-3" v-if="pizzaerror == true">
+      <p class="text-danger mb-0 pl-3" v-if="this.errors.pizzaRadios">
         You must select a pizza.
       </p>
 
@@ -120,7 +120,7 @@
           <label class="form-check-label" for="large">{{ "Large" }}</label>
         </div>
       </fieldset>
-      <p class="text-danger mb-0 pl-3" v-if="sizeerror == true">
+      <p class="text-danger mb-0 pl-3" v-if="this.errors.sizeRadios">
         You must select a size.
       </p>
 
@@ -173,9 +173,10 @@
 
     <script>
 export default {
-  props: ["auth_user", "pizzas", "toppings"],
+  props: ["auth_user", "pizzas", "toppings", "errors"],
   mounted() {
     //console.log(this.auth_user);
+    console.log(this.errors);
   },
   data() {
     return {
@@ -185,12 +186,7 @@ export default {
       selectedPizza: "",
       selectedSize: "",
       selectedToppings: [],
-      selectedMethod: "",
       orderTotal: 0,
-      autherror: false,
-      pizzaerror: false,
-      sizeerror: false,
-      methoderror: false,
     };
   },
   computed: {
@@ -202,7 +198,7 @@ export default {
       out = out.sort();
       return out;
     },
-    fields() {
+    /*fields() {
       let out = {
         pizza: this.selectedPizza,
         size: this.selectedSize,
@@ -210,7 +206,7 @@ export default {
         method: this.selectedMethod,
       };
       return out;
-    },
+    },*/
   },
   methods: {
     calculateTotal: function () {
@@ -231,50 +227,9 @@ export default {
         }
       }
     },
-    submit() {
-      this.errors = {};
+    /*submit() {
       console.log(this.fields);
-
-      /*if (this.fields.pizza == "") {
-        this.pizzaerror = true;
-      } else {
-        this.pizzaerror = false;
-      }
-
-      if (this.fields.size == "") {
-        this.sizeerror = true;
-      } else {
-        this.sizeerror = false;
-      }
-
-      if (this.fields.method == "") {
-        this.methoderror = true;
-      } else {
-        this.methoderror = false;
-      }
-      if (
-        this.pizzaerror == false &&
-        this.sizeerror == false &&
-        this.methoderror == false
-      ) {
-        axios
-          .post("/addtocart", this.fields)
-          .then((response) => {
-            //alert("Posted OK");
-          })
-          .catch((error) => {
-            if (error.response.status === 422) {
-              this.errors = error.response.data.errors || {};
-              console.log(this.errors);
-            }
-            if (error.response.status === 401) {
-              this.errors = error.response.data.errors || {};
-              this.autherror = true;
-              $('#loginModal').modal()
-            }
-          });
-      }*/
-    },
+    },*/
   },
 
   filters: {
