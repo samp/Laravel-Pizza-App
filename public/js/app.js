@@ -1942,8 +1942,31 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["cart"],
+  props: ["auth_user", "cart", "errors"],
   mounted: function mounted() {
     console.log(this.cart);
   },
@@ -1972,6 +1995,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
 
       return total;
+    },
+    isAuthed: function isAuthed() {
+      if (this.auth_user == null) {
+        return false;
+      } else {
+        return true;
+      }
     }
   },
   methods: {},
@@ -2244,7 +2274,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["auth_user", "pizzas", "toppings", "errors"],
   mounted: function mounted() {
-    //console.log(this.auth_user);
     console.log(this.errors);
   },
   data: function data() {
@@ -2267,16 +2296,6 @@ __webpack_require__.r(__webpack_exports__);
       out = out.sort();
       return out;
     }
-    /*fields() {
-      let out = {
-        pizza: this.selectedPizza,
-        size: this.selectedSize,
-        toppings: this.selectedToppings,
-        method: this.selectedMethod,
-      };
-      return out;
-    },*/
-
   },
   methods: {
     calculateTotal: function calculateTotal() {
@@ -2299,10 +2318,6 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     }
-    /*submit() {
-      console.log(this.fields);
-    },*/
-
   },
   filters: {
     capitalize: function capitalize(value) {
@@ -38032,7 +38047,7 @@ var render = function() {
   return _c("div", { staticClass: "position-ref" }, [
     _c(
       "form",
-      { attrs: { method: "POST", action: "/order" } },
+      { attrs: { method: "POST", action: "/cart" } },
       [
         _c("input", {
           attrs: { type: "hidden", name: "_token" },
@@ -38046,11 +38061,11 @@ var render = function() {
             _c("h6", [_c("strong", [_vm._v(_vm._s("Name"))])])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
+          _c("div", { staticClass: "col-2" }, [
             _c("h6", [_c("strong", [_vm._v(_vm._s("Size"))])])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-3" }, [
+          _c("div", { staticClass: "col-2" }, [
             _c("h6", [_c("strong", [_vm._v(_vm._s("Price"))])])
           ])
         ]),
@@ -38059,26 +38074,41 @@ var render = function() {
           return _c("div", { key: "item-" + index }, [
             _c("div", { staticClass: "container row" }, [
               _c("div", { staticClass: "col-6" }, [
-                _c("p", [_vm._v(_vm._s(item.name))])
+                _c("p", { staticClass: "mb-0" }, [_vm._v(_vm._s(item.name))])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-3" }, [
-                _c("p", [_vm._v(_vm._s(item.size))])
+              _c("div", { staticClass: "col-2" }, [
+                _c("p", { staticClass: "mb-0" }, [_vm._v(_vm._s(item.size))])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-3" }, [
-                _c("p", [_vm._v("£" + _vm._s(item.price))])
+              _c("div", { staticClass: "col-2" }, [
+                _c("p", { staticClass: "mb-0" }, [
+                  _vm._v("£" + _vm._s(item.price))
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-2" }, [
+                _c("a", { staticClass: "mb-0 text-danger" }, [
+                  _vm._v(_vm._s("Delete"))
+                ])
               ])
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "container row" }, [
               _c("div", { staticClass: "col" }, [
-                _c("p", [
-                  _vm._v(
-                    "Toppings: " +
-                      _vm._s(_vm._f("capitalize")(item.toppings.join(", ")))
-                  )
-                ])
+                item.toppings
+                  ? _c("p", [
+                      _vm._v(
+                        "\n            Toppings: " +
+                          _vm._s(
+                            _vm._f("capitalize")(item.toppings.join(", "))
+                          ) +
+                          "\n          "
+                      )
+                    ])
+                  : _c("p", [
+                      _vm._v("Toppings: " + _vm._s("No toppings selected."))
+                    ])
               ])
             ])
           ])
@@ -38164,9 +38194,11 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
-        _c("p", { staticClass: "text-danger mb-0 pl-3" }, [
-          _vm._v("You must select a delivery method.")
-        ]),
+        this.errors.deliveryRadios
+          ? _c("p", { staticClass: "text-danger mb-0 pl-3" }, [
+              _vm._v("\n      You must select a delivery method.\n    ")
+            ])
+          : _vm._e(),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
@@ -38176,28 +38208,39 @@ var render = function() {
           ])
         ]),
         _vm._v(" "),
-        _vm._m(0),
+        _vm.isAuthed
+          ? _c("div", { staticClass: "text-center" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary btn-lg",
+                  attrs: { type: "submit" }
+                },
+                [_vm._v("\n        Place Order\n      ")]
+              )
+            ])
+          : _c("div", { staticClass: "text-center" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary btn-lg",
+                  attrs: {
+                    "data-toggle": "modal",
+                    "data-target": "#loginModal",
+                    type: "button"
+                  }
+                },
+                [_vm._v("\n        Place Order\n      ")]
+              )
+            ]),
         _vm._v(" "),
-        _c("login-popup")
+        !_vm.isAuthed ? _c("div", [_c("login-popup")], 1) : _vm._e()
       ],
       2
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary btn-lg", attrs: { type: "submit" } },
-        [_vm._v("\n        Place Order\n      ")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

@@ -14,11 +14,8 @@ class CartController extends Controller
     {
         $pizzas = Pizza::all();
         $toppings = Topping::all();
-        //$auth_user = json_encode(Auth::user());
-        //ddd($auth_user, $pizzas, $toppings);
-        //$in = compact($auth_user, $pizzas, $toppings);
-        //ddd($auth_user);
-        //return view('order', $in);
+        $auth_user = json_encode(Auth::user());
+        
         $cart = [];
         $sessioncart = session('cart');
         if ($sessioncart == null) {
@@ -41,7 +38,7 @@ class CartController extends Controller
                     $cart[$key]["price"] = (float)$pizza->largeprice;
                 }
 
-                if ($item["name"] == "Create your own") {
+                if ($item["name"] == "Create your own" && !empty($item["toppings"])) {
                     if ($item["size"] == "Small") {
                         $cart[$key]["price"] += count($item["toppings"]) * 0.9;
                     } else if ($item["size"] == "Medium") {
@@ -49,12 +46,24 @@ class CartController extends Controller
                     } else if ($item["size"] == "Large") {
                         $cart[$key]["price"] += count($item["toppings"]) * 1.15;
                     }
-                }
+                } 
             }
 
             //ddd($cart);
 
-            return view('cart')->with('cart', $cart);
+            return view('cart')->with('auth_user', $auth_user)
+            ->with('cart', $cart);
         }
+    }
+
+    public function submitorder(Request $request){
+        $this->validate($request, [
+            'pizzaRadios' => 'required|string',
+            'sizeRadios' => 'required|string',
+            'toppings' => 'nullable|array',
+            'method' => 'string'
+        ]);
+
+        return redirect('cart');
     }
 }

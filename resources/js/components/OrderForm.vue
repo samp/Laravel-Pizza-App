@@ -175,7 +175,6 @@
 export default {
   props: ["auth_user", "pizzas", "toppings", "errors"],
   mounted() {
-    //console.log(this.auth_user);
     console.log(this.errors);
   },
   data() {
@@ -198,15 +197,6 @@ export default {
       out = out.sort();
       return out;
     },
-    /*fields() {
-      let out = {
-        pizza: this.selectedPizza,
-        size: this.selectedSize,
-        toppings: this.selectedToppings,
-        method: this.selectedMethod,
-      };
-      return out;
-    },*/
   },
   methods: {
     calculateTotal: function () {
@@ -227,9 +217,6 @@ export default {
         }
       }
     },
-    /*submit() {
-      console.log(this.fields);
-    },*/
   },
 
   filters: {

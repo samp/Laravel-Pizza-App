@@ -1,6 +1,6 @@
  <template>
   <div class="position-ref">
-    <form method="POST" action="/order">
+    <form method="POST" action="/cart">
       <input type="hidden" name="_token" :value="csrf" />
       <h3>Your order</h3>
       <div class="container row">
@@ -9,12 +9,12 @@
             <strong>{{ "Name" }}</strong>
           </h6>
         </div>
-        <div class="col-3">
+        <div class="col-2">
           <h6>
             <strong>{{ "Size" }}</strong>
           </h6>
         </div>
-        <div class="col-3">
+        <div class="col-2">
           <h6>
             <strong>{{ "Price" }}</strong>
           </h6>
@@ -23,18 +23,24 @@
       <div v-for="(item, index) in cart" :key="`item-${index}`">
         <div class="container row">
           <div class="col-6">
-            <p>{{ item.name }}</p>
+            <p class="mb-0">{{ item.name }}</p>
           </div>
-          <div class="col-3">
-            <p>{{ item.size }}</p>
+          <div class="col-2">
+            <p class="mb-0">{{ item.size }}</p>
           </div>
-          <div class="col-3">
-            <p>£{{ item.price }}</p>
+          <div class="col-2">
+            <p class="mb-0">£{{ item.price }}</p>
+          </div>
+          <div class="col-2">
+            <a class="mb-0 text-danger">{{ "Delete" }}</a>
           </div>
         </div>
         <div class="container row">
           <div class="col">
-            <p>Toppings: {{ item.toppings.join(", ") | capitalize }}</p>
+            <p v-if="item.toppings">
+              Toppings: {{ item.toppings.join(", ") | capitalize }}
+            </p>
+            <p v-else>Toppings: {{ "No toppings selected." }}</p>
           </div>
         </div>
       </div>
@@ -71,7 +77,9 @@
           }}</label>
         </div>
       </fieldset>
-      <p class="text-danger mb-0 pl-3">You must select a delivery method.</p>
+      <p class="text-danger mb-0 pl-3" v-if="this.errors.deliveryRadios">
+        You must select a delivery method.
+      </p>
 
       <br />
 
@@ -79,19 +87,34 @@
         <h3>Total: {{ "£" + orderTotal.toFixed(2) }}</h3>
       </div>
 
-      <div class="text-center">
-        <button type="submit" class="btn btn-primary btn-lg">
+      <div class="text-center" v-if="isAuthed">
+        <button
+          type="submit"
+          class="btn btn-primary btn-lg"
+        >
           Place Order
         </button>
       </div>
-      <login-popup></login-popup>
+      <div class="text-center" v-else>
+        <button
+          class="btn btn-primary btn-lg"
+          data-toggle="modal"
+          data-target="#loginModal"
+          type="button"
+        >
+          Place Order
+        </button>
+      </div>
+      <div v-if="!isAuthed">
+        <login-popup></login-popup>
+      </div>
     </form>
   </div>
 </template>
 
     <script>
 export default {
-  props: ["cart"],
+  props: ["auth_user", "cart", "errors"],
   mounted() {
     console.log(this.cart);
   },
@@ -110,6 +133,13 @@ export default {
         total += item.price;
       }
       return total;
+    },
+    isAuthed() {
+      if (this.auth_user == null) {
+        return false;
+      } else {
+        return true;
+      }
     },
   },
   methods: {},

@@ -15,25 +15,15 @@ class OrderController extends Controller
         $pizzas = Pizza::all();
         $toppings = Topping::all();
         $auth_user = json_encode(Auth::user());
-        //ddd($auth_user, $pizzas, $toppings);
-        //$in = compact($auth_user, $pizzas, $toppings);
-        //ddd($auth_user);
-        //return view('order', $in);
-        return view('order.index')
+
+        return view('order')
             ->with('auth_user', $auth_user)
             ->with('pizzas', $pizzas)
             ->with('toppings', $toppings);
     }
 
-    public function confirm()
-    {
-        //$user->lastorder = "";
-        return view('order.confirm');
-    }
-
     public function addtocart(Request $request)
     {
-
         $this->validate($request, [
             'pizzaRadios' => 'required|string',
             'sizeRadios' => 'required|string',
