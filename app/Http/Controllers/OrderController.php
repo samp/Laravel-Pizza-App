@@ -27,8 +27,7 @@ class OrderController extends Controller
         $this->validate($request, [
             'pizzaRadios' => 'required|string',
             'sizeRadios' => 'required|string',
-            'toppings' => 'nullable|array',
-            'method' => 'string'
+            'toppings' => 'nullable|array'
         ]);
 
         $pizzaname = $request->input('pizzaRadios');
@@ -50,7 +49,6 @@ class OrderController extends Controller
         // Store order in session
         $orderstring = serialize($order);
         $request->session()->push("cart", $orderstring);
-
 
         return redirect('cart');
     }

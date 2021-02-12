@@ -29,7 +29,7 @@
             <p class="mb-0">{{ item.size }}</p>
           </div>
           <div class="col-2">
-            <p class="mb-0">£{{ item.price }}</p>
+            <p class="mb-0">£{{ item.price.toFixed(2) }}</p>
           </div>
           <div class="col-2">
             <a class="mb-0 text-danger">{{ "Delete" }}</a>
@@ -116,7 +116,7 @@
 export default {
   props: ["auth_user", "cart", "errors"],
   mounted() {
-    console.log(this.cart);
+    console.log(this.errors);
   },
   data() {
     return {

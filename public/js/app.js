@@ -1968,7 +1968,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["auth_user", "cart", "errors"],
   mounted: function mounted() {
-    console.log(this.cart);
+    console.log(this.errors);
   },
   data: function data() {
     return {
@@ -2080,8 +2080,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  mounted: function mounted() {
-    console.log("Component mounted.");
+  mounted: function mounted() {//console.log("Component mounted.");
   }
 });
 
@@ -38083,7 +38082,7 @@ var render = function() {
               _vm._v(" "),
               _c("div", { staticClass: "col-2" }, [
                 _c("p", { staticClass: "mb-0" }, [
-                  _vm._v("£" + _vm._s(item.price))
+                  _vm._v("£" + _vm._s(item.price.toFixed(2)))
                 ])
               ]),
               _vm._v(" "),
