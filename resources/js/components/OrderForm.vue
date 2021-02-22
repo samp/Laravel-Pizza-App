@@ -3,39 +3,33 @@
     <form method="POST" action="/order">
       <input type="hidden" name="_token" :value="csrf" />
       <h3>Named Pizzas</h3>
-      <div class="form-check container">
-        <div class="container row">
-          <div class="col-6">
-            <h6>
-              <strong>{{ "Name" }}</strong>
-            </h6>
-          </div>
-          <div class="col-2">
-            <h6>
-              <strong>{{ "Small" }}</strong>
-            </h6>
-          </div>
-          <div class="col-2">
-            <h6>
-              <strong>{{ "Medium" }}</strong>
-            </h6>
-          </div>
-          <div class="col-2">
-            <h6>
-              <strong>{{ "Large" }}</strong>
-            </h6>
-          </div>
-        </div>
+
+      <div class="grid grid-cols-5 pl-5">
+        <h4 class="col-span-2">
+          <strong>{{ "Name" }}</strong>
+        </h4>
+
+        <h4>
+          <strong>{{ "Small" }}</strong>
+        </h4>
+
+        <h4>
+          <strong>{{ "Medium" }}</strong>
+        </h4>
+
+        <h4>
+          <strong>{{ "Large" }}</strong>
+        </h4>
       </div>
 
-      <fieldset class="form-check container">
+      <fieldset class="pl-5">
         <div v-for="pizza in pizzas" :key="pizza.id">
           <br v-if="pizza.name == 'Create your own'" />
           <p v-if="pizza.name == 'Create your own'" class="text-center">or</p>
-          <div class="container row">
-            <div class="col-6">
+          <div class="grid grid-cols-5">
+            <div class="col-span-2">
               <input
-                class="form-check-input"
+                class=""
                 type="radio"
                 name="pizzaRadios"
                 :id="pizza.name"
@@ -43,49 +37,36 @@
                 v-model="selectedPizza"
                 @change="calculateTotal"
               />
-              <label class="form-check-label" :for="pizza.name">{{
-                pizza.name
-              }}</label>
+              <label class="" :for="pizza.name">{{ pizza.name }}</label>
             </div>
-            <div class="col-2">
-              <label class="form-check-label" :for="pizza.name"
-                >£{{ pizza.smallprice }}</label
-              >
+            <div>
+              <label class="" :for="pizza.name">£{{ pizza.smallprice }}</label>
             </div>
-            <div class="col-2">
-              <label class="form-check-label" :for="pizza.name"
-                >£{{ pizza.mediumprice }}</label
-              >
+            <div>
+              <label class="" :for="pizza.name">£{{ pizza.mediumprice }}</label>
             </div>
-            <div class="col-2">
-              <label class="form-check-label" :for="pizza.name"
-                >£{{ pizza.largeprice }}</label
-              >
+            <div>
+              <label class="" :for="pizza.name">£{{ pizza.largeprice }}</label>
             </div>
           </div>
           <div class="container-row" v-if="pizza.name != 'Create your own'">
-            <div class="col">
-              <label class="form-check-label">{{
+            <div class="pl-5">
+              <label>{{
                 pizza.toppings.split(",").join(", ") | capitalize
               }}</label>
             </div>
           </div>
         </div>
       </fieldset>
-      <p class="text-danger mb-0 pl-3" v-if="this.errors.pizzaRadios">
-        You must select a pizza.
-      </p>
+      <p class="" v-if="this.errors.pizzaRadios">You must select a pizza.</p>
 
       <br />
 
       <h3>Size</h3>
-      <fieldset
-        class="form-check container form-check-inline"
-        style="display: flex; flex-flow: row wrap"
-      >
-        <div class="col-4">
+      <fieldset class="grid grid-cols-3 pl-5">
+        <div class="">
           <input
-            class="form-check-input"
+            class=""
             type="radio"
             name="sizeRadios"
             id="small"
@@ -93,11 +74,11 @@
             v-model="selectedSize"
             @change="calculateTotal"
           />
-          <label class="form-check-label" for="small">{{ "Small" }}</label>
+          <label class="" for="small">{{ "Small" }}</label>
         </div>
-        <div class="col-4">
+        <div class="">
           <input
-            class="form-check-input"
+            class=""
             type="radio"
             name="sizeRadios"
             id="medium"
@@ -105,11 +86,11 @@
             v-model="selectedSize"
             @change="calculateTotal"
           />
-          <label class="form-check-label" for="medium">{{ "Medium" }}</label>
+          <label class="" for="medium">{{ "Medium" }}</label>
         </div>
-        <div class="col-4">
+        <div class="">
           <input
-            class="form-check-input"
+            class=""
             type="radio"
             name="sizeRadios"
             id="large"
@@ -117,24 +98,18 @@
             v-model="selectedSize"
             @change="calculateTotal"
           />
-          <label class="form-check-label" for="large">{{ "Large" }}</label>
+          <label class="" for="large">{{ "Large" }}</label>
         </div>
       </fieldset>
-      <p class="text-danger mb-0 pl-3" v-if="this.errors.sizeRadios">
-        You must select a size.
-      </p>
+      <p class="" v-if="this.errors.sizeRadios">You must select a size.</p>
 
       <br />
 
       <h3 v-if="selectedPizza == 'Create your own'">Toppings</h3>
-      <fieldset
-        class="form-check container form-check-inline"
-        style="display: flex; flex-flow: row wrap"
-        v-if="selectedPizza == 'Create your own'"
-      >
-        <div class="col-4" v-for="topping in toppings" :key="topping.id">
+      <fieldset class="" style="" v-if="selectedPizza == 'Create your own'">
+        <div class="" v-for="topping in toppings" :key="topping.id">
           <input
-            class="form-check-input"
+            class=""
             type="checkbox"
             name="toppingCheckboxes[]"
             :id="topping.name"
@@ -142,9 +117,7 @@
             v-model="selectedToppings"
             @change="calculateTotal"
           />
-          <label class="form-check-label" :for="topping.name">{{
-            topping.name
-          }}</label>
+          <label class="" :for="topping.name">{{ topping.name }}</label>
         </div>
       </fieldset>
 
@@ -152,17 +125,22 @@
 
       <div v-if="selectedPizza != ''">
         <h3>Your order:</h3>
-        <p>Selected pizza: {{ selectedPizza }}</p>
-        <p>Size: {{ selectedSize }}</p>
-        <p v-if="selectedToppings.length > 0">
-          Toppings: {{ lowercaseToppings.join(", ") | capitalize }}
-        </p>
-        <br />
-        <h3>Total: {{ "£" + orderTotal.toFixed(2) }}</h3>
+        <div class="pl-5">
+          <p>Selected pizza: {{ selectedPizza }}</p>
+          <p>Size: {{ selectedSize }}</p>
+          <p v-if="selectedToppings.length > 0">
+            Toppings: {{ lowercaseToppings.join(", ") | capitalize }}
+          </p>
+          <br />
+          <h3>Total: {{ "£" + orderTotal.toFixed(2) }}</h3>
+        </div>
       </div>
 
       <div class="text-center">
-        <button type="submit" class="btn btn-primary btn-lg">
+        <button
+          type="submit"
+          class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
+        >
           Add to cart
         </button>
       </div>
