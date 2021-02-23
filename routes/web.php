@@ -20,7 +20,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 Route::get('/order', [App\Http\Controllers\OrderController::class, 'index'])->name('order');
-
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
+Route::get('/deals', [App\Http\Controllers\DealController::class, 'index'])->name('deals');
+Route::get('success', [App\Http\Controllers\CartController::class, 'success'])->middleware('auth');;
+
+Route::post('order', [App\Http\Controllers\OrderController::class, 'addtocart']);
+Route::post('cart', [App\Http\Controllers\CartController::class, 'submitorder'])->middleware('auth');
 
 require __DIR__.'/auth.php';

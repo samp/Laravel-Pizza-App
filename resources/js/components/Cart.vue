@@ -1,56 +1,50 @@
  <template>
-  <div class="position-ref">
+  <div>
     <form method="POST" action="/cart">
       <input type="hidden" name="_token" :value="csrf" />
-      <h3>Your order</h3>
-      <div class="container row">
-        <div class="col-6">
-          <h6>
-            <strong>{{ "Name" }}</strong>
-          </h6>
-        </div>
-        <div class="col-2">
-          <h6>
-            <strong>{{ "Size" }}</strong>
-          </h6>
-        </div>
-        <div class="col-2">
-          <h6>
-            <strong>{{ "Price" }}</strong>
-          </h6>
-        </div>
+      <h3 class="pb-2">Your order</h3>
+      <div class="grid grid-cols-10 pl-5">
+        <h4 class="col-span-5">
+          <strong>{{ "Name" }}</strong>
+        </h4>
+        <h4 class="col-span-2">
+          <strong>{{ "Size" }}</strong>
+        </h4>
+        <h4 class="col-span-2">
+          <strong>{{ "Price" }}</strong>
+        </h4>
       </div>
-      <div v-for="(item, index) in cart" :key="`item-${index}`">
-        <div class="container row">
-          <div class="col-6">
-            <p class="mb-0">{{ item.name }}</p>
+      <div
+        class="leading-loose"
+        v-for="(item, index) in cart"
+        :key="`item-${index}`"
+      >
+        <div class="grid grid-cols-10 pl-5">
+          <div class="col-span-5">
+            <p>{{ item.name }}</p>
           </div>
-          <div class="col-2">
-            <p class="mb-0">{{ item.size }}</p>
+          <div class="col-span-2">
+            <p>{{ item.size }}</p>
           </div>
-          <div class="col-2">
-            <p class="mb-0">£{{ item.price.toFixed(2) }}</p>
+          <div class="col-span-2">
+            <p>£{{ item.price.toFixed(2) }}</p>
           </div>
-          <div class="col-2">
-            <a class="mb-0 text-danger">{{ "Delete" }}</a>
+          <div class="col-span-1">
+            <a class="text-red-600">{{ "Delete" }}</a>
           </div>
         </div>
-        <div class="container row">
-          <div class="col">
-            <p v-if="item.toppings">
-              Toppings: {{ item.toppings.join(", ") | capitalize }}
-            </p>
-            <p v-else>Toppings: {{ "No toppings selected." }}</p>
-          </div>
+
+        <div class="pl-5">
+          <p v-if="item.toppings">
+            Toppings: {{ item.toppings.join(", ") | capitalize }}
+          </p>
+          <p v-else>Toppings: {{ "No toppings selected." }}</p>
         </div>
       </div>
       <br />
-      <h3>Delivery Method</h3>
-      <fieldset
-        class="form-check container form-check-inline"
-        style="display: flex; flex-flow: row wrap"
-      >
-        <div class="col-4">
+      <h3 class="pb-2">Delivery Method</h3>
+      <fieldset class="grid grid-cols-2 pl-5 leading-loose" >
+        <div>
           <input
             class="form-check-input"
             type="radio"
@@ -63,7 +57,7 @@
             "Collection"
           }}</label>
         </div>
-        <div class="col-8">
+        <div>
           <input
             class="form-check-input"
             type="radio"
@@ -90,14 +84,14 @@
       <div class="text-center" v-if="isAuthed">
         <button
           type="submit"
-          class="btn btn-primary btn-lg"
+          class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
         >
           Place Order
         </button>
       </div>
       <div class="text-center" v-else>
         <button
-          class="btn btn-primary btn-lg"
+          class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
           data-toggle="modal"
           data-target="#loginModal"
           type="button"

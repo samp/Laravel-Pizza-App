@@ -12,8 +12,9 @@
                     <div id="app">
                         @if ($cart == null)
                             <p class="text-center">{{ 'Your cart is currently empty!' }}</p>
+                            <br>
                             <div class="text-center">
-                                <a href="/order" role="button" class="btn btn-primary btn-lg">
+                                <a href="/order" role="button" class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600">
                                     Start an order
                                 </a>
                             </div>

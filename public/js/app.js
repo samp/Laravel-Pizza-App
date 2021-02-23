@@ -126,12 +126,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["auth_user", "cart", "errors"],
   mounted: function mounted() {
@@ -596,7 +590,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "position-ref" }, [
+  return _c("div", [
     _c(
       "form",
       { attrs: { method: "POST", action: "/cart" } },
@@ -606,145 +600,135 @@ var render = function() {
           domProps: { value: _vm.csrf }
         }),
         _vm._v(" "),
-        _c("h3", [_vm._v("Your order")]),
+        _c("h3", { staticClass: "pb-2" }, [_vm._v("Your order")]),
         _vm._v(" "),
-        _c("div", { staticClass: "container row" }, [
-          _c("div", { staticClass: "col-6" }, [
-            _c("h6", [_c("strong", [_vm._v(_vm._s("Name"))])])
+        _c("div", { staticClass: "grid grid-cols-10 pl-5" }, [
+          _c("h4", { staticClass: "col-span-5" }, [
+            _c("strong", [_vm._v(_vm._s("Name"))])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-2" }, [
-            _c("h6", [_c("strong", [_vm._v(_vm._s("Size"))])])
+          _c("h4", { staticClass: "col-span-2" }, [
+            _c("strong", [_vm._v(_vm._s("Size"))])
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "col-2" }, [
-            _c("h6", [_c("strong", [_vm._v(_vm._s("Price"))])])
+          _c("h4", { staticClass: "col-span-2" }, [
+            _c("strong", [_vm._v(_vm._s("Price"))])
           ])
         ]),
         _vm._v(" "),
         _vm._l(_vm.cart, function(item, index) {
-          return _c("div", { key: "item-" + index }, [
-            _c("div", { staticClass: "container row" }, [
-              _c("div", { staticClass: "col-6" }, [
-                _c("p", { staticClass: "mb-0" }, [_vm._v(_vm._s(item.name))])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-2" }, [
-                _c("p", { staticClass: "mb-0" }, [_vm._v(_vm._s(item.size))])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "col-2" }, [
-                _c("p", { staticClass: "mb-0" }, [
-                  _vm._v("£" + _vm._s(item.price.toFixed(2)))
+          return _c(
+            "div",
+            { key: "item-" + index, staticClass: "leading-loose" },
+            [
+              _c("div", { staticClass: "grid grid-cols-10 pl-5" }, [
+                _c("div", { staticClass: "col-span-5" }, [
+                  _c("p", [_vm._v(_vm._s(item.name))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-span-2" }, [
+                  _c("p", [_vm._v(_vm._s(item.size))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-span-2" }, [
+                  _c("p", [_vm._v("£" + _vm._s(item.price.toFixed(2)))])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-span-1" }, [
+                  _c("a", { staticClass: "text-red-600" }, [
+                    _vm._v(_vm._s("Delete"))
+                  ])
                 ])
               ]),
               _vm._v(" "),
-              _c("div", { staticClass: "col-2" }, [
-                _c("a", { staticClass: "mb-0 text-danger" }, [
-                  _vm._v(_vm._s("Delete"))
-                ])
-              ])
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "container row" }, [
-              _c("div", { staticClass: "col" }, [
+              _c("div", { staticClass: "pl-5" }, [
                 item.toppings
                   ? _c("p", [
                       _vm._v(
-                        "\n            Toppings: " +
+                        "\n          Toppings: " +
                           _vm._s(
                             _vm._f("capitalize")(item.toppings.join(", "))
                           ) +
-                          "\n          "
+                          "\n        "
                       )
                     ])
                   : _c("p", [
                       _vm._v("Toppings: " + _vm._s("No toppings selected."))
                     ])
               ])
-            ])
-          ])
+            ]
+          )
         }),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _c("h3", [_vm._v("Delivery Method")]),
+        _c("h3", { staticClass: "pb-2" }, [_vm._v("Delivery Method")]),
         _vm._v(" "),
-        _c(
-          "fieldset",
-          {
-            staticClass: "form-check container form-check-inline",
-            staticStyle: { display: "flex", "flex-flow": "row wrap" }
-          },
-          [
-            _c("div", { staticClass: "col-4" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.selectedMethod,
-                    expression: "selectedMethod"
-                  }
-                ],
-                staticClass: "form-check-input",
-                attrs: {
-                  type: "radio",
-                  name: "deliveryRadios",
-                  id: "collection",
-                  value: "Collection"
-                },
-                domProps: { checked: _vm._q(_vm.selectedMethod, "Collection") },
-                on: {
-                  change: function($event) {
-                    _vm.selectedMethod = "Collection"
-                  }
-                }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
+        _c("fieldset", { staticClass: "grid grid-cols-2 pl-5 leading-loose" }, [
+          _c("div", [
+            _c("input", {
+              directives: [
                 {
-                  staticClass: "form-check-label",
-                  attrs: { for: "collection" }
-                },
-                [_vm._v(_vm._s("Collection"))]
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-8" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.selectedMethod,
-                    expression: "selectedMethod"
-                  }
-                ],
-                staticClass: "form-check-input",
-                attrs: {
-                  type: "radio",
-                  name: "deliveryRadios",
-                  id: "delivery",
-                  value: "Delivery"
-                },
-                domProps: { checked: _vm._q(_vm.selectedMethod, "Delivery") },
-                on: {
-                  change: function($event) {
-                    _vm.selectedMethod = "Delivery"
-                  }
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedMethod,
+                  expression: "selectedMethod"
                 }
-              }),
-              _vm._v(" "),
-              _c(
-                "label",
-                { staticClass: "form-check-label", attrs: { for: "delivery" } },
-                [_vm._v(_vm._s("Delivery"))]
-              )
-            ])
-          ]
-        ),
+              ],
+              staticClass: "form-check-input",
+              attrs: {
+                type: "radio",
+                name: "deliveryRadios",
+                id: "collection",
+                value: "Collection"
+              },
+              domProps: { checked: _vm._q(_vm.selectedMethod, "Collection") },
+              on: {
+                change: function($event) {
+                  _vm.selectedMethod = "Collection"
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              { staticClass: "form-check-label", attrs: { for: "collection" } },
+              [_vm._v(_vm._s("Collection"))]
+            )
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.selectedMethod,
+                  expression: "selectedMethod"
+                }
+              ],
+              staticClass: "form-check-input",
+              attrs: {
+                type: "radio",
+                name: "deliveryRadios",
+                id: "delivery",
+                value: "Delivery"
+              },
+              domProps: { checked: _vm._q(_vm.selectedMethod, "Delivery") },
+              on: {
+                change: function($event) {
+                  _vm.selectedMethod = "Delivery"
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c(
+              "label",
+              { staticClass: "form-check-label", attrs: { for: "delivery" } },
+              [_vm._v(_vm._s("Delivery"))]
+            )
+          ])
+        ]),
         _vm._v(" "),
         this.errors.deliveryRadios
           ? _c("p", { staticClass: "text-danger mb-0 pl-3" }, [
@@ -765,7 +749,8 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-primary btn-lg",
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
                   attrs: { type: "submit" }
                 },
                 [_vm._v("\n        Place Order\n      ")]
@@ -775,7 +760,8 @@ var render = function() {
               _c(
                 "button",
                 {
-                  staticClass: "btn btn-primary btn-lg",
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
                   attrs: {
                     "data-toggle": "modal",
                     "data-target": "#loginModal",
@@ -814,7 +800,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "position-ref" }, [
+  return _c("div", [
     _c(
       "form",
       { attrs: { method: "POST", action: "/order" } },
@@ -824,10 +810,10 @@ var render = function() {
           domProps: { value: _vm.csrf }
         }),
         _vm._v(" "),
-        _c("h3", [_vm._v("Named Pizzas")]),
+        _c("h3", { staticClass: "pb-2" }, [_vm._v("Named Pizzas")]),
         _vm._v(" "),
         _c("div", { staticClass: "grid grid-cols-5 pl-5" }, [
-          _c("h4", { staticClass: "col-span-2" }, [
+          _c("h4", { staticClass: "col-span-2 pb-1" }, [
             _c("strong", [_vm._v(_vm._s("Name"))])
           ]),
           _vm._v(" "),
@@ -849,7 +835,7 @@ var render = function() {
                 ? _c("p", { staticClass: "text-center" }, [_vm._v("or")])
                 : _vm._e(),
               _vm._v(" "),
-              _c("div", { staticClass: "grid grid-cols-5" }, [
+              _c("div", { staticClass: "grid grid-cols-5 leading-loose" }, [
                 _c("div", { staticClass: "col-span-2" }, [
                   _c("input", {
                     directives: [
@@ -904,7 +890,7 @@ var render = function() {
               ]),
               _vm._v(" "),
               pizza.name != "Create your own"
-                ? _c("div", { staticClass: "container-row" }, [
+                ? _c("div", {}, [
                     _c("div", { staticClass: "pl-5" }, [
                       _c("label", [
                         _vm._v(
@@ -924,14 +910,16 @@ var render = function() {
         ),
         _vm._v(" "),
         this.errors.pizzaRadios
-          ? _c("p", {}, [_vm._v("You must select a pizza.")])
+          ? _c("p", { staticClass: "text-red-600" }, [
+              _vm._v("You must select a pizza.")
+            ])
           : _vm._e(),
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _c("h3", [_vm._v("Size")]),
+        _c("h3", { staticClass: "pb-2" }, [_vm._v("Size")]),
         _vm._v(" "),
-        _c("fieldset", { staticClass: "grid grid-cols-3 pl-5" }, [
+        _c("fieldset", { staticClass: "grid grid-cols-3 pl-5 leading-loose" }, [
           _c("div", {}, [
             _c("input", {
               directives: [
@@ -1026,7 +1014,9 @@ var render = function() {
         ]),
         _vm._v(" "),
         this.errors.sizeRadios
-          ? _c("p", {}, [_vm._v("You must select a size.")])
+          ? _c("p", { staticClass: "text-red-600" }, [
+              _vm._v("You must select a size.")
+            ])
           : _vm._e(),
         _vm._v(" "),
         _c("br"),
@@ -1038,7 +1028,7 @@ var render = function() {
         _vm.selectedPizza == "Create your own"
           ? _c(
               "fieldset",
-              {},
+              { staticClass: "grid grid-cols-3 pl-5" },
               _vm._l(_vm.toppings, function(topping) {
                 return _c("div", { key: topping.id }, [
                   _c("input", {
@@ -1101,9 +1091,9 @@ var render = function() {
         _vm._v(" "),
         _vm.selectedPizza != ""
           ? _c("div", [
-              _c("h3", [_vm._v("Your order:")]),
+              _c("h3", { staticClass: "pb-2" }, [_vm._v("Your order:")]),
               _vm._v(" "),
-              _c("div", { staticClass: "pl-5" }, [
+              _c("div", { staticClass: "pl-5 leading-loose" }, [
                 _c("p", [
                   _vm._v("Selected pizza: " + _vm._s(_vm.selectedPizza))
                 ]),

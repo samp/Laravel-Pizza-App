@@ -1,11 +1,11 @@
  <template>
-  <div class="position-ref">
+  <div>
     <form method="POST" action="/order">
       <input type="hidden" name="_token" :value="csrf" />
-      <h3>Named Pizzas</h3>
+      <h3 class="pb-2">Named Pizzas</h3>
 
       <div class="grid grid-cols-5 pl-5">
-        <h4 class="col-span-2">
+        <h4 class="col-span-2 pb-1">
           <strong>{{ "Name" }}</strong>
         </h4>
 
@@ -26,7 +26,7 @@
         <div v-for="pizza in pizzas" :key="pizza.id">
           <br v-if="pizza.name == 'Create your own'" />
           <p v-if="pizza.name == 'Create your own'" class="text-center">or</p>
-          <div class="grid grid-cols-5">
+          <div class="grid grid-cols-5 leading-loose">
             <div class="col-span-2">
               <input
                 class=""
@@ -49,7 +49,7 @@
               <label class="" :for="pizza.name">£{{ pizza.largeprice }}</label>
             </div>
           </div>
-          <div class="container-row" v-if="pizza.name != 'Create your own'">
+          <div class="" v-if="pizza.name != 'Create your own'">
             <div class="pl-5">
               <label>{{
                 pizza.toppings.split(",").join(", ") | capitalize
@@ -58,12 +58,12 @@
           </div>
         </div>
       </fieldset>
-      <p class="" v-if="this.errors.pizzaRadios">You must select a pizza.</p>
+      <p class="text-red-600" v-if="this.errors.pizzaRadios">You must select a pizza.</p>
 
       <br />
 
-      <h3>Size</h3>
-      <fieldset class="grid grid-cols-3 pl-5">
+      <h3 class="pb-2">Size</h3>
+      <fieldset class="grid grid-cols-3 pl-5 leading-loose">
         <div class="">
           <input
             class=""
@@ -101,12 +101,12 @@
           <label class="" for="large">{{ "Large" }}</label>
         </div>
       </fieldset>
-      <p class="" v-if="this.errors.sizeRadios">You must select a size.</p>
+      <p class="text-red-600" v-if="this.errors.sizeRadios">You must select a size.</p>
 
       <br />
 
       <h3 v-if="selectedPizza == 'Create your own'">Toppings</h3>
-      <fieldset class="" style="" v-if="selectedPizza == 'Create your own'">
+      <fieldset class="grid grid-cols-3 pl-5" v-if="selectedPizza == 'Create your own'">
         <div class="" v-for="topping in toppings" :key="topping.id">
           <input
             class=""
@@ -124,8 +124,8 @@
       <br />
 
       <div v-if="selectedPizza != ''">
-        <h3>Your order:</h3>
-        <div class="pl-5">
+        <h3 class="pb-2">Your order:</h3>
+        <div class="pl-5 leading-loose">
           <p>Selected pizza: {{ selectedPizza }}</p>
           <p>Size: {{ selectedSize }}</p>
           <p v-if="selectedToppings.length > 0">
