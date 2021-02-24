@@ -25,6 +25,7 @@ Route::get('/deals', [App\Http\Controllers\DealController::class, 'index'])->nam
 Route::get('success', [App\Http\Controllers\CartController::class, 'success'])->middleware('auth');;
 
 Route::post('order', [App\Http\Controllers\OrderController::class, 'addtocart']);
+Route::post('deals', [App\Http\Controllers\DealController::class, 'adddeal']);
 Route::post('cart', [App\Http\Controllers\CartController::class, 'submitorder'])->middleware('auth');
 
 require __DIR__.'/auth.php';

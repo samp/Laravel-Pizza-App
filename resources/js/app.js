@@ -13,5 +13,6 @@ var app = new Vue({
     components: {
         'orderform': require('./components/OrderForm.vue').default,
         'cart': require('./components/Cart.vue').default,
+        'deals': require('./components/Deals.vue').default,
     }
  });
