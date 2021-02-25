@@ -339,6 +339,105 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LoginPopup.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LoginPopup.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  mounted: function mounted() {//console.log("Component mounted.");
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/OrderForm.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/OrderForm.vue?vue&type=script&lang=js& ***!
@@ -349,7 +448,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
 //
 //
 //
@@ -566,23 +664,24 @@ __webpack_require__.r(__webpack_exports__);
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var _components_OrderForm_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/OrderForm.vue */ "./resources/js/components/OrderForm.vue");
-/* harmony import */ var _components_Cart_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Cart.vue */ "./resources/js/components/Cart.vue");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
  //import App from './App.vue';
 //import VueRouter from 'vue-router';
 //import VueAxios from 'vue-axios';
 //import axios from 'axios';
 //import { routes } from './routes';
+//import orderform from './components/OrderForm.vue';
+//import cart from './components/Cart.vue';
+//import login-popup from './components/LoginPopup.vue';
 
-
-
-var app = new vue__WEBPACK_IMPORTED_MODULE_2__.default({
+vue__WEBPACK_IMPORTED_MODULE_0__.default.component('login-popup', __webpack_require__(/*! ./components/LoginPopup.vue */ "./resources/js/components/LoginPopup.vue").default);
+var app = new vue__WEBPACK_IMPORTED_MODULE_0__.default({
   el: '#app',
   components: {
     'orderform': __webpack_require__(/*! ./components/OrderForm.vue */ "./resources/js/components/OrderForm.vue").default,
     'cart': __webpack_require__(/*! ./components/Cart.vue */ "./resources/js/components/Cart.vue").default,
-    'deals': __webpack_require__(/*! ./components/Deals.vue */ "./resources/js/components/Deals.vue").default
+    'deals': __webpack_require__(/*! ./components/Deals.vue */ "./resources/js/components/Deals.vue").default,
+    'login-popup': __webpack_require__(/*! ./components/LoginPopup.vue */ "./resources/js/components/LoginPopup.vue").default
   }
 });
 
@@ -676,6 +775,44 @@ component.options.__file = "resources/js/components/Deals.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/LoginPopup.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/LoginPopup.vue ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _LoginPopup_vue_vue_type_template_id_96df4424___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LoginPopup.vue?vue&type=template&id=96df4424& */ "./resources/js/components/LoginPopup.vue?vue&type=template&id=96df4424&");
+/* harmony import */ var _LoginPopup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LoginPopup.vue?vue&type=script&lang=js& */ "./resources/js/components/LoginPopup.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _LoginPopup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _LoginPopup_vue_vue_type_template_id_96df4424___WEBPACK_IMPORTED_MODULE_0__.render,
+  _LoginPopup_vue_vue_type_template_id_96df4424___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/LoginPopup.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/OrderForm.vue":
 /*!***********************************************!*\
   !*** ./resources/js/components/OrderForm.vue ***!
@@ -744,6 +881,21 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/LoginPopup.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/LoginPopup.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginPopup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LoginPopup.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LoginPopup.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginPopup_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/js/components/OrderForm.vue?vue&type=script&lang=js&":
 /*!************************************************************************!*\
   !*** ./resources/js/components/OrderForm.vue?vue&type=script&lang=js& ***!
@@ -787,6 +939,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Deals_vue_vue_type_template_id_fa2622a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Deals_vue_vue_type_template_id_fa2622a8_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Deals.vue?vue&type=template&id=fa2622a8&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/Deals.vue?vue&type=template&id=fa2622a8&scoped=true&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/LoginPopup.vue?vue&type=template&id=96df4424&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/LoginPopup.vue?vue&type=template&id=96df4424& ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginPopup_vue_vue_type_template_id_96df4424___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginPopup_vue_vue_type_template_id_96df4424___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_LoginPopup_vue_vue_type_template_id_96df4424___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./LoginPopup.vue?vue&type=template&id=96df4424& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LoginPopup.vue?vue&type=template&id=96df4424&");
 
 
 /***/ }),
@@ -1275,6 +1443,162 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LoginPopup.vue?vue&type=template&id=96df4424&":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/LoginPopup.vue?vue&type=template&id=96df4424& ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", [
+    _c("div", { staticClass: "fixed z-10 inset-0 overflow-y-auto" }, [
+      _c(
+        "div",
+        {
+          staticClass:
+            "flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
+        },
+        [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "span",
+            {
+              staticClass: "hidden sm:inline-block sm:align-middle sm:h-screen",
+              attrs: { "aria-hidden": "true" }
+            },
+            [_vm._v("​")]
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full",
+              attrs: {
+                role: "dialog",
+                "aria-modal": "true",
+                "aria-labelledby": "modal-headline"
+              }
+            },
+            [
+              _c(
+                "div",
+                { staticClass: "bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4" },
+                [
+                  _c("div", { staticClass: "sm:flex sm:items-start" }, [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left"
+                      },
+                      [
+                        _c(
+                          "h3",
+                          {
+                            staticClass:
+                              "leading-6 font-medium text-gray-900 py-2",
+                            attrs: { id: "modal-headline" }
+                          },
+                          [
+                            _vm._v(
+                              "\n                " +
+                                _vm._s("Log in") +
+                                "\n              "
+                            )
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "mt-2" }, [
+                          _c("p", { staticClass: "text-gray-500" }, [
+                            _vm._v(
+                              "\n                  " +
+                                _vm._s(
+                                  "You must be logged in to place an order"
+                                ) +
+                                "\n                "
+                            )
+                          ])
+                        ])
+                      ]
+                    )
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse justify-center"
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "focus:outline-none text-white py-2.5 px-5 mx-2.5 rounded-md bg-blue-500 hover:bg-blue-600",
+                      attrs: { href: "/login", role: "button" }
+                    },
+                    [
+                      _vm._v(
+                        "\n            " + _vm._s("Log in") + "\n          "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass:
+                        "focus:outline-none text-white py-2.5 px-5 mx-2.5 rounded-md bg-blue-500 hover:bg-blue-600",
+                      attrs: { href: "/register", role: "button" }
+                    },
+                    [
+                      _vm._v(
+                        "\n            " + _vm._s("Register") + "\n          "
+                      )
+                    ]
+                  )
+                ]
+              )
+            ]
+          )
+        ]
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass: "fixed inset-0 transition-opacity",
+        attrs: { "aria-hidden": "true" }
+      },
+      [_c("div", { staticClass: "absolute inset-0 bg-gray-500 opacity-75" })]
+    )
+  }
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/OrderForm.vue?vue&type=template&id=92f51b52&scoped=true&":
 /*!*********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/OrderForm.vue?vue&type=template&id=92f51b52&scoped=true& ***!
@@ -1291,334 +1615,317 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c(
-      "form",
-      { attrs: { method: "POST", action: "/order" } },
-      [
-        _c("input", {
-          attrs: { type: "hidden", name: "_token" },
-          domProps: { value: _vm.csrf }
-        }),
-        _vm._v(" "),
-        _c("h3", { staticClass: "pb-2" }, [_vm._v("Named Pizzas")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "grid grid-cols-5 pl-5" }, [
-          _c("h4", { staticClass: "col-span-2 pb-1" }, [
-            _c("strong", [_vm._v(_vm._s("Name"))])
-          ]),
-          _vm._v(" "),
-          _c("h4", [_c("strong", [_vm._v(_vm._s("Small"))])]),
-          _vm._v(" "),
-          _c("h4", [_c("strong", [_vm._v(_vm._s("Medium"))])]),
-          _vm._v(" "),
-          _c("h4", [_c("strong", [_vm._v(_vm._s("Large"))])])
+    _c("form", { attrs: { method: "POST", action: "/order" } }, [
+      _c("input", {
+        attrs: { type: "hidden", name: "_token" },
+        domProps: { value: _vm.csrf }
+      }),
+      _vm._v(" "),
+      _c("h3", { staticClass: "pb-2" }, [_vm._v("Named Pizzas")]),
+      _vm._v(" "),
+      _c("div", { staticClass: "grid grid-cols-5 pl-5" }, [
+        _c("h4", { staticClass: "col-span-2 pb-1" }, [
+          _c("strong", [_vm._v(_vm._s("Name"))])
         ]),
         _vm._v(" "),
-        _c(
-          "fieldset",
-          { staticClass: "pl-5" },
-          _vm._l(_vm.pizzas, function(pizza) {
-            return _c("div", { key: pizza.id }, [
-              pizza.name == "Create your own" ? _c("br") : _vm._e(),
-              _vm._v(" "),
-              pizza.name == "Create your own"
-                ? _c("p", { staticClass: "text-center" }, [_vm._v("or")])
-                : _vm._e(),
-              _vm._v(" "),
-              _c("div", { staticClass: "grid grid-cols-5 leading-loose" }, [
-                _c("div", { staticClass: "col-span-2" }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.selectedPizza,
-                        expression: "selectedPizza"
-                      }
-                    ],
-                    attrs: {
-                      type: "radio",
-                      name: "pizzaRadios",
-                      id: pizza.name
-                    },
-                    domProps: {
-                      value: pizza.name,
-                      checked: _vm._q(_vm.selectedPizza, pizza.name)
-                    },
-                    on: {
-                      change: [
-                        function($event) {
-                          _vm.selectedPizza = pizza.name
-                        },
-                        _vm.calculateTotal
-                      ]
+        _c("h4", [_c("strong", [_vm._v(_vm._s("Small"))])]),
+        _vm._v(" "),
+        _c("h4", [_c("strong", [_vm._v(_vm._s("Medium"))])]),
+        _vm._v(" "),
+        _c("h4", [_c("strong", [_vm._v(_vm._s("Large"))])])
+      ]),
+      _vm._v(" "),
+      _c(
+        "fieldset",
+        { staticClass: "pl-5" },
+        _vm._l(_vm.pizzas, function(pizza) {
+          return _c("div", { key: pizza.id }, [
+            pizza.name == "Create your own" ? _c("br") : _vm._e(),
+            _vm._v(" "),
+            pizza.name == "Create your own"
+              ? _c("p", { staticClass: "text-center" }, [_vm._v("or")])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("div", { staticClass: "grid grid-cols-5 leading-loose" }, [
+              _c("div", { staticClass: "col-span-2" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedPizza,
+                      expression: "selectedPizza"
                     }
-                  }),
-                  _vm._v(" "),
-                  _c("label", { attrs: { for: pizza.name } }, [
-                    _vm._v(_vm._s(pizza.name))
-                  ])
-                ]),
+                  ],
+                  attrs: { type: "radio", name: "pizzaRadios", id: pizza.name },
+                  domProps: {
+                    value: pizza.name,
+                    checked: _vm._q(_vm.selectedPizza, pizza.name)
+                  },
+                  on: {
+                    change: [
+                      function($event) {
+                        _vm.selectedPizza = pizza.name
+                      },
+                      _vm.calculateTotal
+                    ]
+                  }
+                }),
                 _vm._v(" "),
-                _c("div", [
-                  _c("label", { attrs: { for: pizza.name } }, [
-                    _vm._v("£" + _vm._s(pizza.smallprice))
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c("label", { attrs: { for: pizza.name } }, [
-                    _vm._v("£" + _vm._s(pizza.mediumprice))
-                  ])
-                ]),
-                _vm._v(" "),
-                _c("div", [
-                  _c("label", { attrs: { for: pizza.name } }, [
-                    _vm._v("£" + _vm._s(pizza.largeprice))
-                  ])
+                _c("label", { attrs: { for: pizza.name } }, [
+                  _vm._v(_vm._s(pizza.name))
                 ])
               ]),
               _vm._v(" "),
-              pizza.name != "Create your own"
-                ? _c("div", {}, [
-                    _c("div", { staticClass: "pl-5" }, [
-                      _c("label", [
-                        _vm._v(
-                          _vm._s(
-                            _vm._f("capitalize")(
-                              pizza.toppings.split(",").join(", ")
-                            )
-                          )
-                        )
-                      ])
-                    ])
-                  ])
-                : _vm._e()
-            ])
-          }),
-          0
-        ),
-        _vm._v(" "),
-        this.errors.pizzaRadios
-          ? _c("p", { staticClass: "text-red-600" }, [
-              _vm._v("You must select a pizza.")
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _c("h3", { staticClass: "pb-2" }, [_vm._v("Size")]),
-        _vm._v(" "),
-        _c("fieldset", { staticClass: "grid grid-cols-3 pl-5 leading-loose" }, [
-          _c("div", {}, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.selectedSize,
-                  expression: "selectedSize"
-                }
-              ],
-              attrs: {
-                type: "radio",
-                name: "sizeRadios",
-                id: "small",
-                value: "Small"
-              },
-              domProps: { checked: _vm._q(_vm.selectedSize, "Small") },
-              on: {
-                change: [
-                  function($event) {
-                    _vm.selectedSize = "Small"
-                  },
-                  _vm.calculateTotal
-                ]
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "small" } }, [_vm._v(_vm._s("Small"))])
-          ]),
-          _vm._v(" "),
-          _c("div", {}, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.selectedSize,
-                  expression: "selectedSize"
-                }
-              ],
-              attrs: {
-                type: "radio",
-                name: "sizeRadios",
-                id: "medium",
-                value: "Medium"
-              },
-              domProps: { checked: _vm._q(_vm.selectedSize, "Medium") },
-              on: {
-                change: [
-                  function($event) {
-                    _vm.selectedSize = "Medium"
-                  },
-                  _vm.calculateTotal
-                ]
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "medium" } }, [
-              _vm._v(_vm._s("Medium"))
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", {}, [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.selectedSize,
-                  expression: "selectedSize"
-                }
-              ],
-              attrs: {
-                type: "radio",
-                name: "sizeRadios",
-                id: "large",
-                value: "Large"
-              },
-              domProps: { checked: _vm._q(_vm.selectedSize, "Large") },
-              on: {
-                change: [
-                  function($event) {
-                    _vm.selectedSize = "Large"
-                  },
-                  _vm.calculateTotal
-                ]
-              }
-            }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "large" } }, [_vm._v(_vm._s("Large"))])
-          ])
-        ]),
-        _vm._v(" "),
-        this.errors.sizeRadios
-          ? _c("p", { staticClass: "text-red-600" }, [
-              _vm._v("You must select a size.")
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _vm.selectedPizza == "Create your own"
-          ? _c("h3", [_vm._v("Toppings")])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm.selectedPizza == "Create your own"
-          ? _c(
-              "fieldset",
-              { staticClass: "grid grid-cols-3 pl-5" },
-              _vm._l(_vm.toppings, function(topping) {
-                return _c("div", { key: topping.id }, [
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.selectedToppings,
-                        expression: "selectedToppings"
-                      }
-                    ],
-                    attrs: {
-                      type: "checkbox",
-                      name: "toppingCheckboxes[]",
-                      id: topping.name
-                    },
-                    domProps: {
-                      value: topping.name,
-                      checked: Array.isArray(_vm.selectedToppings)
-                        ? _vm._i(_vm.selectedToppings, topping.name) > -1
-                        : _vm.selectedToppings
-                    },
-                    on: {
-                      change: [
-                        function($event) {
-                          var $$a = _vm.selectedToppings,
-                            $$el = $event.target,
-                            $$c = $$el.checked ? true : false
-                          if (Array.isArray($$a)) {
-                            var $$v = topping.name,
-                              $$i = _vm._i($$a, $$v)
-                            if ($$el.checked) {
-                              $$i < 0 &&
-                                (_vm.selectedToppings = $$a.concat([$$v]))
-                            } else {
-                              $$i > -1 &&
-                                (_vm.selectedToppings = $$a
-                                  .slice(0, $$i)
-                                  .concat($$a.slice($$i + 1)))
-                            }
-                          } else {
-                            _vm.selectedToppings = $$c
-                          }
-                        },
-                        _vm.calculateTotal
-                      ]
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("label", { attrs: { for: topping.name } }, [
-                    _vm._v(_vm._s(topping.name))
-                  ])
+              _c("div", [
+                _c("label", { attrs: { for: pizza.name } }, [
+                  _vm._v("£" + _vm._s(pizza.smallprice))
                 ])
-              }),
-              0
-            )
-          : _vm._e(),
-        _vm._v(" "),
-        _c("br"),
-        _vm._v(" "),
-        _vm.selectedPizza != ""
-          ? _c("div", [
-              _c("h3", { staticClass: "pb-2" }, [_vm._v("Your order:")]),
+              ]),
               _vm._v(" "),
-              _c("div", { staticClass: "pl-5 leading-loose" }, [
-                _c("p", [
-                  _vm._v("Selected pizza: " + _vm._s(_vm.selectedPizza))
-                ]),
-                _vm._v(" "),
-                _c("p", [_vm._v("Size: " + _vm._s(_vm.selectedSize))]),
-                _vm._v(" "),
-                _vm.selectedToppings.length > 0
-                  ? _c("p", [
-                      _vm._v(
-                        "\n          Toppings: " +
-                          _vm._s(
-                            _vm._f("capitalize")(
-                              _vm.lowercaseToppings.join(", ")
-                            )
-                          ) +
-                          "\n        "
-                      )
-                    ])
-                  : _vm._e(),
-                _vm._v(" "),
-                _c("br"),
-                _vm._v(" "),
-                _c("h3", [
-                  _vm._v("Total: " + _vm._s("£" + _vm.orderTotal.toFixed(2)))
+              _c("div", [
+                _c("label", { attrs: { for: pizza.name } }, [
+                  _vm._v("£" + _vm._s(pizza.mediumprice))
+                ])
+              ]),
+              _vm._v(" "),
+              _c("div", [
+                _c("label", { attrs: { for: pizza.name } }, [
+                  _vm._v("£" + _vm._s(pizza.largeprice))
                 ])
               ])
+            ]),
+            _vm._v(" "),
+            pizza.name != "Create your own"
+              ? _c("div", {}, [
+                  _c("div", { staticClass: "pl-5" }, [
+                    _c("label", [
+                      _vm._v(
+                        _vm._s(
+                          _vm._f("capitalize")(
+                            pizza.toppings.split(",").join(", ")
+                          )
+                        )
+                      )
+                    ])
+                  ])
+                ])
+              : _vm._e()
+          ])
+        }),
+        0
+      ),
+      _vm._v(" "),
+      this.errors.pizzaRadios
+        ? _c("p", { staticClass: "text-red-600" }, [
+            _vm._v("You must select a pizza.")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _c("h3", { staticClass: "pb-2" }, [_vm._v("Size")]),
+      _vm._v(" "),
+      _c("fieldset", { staticClass: "grid grid-cols-3 pl-5 leading-loose" }, [
+        _c("div", {}, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.selectedSize,
+                expression: "selectedSize"
+              }
+            ],
+            attrs: {
+              type: "radio",
+              name: "sizeRadios",
+              id: "small",
+              value: "Small"
+            },
+            domProps: { checked: _vm._q(_vm.selectedSize, "Small") },
+            on: {
+              change: [
+                function($event) {
+                  _vm.selectedSize = "Small"
+                },
+                _vm.calculateTotal
+              ]
+            }
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "small" } }, [_vm._v(_vm._s("Small"))])
+        ]),
+        _vm._v(" "),
+        _c("div", {}, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.selectedSize,
+                expression: "selectedSize"
+              }
+            ],
+            attrs: {
+              type: "radio",
+              name: "sizeRadios",
+              id: "medium",
+              value: "Medium"
+            },
+            domProps: { checked: _vm._q(_vm.selectedSize, "Medium") },
+            on: {
+              change: [
+                function($event) {
+                  _vm.selectedSize = "Medium"
+                },
+                _vm.calculateTotal
+              ]
+            }
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "medium" } }, [_vm._v(_vm._s("Medium"))])
+        ]),
+        _vm._v(" "),
+        _c("div", {}, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.selectedSize,
+                expression: "selectedSize"
+              }
+            ],
+            attrs: {
+              type: "radio",
+              name: "sizeRadios",
+              id: "large",
+              value: "Large"
+            },
+            domProps: { checked: _vm._q(_vm.selectedSize, "Large") },
+            on: {
+              change: [
+                function($event) {
+                  _vm.selectedSize = "Large"
+                },
+                _vm.calculateTotal
+              ]
+            }
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "large" } }, [_vm._v(_vm._s("Large"))])
+        ])
+      ]),
+      _vm._v(" "),
+      this.errors.sizeRadios
+        ? _c("p", { staticClass: "text-red-600" }, [
+            _vm._v("You must select a size.")
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _vm.selectedPizza == "Create your own"
+        ? _c("h3", [_vm._v("Toppings")])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.selectedPizza == "Create your own"
+        ? _c(
+            "fieldset",
+            { staticClass: "grid grid-cols-3 pl-5" },
+            _vm._l(_vm.toppings, function(topping) {
+              return _c("div", { key: topping.id }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.selectedToppings,
+                      expression: "selectedToppings"
+                    }
+                  ],
+                  attrs: {
+                    type: "checkbox",
+                    name: "toppingCheckboxes[]",
+                    id: topping.name
+                  },
+                  domProps: {
+                    value: topping.name,
+                    checked: Array.isArray(_vm.selectedToppings)
+                      ? _vm._i(_vm.selectedToppings, topping.name) > -1
+                      : _vm.selectedToppings
+                  },
+                  on: {
+                    change: [
+                      function($event) {
+                        var $$a = _vm.selectedToppings,
+                          $$el = $event.target,
+                          $$c = $$el.checked ? true : false
+                        if (Array.isArray($$a)) {
+                          var $$v = topping.name,
+                            $$i = _vm._i($$a, $$v)
+                          if ($$el.checked) {
+                            $$i < 0 &&
+                              (_vm.selectedToppings = $$a.concat([$$v]))
+                          } else {
+                            $$i > -1 &&
+                              (_vm.selectedToppings = $$a
+                                .slice(0, $$i)
+                                .concat($$a.slice($$i + 1)))
+                          }
+                        } else {
+                          _vm.selectedToppings = $$c
+                        }
+                      },
+                      _vm.calculateTotal
+                    ]
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: topping.name } }, [
+                  _vm._v(_vm._s(topping.name))
+                ])
+              ])
+            }),
+            0
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _c("br"),
+      _vm._v(" "),
+      _vm.selectedPizza != ""
+        ? _c("div", [
+            _c("h3", { staticClass: "pb-2" }, [_vm._v("Your order:")]),
+            _vm._v(" "),
+            _c("div", { staticClass: "pl-5 leading-loose" }, [
+              _c("p", [_vm._v("Selected pizza: " + _vm._s(_vm.selectedPizza))]),
+              _vm._v(" "),
+              _c("p", [_vm._v("Size: " + _vm._s(_vm.selectedSize))]),
+              _vm._v(" "),
+              _vm.selectedToppings.length > 0
+                ? _c("p", [
+                    _vm._v(
+                      "\n          Toppings: " +
+                        _vm._s(
+                          _vm._f("capitalize")(_vm.lowercaseToppings.join(", "))
+                        ) +
+                        "\n        "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _c("br"),
+              _vm._v(" "),
+              _c("h3", [
+                _vm._v("Total: " + _vm._s("£" + _vm.orderTotal.toFixed(2)))
+              ])
             ])
-          : _vm._e(),
-        _vm._v(" "),
-        _vm._m(0),
-        _vm._v(" "),
-        _c("login-popup")
-      ],
-      1
-    )
+          ])
+        : _vm._e(),
+      _vm._v(" "),
+      _vm._m(0)
+    ])
   ])
 }
 var staticRenderFns = [

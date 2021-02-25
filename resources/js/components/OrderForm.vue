@@ -144,7 +144,6 @@
           Add to cart
         </button>
       </div>
-      <login-popup></login-popup>
     </form>
   </div>
 </template>
