@@ -43,7 +43,7 @@
       </div>
       <br />
       <h3 class="pb-2">Delivery Method</h3>
-      <fieldset class="grid grid-cols-2 pl-5 leading-loose" >
+      <fieldset class="grid grid-cols-2 pl-5 leading-loose">
         <div>
           <input
             class="form-check-input"
@@ -92,15 +92,16 @@
       <div class="text-center" v-else>
         <button
           class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
-          data-toggle="modal"
-          data-target="#loginModal"
+          @click="showModal = true"
           type="button"
         >
           Place Order
         </button>
       </div>
       <div v-if="!isAuthed">
-        <login-popup></login-popup>
+          
+        <login-popup :show="showModal" @close="showModal = false" transition="fadeIn"></login-popup>
+          
       </div>
     </form>
   </div>
@@ -118,6 +119,7 @@ export default {
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content"),
       selectedMethod: "",
+      showModal: false,
     };
   },
   computed: {

@@ -126,6 +126,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["auth_user", "cart", "errors"],
   mounted: function mounted() {
@@ -134,7 +135,8 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   data: function data() {
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-      selectedMethod: ""
+      selectedMethod: "",
+      showModal: false
     };
   },
   computed: {
@@ -409,30 +411,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["show"],
   mounted: function mounted() {//console.log("Component mounted.");
+  },
+  methods: {
+    // ...
+    close: function close() {
+      this.$emit("close");
+    }
   }
 });
 
@@ -1162,17 +1149,33 @@ var render = function() {
                 {
                   staticClass:
                     "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
-                  attrs: {
-                    "data-toggle": "modal",
-                    "data-target": "#loginModal",
-                    type: "button"
+                  attrs: { type: "button" },
+                  on: {
+                    click: function($event) {
+                      _vm.showModal = true
+                    }
                   }
                 },
                 [_vm._v("\n        Place Order\n      ")]
               )
             ]),
         _vm._v(" "),
-        !_vm.isAuthed ? _c("div", [_c("login-popup")], 1) : _vm._e()
+        !_vm.isAuthed
+          ? _c(
+              "div",
+              [
+                _c("login-popup", {
+                  attrs: { show: _vm.showModal, transition: "fadeIn" },
+                  on: {
+                    close: function($event) {
+                      _vm.showModal = false
+                    }
+                  }
+                })
+              ],
+              1
+            )
+          : _vm._e()
       ],
       2
     )
@@ -1458,141 +1461,139 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "fixed z-10 inset-0 overflow-y-auto" }, [
-      _c(
-        "div",
-        {
-          staticClass:
-            "flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0"
-        },
-        [
-          _vm._m(0),
-          _vm._v(" "),
-          _c(
-            "span",
-            {
-              staticClass: "hidden sm:inline-block sm:align-middle sm:h-screen",
-              attrs: { "aria-hidden": "true" }
-            },
-            [_vm._v("​")]
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass:
-                "inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full",
-              attrs: {
-                role: "dialog",
-                "aria-modal": "true",
-                "aria-labelledby": "modal-headline"
+  return _c(
+    "div",
+    [
+      _c("transition", { attrs: { name: "fade" } }, [
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.show,
+                expression: "show"
               }
-            },
-            [
-              _c(
-                "div",
-                { staticClass: "bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4" },
-                [
-                  _c("div", { staticClass: "sm:flex sm:items-start" }, [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left"
-                      },
-                      [
-                        _c(
-                          "h3",
-                          {
-                            staticClass:
-                              "leading-6 font-medium text-gray-900 py-2",
-                            attrs: { id: "modal-headline" }
-                          },
-                          [
-                            _vm._v(
-                              "\n                " +
-                                _vm._s("Log in") +
-                                "\n              "
-                            )
-                          ]
-                        ),
-                        _vm._v(" "),
-                        _c("div", { staticClass: "mt-2" }, [
-                          _c("p", { staticClass: "text-gray-500" }, [
-                            _vm._v(
-                              "\n                  " +
-                                _vm._s(
-                                  "You must be logged in to place an order"
-                                ) +
-                                "\n                "
-                            )
-                          ])
-                        ])
-                      ]
-                    )
-                  ])
-                ]
-              ),
-              _vm._v(" "),
+            ],
+            staticClass:
+              "fixed w-full h-full bg-gray-500 bg-opacity-75 inset-0",
+            attrs: { "aria-hidden": "true" },
+            on: { click: _vm.close }
+          },
+          [
+            _c("div", { staticClass: "flex justify-center items-center" }, [
               _c(
                 "div",
                 {
                   staticClass:
-                    "bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse justify-center"
+                    "bg-white rounded-lg text-left overflow-hidden shadow-xl transform sm:my-8 sm:align-middle sm:max-w-lg sm:w-full",
+                  attrs: {
+                    role: "dialog",
+                    "aria-modal": "true",
+                    "aria-labelledby": "modal-headline"
+                  },
+                  on: {
+                    click: function($event) {
+                      $event.stopPropagation()
+                    }
+                  }
                 },
                 [
                   _c(
-                    "a",
-                    {
-                      staticClass:
-                        "focus:outline-none text-white py-2.5 px-5 mx-2.5 rounded-md bg-blue-500 hover:bg-blue-600",
-                      attrs: { href: "/login", role: "button" }
-                    },
+                    "div",
+                    { staticClass: "bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4" },
                     [
-                      _vm._v(
-                        "\n            " + _vm._s("Log in") + "\n          "
-                      )
+                      _c("div", { staticClass: "sm:flex sm:items-start" }, [
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left"
+                          },
+                          [
+                            _c(
+                              "h3",
+                              {
+                                staticClass:
+                                  "leading-6 font-medium text-gray-900 py-2",
+                                attrs: { id: "modal-headline" }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                  " +
+                                    _vm._s("Log in") +
+                                    "\n                "
+                                )
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c("p", { staticClass: "text-gray-500 mt-2" }, [
+                              _vm._v(
+                                "\n                  " +
+                                  _vm._s(
+                                    "You must be logged in to place an order"
+                                  ) +
+                                  "\n                "
+                              )
+                            ])
+                          ]
+                        )
+                      ])
                     ]
                   ),
                   _vm._v(" "),
                   _c(
-                    "a",
+                    "div",
                     {
                       staticClass:
-                        "focus:outline-none text-white py-2.5 px-5 mx-2.5 rounded-md bg-blue-500 hover:bg-blue-600",
-                      attrs: { href: "/register", role: "button" }
+                        "bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse justify-center"
                     },
                     [
-                      _vm._v(
-                        "\n            " + _vm._s("Register") + "\n          "
+                      _c(
+                        "a",
+                        {
+                          staticClass:
+                            "focus:outline-none text-white py-2.5 px-5 mx-2.5 rounded-md bg-blue-500 hover:bg-blue-600 opacity-100",
+                          attrs: { href: "/login", role: "button" }
+                        },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s("Log in") +
+                              "\n            "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          staticClass:
+                            "focus:outline-none text-white py-2.5 px-5 mx-2.5 rounded-md bg-blue-500 hover:bg-blue-600",
+                          attrs: { href: "/register", role: "button" }
+                        },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s("Register") +
+                              "\n            "
+                          )
+                        ]
                       )
                     ]
                   )
                 ]
               )
-            ]
-          )
-        ]
-      )
-    ])
-  ])
+            ])
+          ]
+        )
+      ])
+    ],
+    1
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      {
-        staticClass: "fixed inset-0 transition-opacity",
-        attrs: { "aria-hidden": "true" }
-      },
-      [_c("div", { staticClass: "absolute inset-0 bg-gray-500 opacity-75" })]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
