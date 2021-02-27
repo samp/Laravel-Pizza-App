@@ -403,8 +403,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         try {
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
             var i = _step.value;
-            console.log(i); //console.log(Object.keys(i)[1]);
-
+            console.log(i);
             deals.push(i);
           }
         } catch (err) {

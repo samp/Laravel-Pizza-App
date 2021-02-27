@@ -18,16 +18,17 @@ class CartController extends Controller
         $sessioncart = session('cart');
 
         if (Auth::check()){
-            // User is logged in, save cart
+            // User is logged in, save cart ??
         }
 
         if ($sessioncart == null) {
             // The cart is empty
             return view('cart')->with('cart', null);
         } else {
+            $activedeals = session('deals');
             $cart = $this->SessionToCart($sessioncart);
             return view('cart')->with('auth_user', $auth_user)
-                ->with('cart', $cart);
+                ->with('cart', $cart)->with('activedeals', $activedeals);
         }
     }
 

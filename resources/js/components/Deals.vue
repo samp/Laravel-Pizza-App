@@ -204,7 +204,6 @@ export default {
       if (this.activedealsobj != null) {
         for (let i of this.activedealsobj) {
           console.log(i);
-          //console.log(Object.keys(i)[1]);
           deals.push(i);
         }
         console.log(deals);
