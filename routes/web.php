@@ -22,10 +22,10 @@ Route::get('/dashboard', function () {
 Route::get('/order', [App\Http\Controllers\OrderController::class, 'index'])->name('order');
 Route::get('/cart', [App\Http\Controllers\CartController::class, 'index'])->name('cart');
 Route::get('/deals', [App\Http\Controllers\DealController::class, 'index'])->name('deals');
-Route::get('success', [App\Http\Controllers\CartController::class, 'success'])->middleware('auth');;
+Route::get('/success', [App\Http\Controllers\CartController::class, 'success'])->name('success')->middleware('auth');;
 
 Route::post('order', [App\Http\Controllers\OrderController::class, 'addtocart']);
-Route::post('deals', [App\Http\Controllers\DealController::class, 'adddeal']);
+Route::post('deals', [App\Http\Controllers\DealController::class, 'addremovedeal']);
 Route::post('cart', [App\Http\Controllers\CartController::class, 'submitorder'])->middleware('auth');
 
 require __DIR__.'/auth.php';

@@ -14,8 +14,23 @@
             <li>Collection/delivery</li>
           </ul>
         </div>
-        <div>
-          <button class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600" name="twoforonetuesdays" value="twoforonetuesdays">Select deal</button>
+        <div class="text-right">
+          <button
+            v-if="activedeals.includes('twoforonetuesdays')"
+            class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600"
+            name="twoforonetuesdays"
+            value="remove"
+          >
+            Remove deal
+          </button>
+          <button
+            v-else
+            class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
+            name="twoforonetuesdays"
+            value="add"
+          >
+            Select deal
+          </button>
         </div>
       </div>
       <div class="grid grid-cols-4 pl-5 pb-2">
@@ -25,12 +40,29 @@
           </h4>
           <ul class="list-disc pl-5">
             <li>Three medium pizzas</li>
-            <li>Charged at the price of the two highest priced pizzas selected</li>
+            <li>
+              Charged at the price of the two highest priced pizzas selected
+            </li>
             <li>Collection/delivery</li>
           </ul>
         </div>
-        <div>
-          <button class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600" name="threefortwothursdays" value="threefortwothursdays">Select deal</button>
+        <div class="text-right">
+          <button
+            v-if="activedeals.includes('threefortwothursdays')"
+            class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600"
+            name="threefortwothursdays"
+            value="remove"
+          >
+            Remove deal
+          </button>
+          <button
+            v-else
+            class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
+            name="threefortwothursdays"
+            value="add"
+          >
+            Select deal
+          </button>
         </div>
       </div>
       <div class="grid grid-cols-4 pl-5 pb-2">
@@ -43,8 +75,23 @@
             <li>Collection only</li>
           </ul>
         </div>
-        <div>
-          <button class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600" name="familyfriday" value="familyfriday">Select deal</button>
+        <div class="text-right">
+          <button
+            v-if="activedeals.includes('familyfriday')"
+            class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600"
+            name="familyfriday"
+            value="remove"
+          >
+            Remove deal
+          </button>
+          <button
+            v-else
+            class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
+            name="familyfriday"
+            value="add"
+          >
+            Select deal
+          </button>
         </div>
       </div>
       <div class="grid grid-cols-4 pl-5 pb-2">
@@ -57,8 +104,23 @@
             <li>Collection only</li>
           </ul>
         </div>
-        <div>
-          <button class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600" name="twolarge" value="twolarge">Select deal</button>
+        <div class="text-right">
+          <button
+            v-if="activedeals.includes('twolarge')"
+            class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600"
+            name="twolarge"
+            value="remove"
+          >
+            Remove deal
+          </button>
+          <button
+            v-else
+            class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
+            name="twolarge"
+            value="add"
+          >
+            Select deal
+          </button>
         </div>
       </div>
       <div class="grid grid-cols-4 pl-5 pb-2">
@@ -71,8 +133,23 @@
             <li>Collection only</li>
           </ul>
         </div>
-        <div>
-          <button class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600" name="twomedium" value="twomedium">Select deal</button>
+        <div class="text-right">
+          <button
+            v-if="activedeals.includes('twomedium')"
+            class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600"
+            name="twomedium"
+            value="remove"
+          >
+            Remove deal
+          </button>
+          <button
+            v-else
+            class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
+            name="twomedium"
+            value="add"
+          >
+            Select deal
+          </button>
         </div>
       </div>
       <div class="grid grid-cols-4 pl-5 pb-2">
@@ -85,8 +162,23 @@
             <li>Collection only</li>
           </ul>
         </div>
-        <div>
-          <button class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600" name="twosmall" value="twosmall">Select deal</button>
+        <div class="text-right">
+          <button
+            v-if="activedeals.includes('twosmall')"
+            class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600"
+            name="twosmall"
+            value="remove"
+          >
+            Remove deal
+          </button>
+          <button
+            v-else
+            class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
+            name="twosmall"
+            value="add"
+          >
+            Select deal
+          </button>
         </div>
       </div>
     </form>
@@ -95,7 +187,7 @@
 
     <script>
 export default {
-  props: ["auth_user", "cart", "errors"],
+  props: ["activedealsobj"],
   mounted() {
     console.log(this.errors);
   },
@@ -104,22 +196,21 @@ export default {
       csrf: document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content"),
-      selectedMethod: "",
     };
   },
   computed: {
-    orderTotal() {
-      let total = 0;
-      for (let item of this.cart) {
-        total += item.price;
-      }
-      return total;
-    },
-    isAuthed() {
-      if (this.auth_user == null) {
-        return false;
+    activedeals() {
+      let deals = [];
+      if (this.activedealsobj != null) {
+        for (let i of this.activedealsobj) {
+          console.log(i);
+          //console.log(Object.keys(i)[1]);
+          deals.push(i);
+        }
+        console.log(deals);
+        return deals;
       } else {
-        return true;
+        return [];
       }
     },
   },

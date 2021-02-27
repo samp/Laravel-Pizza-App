@@ -290,42 +290,133 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["auth_user", "cart", "errors"],
+  props: ["activedealsobj"],
   mounted: function mounted() {
     console.log(this.errors);
   },
   data: function data() {
     return {
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
-      selectedMethod: ""
+      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute("content")
     };
   },
   computed: {
-    orderTotal: function orderTotal() {
-      var total = 0;
+    activedeals: function activedeals() {
+      var deals = [];
 
-      var _iterator = _createForOfIteratorHelper(this.cart),
-          _step;
+      if (this.activedealsobj != null) {
+        var _iterator = _createForOfIteratorHelper(this.activedealsobj),
+            _step;
 
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var item = _step.value;
-          total += item.price;
+        try {
+          for (_iterator.s(); !(_step = _iterator.n()).done;) {
+            var i = _step.value;
+            console.log(i); //console.log(Object.keys(i)[1]);
+
+            deals.push(i);
+          }
+        } catch (err) {
+          _iterator.e(err);
+        } finally {
+          _iterator.f();
         }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
 
-      return total;
-    },
-    isAuthed: function isAuthed() {
-      if (this.auth_user == null) {
-        return false;
+        console.log(deals);
+        return deals;
       } else {
-        return true;
+        return [];
       }
     }
   },
@@ -1406,57 +1497,177 @@ var render = function() {
           _vm._m(0)
         ]),
         _vm._v(" "),
-        _vm._m(1)
+        _c("div", { staticClass: "text-right" }, [
+          _vm.activedeals.includes("twoforonetuesdays")
+            ? _c(
+                "button",
+                {
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600",
+                  attrs: { name: "twoforonetuesdays", value: "remove" }
+                },
+                [_vm._v("\n          Remove deal\n        ")]
+              )
+            : _c(
+                "button",
+                {
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
+                  attrs: { name: "twoforonetuesdays", value: "add" }
+                },
+                [_vm._v("\n          Select deal\n        ")]
+              )
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "grid grid-cols-4 pl-5 pb-2" }, [
         _c("div", { staticClass: "col-span-3" }, [
           _c("h4", [_c("strong", [_vm._v(_vm._s("Three for Two Thursdays"))])]),
           _vm._v(" "),
-          _vm._m(2)
+          _vm._m(1)
         ]),
         _vm._v(" "),
-        _vm._m(3)
+        _c("div", { staticClass: "text-right" }, [
+          _vm.activedeals.includes("threefortwothursdays")
+            ? _c(
+                "button",
+                {
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600",
+                  attrs: { name: "threefortwothursdays", value: "remove" }
+                },
+                [_vm._v("\n          Remove deal\n        ")]
+              )
+            : _c(
+                "button",
+                {
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
+                  attrs: { name: "threefortwothursdays", value: "add" }
+                },
+                [_vm._v("\n          Select deal\n        ")]
+              )
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "grid grid-cols-4 pl-5 pb-2" }, [
         _c("div", { staticClass: "col-span-3" }, [
           _c("h4", [_c("strong", [_vm._v(_vm._s("Family Friday"))])]),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(2)
         ]),
         _vm._v(" "),
-        _vm._m(5)
+        _c("div", { staticClass: "text-right" }, [
+          _vm.activedeals.includes("familyfriday")
+            ? _c(
+                "button",
+                {
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600",
+                  attrs: { name: "familyfriday", value: "remove" }
+                },
+                [_vm._v("\n          Remove deal\n        ")]
+              )
+            : _c(
+                "button",
+                {
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
+                  attrs: { name: "familyfriday", value: "add" }
+                },
+                [_vm._v("\n          Select deal\n        ")]
+              )
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "grid grid-cols-4 pl-5 pb-2" }, [
         _c("div", { staticClass: "col-span-3" }, [
           _c("h4", [_c("strong", [_vm._v(_vm._s("Two Large"))])]),
           _vm._v(" "),
-          _vm._m(6)
+          _vm._m(3)
         ]),
         _vm._v(" "),
-        _vm._m(7)
+        _c("div", { staticClass: "text-right" }, [
+          _vm.activedeals.includes("twolarge")
+            ? _c(
+                "button",
+                {
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600",
+                  attrs: { name: "twolarge", value: "remove" }
+                },
+                [_vm._v("\n          Remove deal\n        ")]
+              )
+            : _c(
+                "button",
+                {
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
+                  attrs: { name: "twolarge", value: "add" }
+                },
+                [_vm._v("\n          Select deal\n        ")]
+              )
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "grid grid-cols-4 pl-5 pb-2" }, [
         _c("div", { staticClass: "col-span-3" }, [
           _c("h4", [_c("strong", [_vm._v(_vm._s("Two Medium"))])]),
           _vm._v(" "),
-          _vm._m(8)
+          _vm._m(4)
         ]),
         _vm._v(" "),
-        _vm._m(9)
+        _c("div", { staticClass: "text-right" }, [
+          _vm.activedeals.includes("twomedium")
+            ? _c(
+                "button",
+                {
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600",
+                  attrs: { name: "twomedium", value: "remove" }
+                },
+                [_vm._v("\n          Remove deal\n        ")]
+              )
+            : _c(
+                "button",
+                {
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
+                  attrs: { name: "twomedium", value: "add" }
+                },
+                [_vm._v("\n          Select deal\n        ")]
+              )
+        ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "grid grid-cols-4 pl-5 pb-2" }, [
         _c("div", { staticClass: "col-span-3" }, [
           _c("h4", [_c("strong", [_vm._v(_vm._s("Two Small"))])]),
           _vm._v(" "),
-          _vm._m(10)
+          _vm._m(5)
         ]),
         _vm._v(" "),
-        _vm._m(11)
+        _c("div", { staticClass: "text-right" }, [
+          _vm.activedeals.includes("twosmall")
+            ? _c(
+                "button",
+                {
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-red-500 hover:bg-red-600",
+                  attrs: { name: "twosmall", value: "remove" }
+                },
+                [_vm._v("\n          Remove deal\n        ")]
+              )
+            : _c(
+                "button",
+                {
+                  staticClass:
+                    "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
+                  attrs: { name: "twosmall", value: "add" }
+                },
+                [_vm._v("\n          Select deal\n        ")]
+              )
+        ])
       ])
     ])
   ])
@@ -1480,46 +1691,16 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "button",
-        {
-          staticClass:
-            "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
-          attrs: { name: "twoforonetuesdays", value: "twoforonetuesdays" }
-        },
-        [_vm._v("Select deal")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("ul", { staticClass: "list-disc pl-5" }, [
       _c("li", [_vm._v("Three medium pizzas")]),
       _vm._v(" "),
       _c("li", [
-        _vm._v("Charged at the price of the two highest priced pizzas selected")
+        _vm._v(
+          "\n            Charged at the price of the two highest priced pizzas selected\n          "
+        )
       ]),
       _vm._v(" "),
       _c("li", [_vm._v("Collection/delivery")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "button",
-        {
-          staticClass:
-            "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
-          attrs: { name: "threefortwothursdays", value: "threefortwothursdays" }
-        },
-        [_vm._v("Select deal")]
-      )
     ])
   },
   function() {
@@ -1536,42 +1717,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "button",
-        {
-          staticClass:
-            "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
-          attrs: { name: "familyfriday", value: "familyfriday" }
-        },
-        [_vm._v("Select deal")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("ul", { staticClass: "list-disc pl-5" }, [
       _c("li", [_vm._v("Two large named pizzas for £30")]),
       _vm._v(" "),
       _c("li", [_vm._v("Collection only")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "button",
-        {
-          staticClass:
-            "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
-          attrs: { name: "twolarge", value: "twolarge" }
-        },
-        [_vm._v("Select deal")]
-      )
     ])
   },
   function() {
@@ -1588,42 +1737,10 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "button",
-        {
-          staticClass:
-            "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
-          attrs: { name: "twomedium", value: "twomedium" }
-        },
-        [_vm._v("Select deal")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("ul", { staticClass: "list-disc pl-5" }, [
       _c("li", [_vm._v("Two small named pizzas for £12")]),
       _vm._v(" "),
       _c("li", [_vm._v("Collection only")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", [
-      _c(
-        "button",
-        {
-          staticClass:
-            "focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600",
-          attrs: { name: "twosmall", value: "twosmall" }
-        },
-        [_vm._v("Select deal")]
-      )
     ])
   }
 ]

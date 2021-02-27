@@ -12,12 +12,14 @@ class CartController extends Controller
 {
     public function index()
     {
-        $pizzas = Pizza::all();
-        $toppings = Topping::all();
         $auth_user = json_encode(Auth::user());
 
         // Get cart from storage
         $sessioncart = session('cart');
+
+        if (Auth::check()){
+            // User is logged in, save cart
+        }
 
         if ($sessioncart == null) {
             // The cart is empty
@@ -46,7 +48,7 @@ class CartController extends Controller
         $order = session('finalorder');
         $method = session('method');
         if ($order == null || $method == null) {
-            // Something is horribly wrong
+            // No order to display
             return view('success')->with('cart', null);
         } else {
             // Display order
