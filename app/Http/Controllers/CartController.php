@@ -35,16 +35,24 @@ class CartController extends Controller
             'deliveryRadios' => 'required|string'
         ]);
         $sessioncart = session('cart');
-        $cart = $this->SessionToCart($sessioncart);
-        $auth_user = json_encode(Auth::user());
-
-        return redirect('success')->with('auth_user', $auth_user)
-            ->with('cart', $cart);
+        $request->session()->flush();
+        $request->session()->flash('finalorder', $sessioncart);
+        $request->session()->flash('method', $request->deliveryRadios);
+        return redirect('success');
     }
 
     public function success(Request $request)
     {
-        return view('success');
+        $order = session('finalorder');
+        $method = session('method');
+        if ($order == null || $method == null) {
+            // Something is horribly wrong
+            return view('success')->with('cart', null);
+        } else {
+            // Display order
+            $cart = $this->SessionToCart($order);
+            return view('success')->with('cart', $cart)->with('method', $method);
+        }
     }
 
     public function SessionToCart(array $cartstring)

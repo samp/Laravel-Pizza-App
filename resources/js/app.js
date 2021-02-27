@@ -17,6 +17,7 @@ var app = new Vue({
         'orderform': require('./components/OrderForm.vue').default,
         'cart': require('./components/Cart.vue').default,
         'deals': require('./components/Deals.vue').default,
+        'success': require('./components/Success.vue').default,
         'login-popup': require('./components/LoginPopup.vue').default,
     }
  });

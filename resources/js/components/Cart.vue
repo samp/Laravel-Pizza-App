@@ -71,7 +71,7 @@
           }}</label>
         </div>
       </fieldset>
-      <p class="text-danger mb-0 pl-3" v-if="this.errors.deliveryRadios">
+      <p class="text-red-600" v-if="this.errors.deliveryRadios">
         You must select a delivery method.
       </p>
 
