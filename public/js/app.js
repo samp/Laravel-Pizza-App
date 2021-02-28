@@ -128,9 +128,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["auth_user", "cart", "errors"],
+  props: ["auth_user", "cart", "activedeals", "errors"],
   mounted: function mounted() {
     console.log(this.errors);
+    console.log(this.activedeals);
   },
   data: function data() {
     return {
@@ -403,7 +404,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         try {
           for (_iterator.s(); !(_step = _iterator.n()).done;) {
             var i = _step.value;
-            console.log(i);
             deals.push(i);
           }
         } catch (err) {
@@ -412,7 +412,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           _iterator.f();
         }
 
-        console.log(deals);
         return deals;
       } else {
         return [];

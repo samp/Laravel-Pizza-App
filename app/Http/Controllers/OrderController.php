@@ -15,7 +15,6 @@ class OrderController extends Controller
         $pizzas = Pizza::all();
         $toppings = Topping::all();
         $auth_user = json_encode(Auth::user());
-
         return view('order')
             ->with('auth_user', $auth_user)
             ->with('pizzas', $pizzas)

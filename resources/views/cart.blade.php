@@ -19,7 +19,7 @@
                                 </a>
                             </div>
                         @else
-                            <cart v-bind:auth_user="{{ $auth_user }}" v-bind:cart="{{ json_encode($cart) }}" v-bind:errors="{{ $errors }}"></cart>
+                            <cart v-bind:auth_user="{{ $auth_user }}" v-bind:cart="{{ json_encode($cart) }}" v-bind:errors="{{ $errors }}" v-bind:activedeals="{{ json_encode($activedeals) }}"></cart>
                         @endif
                     </div>
                 </div>

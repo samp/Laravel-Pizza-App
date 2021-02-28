@@ -17,18 +17,22 @@ class CartController extends Controller
         // Get cart from storage
         $sessioncart = session('cart');
 
-        if (Auth::check()){
-            // User is logged in, save cart ??
+        if (Auth::check()) {
+            // User is logged in, save cart here ??
         }
 
         if ($sessioncart == null) {
             // The cart is empty
             return view('cart')->with('cart', null);
         } else {
+            // The cart is not empty
             $activedeals = session('deals');
             $cart = $this->SessionToCart($sessioncart);
-            return view('cart')->with('auth_user', $auth_user)
-                ->with('cart', $cart)->with('activedeals', $activedeals);
+            $deals = $this->ValidateDeals($activedeals, $cart);
+            return view('cart')
+                ->with('auth_user', $auth_user)
+                ->with('cart', $cart)
+                ->with('activedeals', $deals);
         }
     }
 
@@ -92,5 +96,118 @@ class CartController extends Controller
             }
             return $cart;
         }
+    }
+
+    public function ValidateDeals(array $activedeals, array $cart)
+    {
+        $validateddeals = [];
+        foreach ($activedeals as $deal) {
+            // Two for one Tuesdays
+            if ($deal == "twoforonetuesdays") {
+                if (date("l") == "Tuesday") {
+                    $mediumcount = 0;
+                    $largecount = 0;
+                    foreach ($cart as $item) {
+                        if ($item["size"] == "Medium") {
+                            $mediumcount++;
+                        }
+                        if ($item["size"] == "Large") {
+                            $largecount++;
+                        }
+                    }
+                    if ($mediumcount >= 2 || $largecount >= 2) {
+                        $validateddeals[$deal] = true;
+                    } else {
+                        $validateddeals[$deal] = false;
+                    }
+                } else {
+                    $validateddeals[$deal] = false;
+                }
+            }
+
+            // Three for two Thursdays
+            if ($deal == "threefortwothursdays") {
+                if (date("l") == "Thursday") {
+                    $mediumcount = 0;
+                    foreach ($cart as $item) {
+                        if ($item["size"] == "Medium") {
+                            $mediumcount++;
+                        }
+                    }
+                    if ($mediumcount >= 3) {
+                        $validateddeals[$deal] = true;
+                    } else {
+                        $validateddeals[$deal] = false;
+                    }
+                } else {
+                    $validateddeals[$deal] = false;
+                }
+            }
+
+            // Family Friday
+            if ($deal == "familyfriday") {
+                if (date("l") == "Friday") {
+                    $mediumcount = 0;
+                    foreach ($cart as $item) {
+                        if ($item["size"] == "Medium" && $item["name"] != "Create your own") {
+                            $mediumcount++;
+                        }
+                    }
+                    if ($mediumcount >= 4) {
+                        $validateddeals[$deal] = true;
+                    } else {
+                        $validateddeals[$deal] = false;
+                    }
+                } else {
+                    $validateddeals[$deal] = false;
+                }
+            }
+
+            // Two Large
+            if ($deal == "twolarge") {
+                $largecount = 0;
+                foreach ($cart as $item) {
+                    if ($item["size"] == "Large" && $item["name"] != "Create your own") {
+                        $largecount++;
+                    }
+                }
+                if ($largecount >= 2) {
+                    $validateddeals[$deal] = true;
+                } else {
+                    $validateddeals[$deal] = false;
+                }
+            }
+
+            // Two Medium
+            if ($deal == "twomedium") {
+                $mediumcount = 0;
+                foreach ($cart as $item) {
+                    if ($item["size"] == "Medium" && $item["name"] != "Create your own") {
+                        $mediumcount++;
+                    }
+                }
+                if ($mediumcount >= 2) {
+                    $validateddeals[$deal] = true;
+                } else {
+                    $validateddeals[$deal] = false;
+                }
+            }
+
+            // Two Small
+            if ($deal == "twosmall") {
+                $smallcount = 0;
+                foreach ($cart as $item) {
+                    if ($item["size"] == "SMall" && $item["name"] != "Create your own") {
+                        $smallcount++;
+                    }
+                }
+                if ($smallcount >= 2) {
+                    $validateddeals[$deal] = true;
+                } else {
+                    $validateddeals[$deal] = false;
+                }
+            }
+        }
+        return $validateddeals;
     }
 }

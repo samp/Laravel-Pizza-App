@@ -109,9 +109,10 @@
 
     <script>
 export default {
-  props: ["auth_user", "cart", "errors"],
+  props: ["auth_user", "cart", "activedeals", "errors"],
   mounted() {
     console.log(this.errors);
+    console.log(this.activedeals);
   },
   data() {
     return {

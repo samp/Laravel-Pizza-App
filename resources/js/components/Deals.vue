@@ -203,10 +203,8 @@ export default {
       let deals = [];
       if (this.activedealsobj != null) {
         for (let i of this.activedealsobj) {
-          console.log(i);
           deals.push(i);
         }
-        console.log(deals);
         return deals;
       } else {
         return [];
