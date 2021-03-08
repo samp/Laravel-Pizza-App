@@ -12,23 +12,38 @@ class CartController extends Controller
 {
     public function index()
     {
-        $auth_user = json_encode(Auth::user());
+        $user = Auth::user();
+        $auth_user = json_encode($user);
+
+        if (Auth::check()) {
+            // User is logged in
+            if ($user->savedorder) {
+                // User has an order saved
+                $savedorder = $user->savedorder;
+            } else {
+                // User does not have an order saved
+                $savedorder = null;
+            };
+        } else {
+            $savedorder = null;
+        }
 
         // Get cart from storage
         $sessioncart = session('cart');
 
-        if (Auth::check()) {
-            // User is logged in, save cart here ??
-        }
-
         if ($sessioncart == null) {
             // The cart is empty
-            return view('cart')->with('cart', null);
+            return view('cart')->with('auth_user', $auth_user)->with('cart', null);
         } else {
             // The cart is not empty
             $activedeals = session('deals');
             $cart = $this->SessionToCart($sessioncart);
-            $deals = $this->ValidateDeals($activedeals, $cart);
+            if ($activedeals != null) {
+                $deals = $this->ValidateDeals($activedeals, $cart);
+            } else {
+                $deals = $activedeals;
+            }
+
             return view('cart')
                 ->with('auth_user', $auth_user)
                 ->with('cart', $cart)
@@ -36,7 +51,7 @@ class CartController extends Controller
         }
     }
 
-    public function submitorder(Request $request)
+    public function SubmitOrder(Request $request)
     {
         $this->validate($request, [
             'deliveryRadios' => 'required|string'
@@ -59,6 +74,29 @@ class CartController extends Controller
             // Display order
             $cart = $this->SessionToCart($order);
             return view('success')->with('cart', $cart)->with('method', $method);
+        }
+    }
+
+    public function SaveCart(Request $request)
+    {
+
+        if (Auth::check()) {
+            // User is logged in
+            // Get cart from storage
+            $sessioncart = session('cart');
+            if ($sessioncart != null) {
+                // Cart is not empty
+                $user = Auth::user();
+                $user->savedorder = $sessioncart;
+                $user->save();
+                return view('cart');
+            } else {
+                // Cart is empty
+                return view('cart')->withErrors('Your cart is empty.');
+            }
+        } else {
+            ddd($request);
+            // User is not logged in
         }
     }
 
@@ -104,6 +142,7 @@ class CartController extends Controller
         foreach ($activedeals as $deal) {
             // Two for one Tuesdays
             if ($deal == "twoforonetuesdays") {
+                $dealname = "Two for One Tuesdays";
                 if (date("l") == "Tuesday") {
                     $mediumcount = 0;
                     $largecount = 0;
@@ -116,17 +155,18 @@ class CartController extends Controller
                         }
                     }
                     if ($mediumcount >= 2 || $largecount >= 2) {
-                        $validateddeals[$deal] = true;
+                        $validateddeals[$dealname] = true;
                     } else {
-                        $validateddeals[$deal] = false;
+                        $validateddeals[$dealname] = false;
                     }
                 } else {
-                    $validateddeals[$deal] = false;
+                    $validateddeals[$dealname] = false;
                 }
             }
 
             // Three for two Thursdays
             if ($deal == "threefortwothursdays") {
+                $dealname = "Three for Two Thursdays";
                 if (date("l") == "Thursday") {
                     $mediumcount = 0;
                     foreach ($cart as $item) {
@@ -135,17 +175,18 @@ class CartController extends Controller
                         }
                     }
                     if ($mediumcount >= 3) {
-                        $validateddeals[$deal] = true;
+                        $validateddeals[$dealname] = true;
                     } else {
-                        $validateddeals[$deal] = false;
+                        $validateddeals[$dealname] = false;
                     }
                 } else {
-                    $validateddeals[$deal] = false;
+                    $validateddeals[$dealname] = false;
                 }
             }
 
             // Family Friday
             if ($deal == "familyfriday") {
+                $dealname = "Family Friday";
                 if (date("l") == "Friday") {
                     $mediumcount = 0;
                     foreach ($cart as $item) {
@@ -154,17 +195,18 @@ class CartController extends Controller
                         }
                     }
                     if ($mediumcount >= 4) {
-                        $validateddeals[$deal] = true;
+                        $validateddeals[$dealname] = true;
                     } else {
-                        $validateddeals[$deal] = false;
+                        $validateddeals[$dealname] = false;
                     }
                 } else {
-                    $validateddeals[$deal] = false;
+                    $validateddeals[$dealname] = false;
                 }
             }
 
             // Two Large
             if ($deal == "twolarge") {
+                $dealname = "Two Large";
                 $largecount = 0;
                 foreach ($cart as $item) {
                     if ($item["size"] == "Large" && $item["name"] != "Create your own") {
@@ -172,14 +214,15 @@ class CartController extends Controller
                     }
                 }
                 if ($largecount >= 2) {
-                    $validateddeals[$deal] = true;
+                    $validateddeals[$dealname] = true;
                 } else {
-                    $validateddeals[$deal] = false;
+                    $validateddeals[$dealname] = false;
                 }
             }
 
             // Two Medium
             if ($deal == "twomedium") {
+                $dealname = "Two Medium";
                 $mediumcount = 0;
                 foreach ($cart as $item) {
                     if ($item["size"] == "Medium" && $item["name"] != "Create your own") {
@@ -187,14 +230,15 @@ class CartController extends Controller
                     }
                 }
                 if ($mediumcount >= 2) {
-                    $validateddeals[$deal] = true;
+                    $validateddeals[$dealname] = true;
                 } else {
-                    $validateddeals[$deal] = false;
+                    $validateddeals[$dealname] = false;
                 }
             }
 
             // Two Small
             if ($deal == "twosmall") {
+                $dealname = "Two Small";
                 $smallcount = 0;
                 foreach ($cart as $item) {
                     if ($item["size"] == "SMall" && $item["name"] != "Create your own") {
@@ -202,9 +246,9 @@ class CartController extends Controller
                     }
                 }
                 if ($smallcount >= 2) {
-                    $validateddeals[$deal] = true;
+                    $validateddeals[$dealname] = true;
                 } else {
-                    $validateddeals[$deal] = false;
+                    $validateddeals[$dealname] = false;
                 }
             }
         }

@@ -76,7 +76,30 @@
       </p>
 
       <br />
-
+      <h3>Deals</h3>
+      <div v-if="activedeals != null">
+        <div
+          class="leading-loose"
+          v-for="(status, deal) in activedeals"
+          :key="deal.keys"
+        >
+          <div class="grid grid-cols-10 pl-5">
+            <div class="col-span-5">
+              <p>{{ deal }}</p>
+            </div>
+            <div class="col-span-2">
+              <p v-if="status == true">{{ "Deal applied" }}</p>
+              <p v-if="status == false" class="text-red-600">
+                {{ "Conditions not met" }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div v-else class="leading-loose pl-5">
+        <p>No deals selected.</p>
+      </div>
+      <br />
       <div>
         <h3>Total: {{ "£" + orderTotal.toFixed(2) }}</h3>
       </div>
@@ -98,10 +121,36 @@
           Place Order
         </button>
       </div>
+      <div class="text-center" v-if="isAuthed">
+        <br />
+        <button
+          type="button"
+          class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
+          @click="SaveCart"
+        >
+          Save Order
+        </button>
+        <button
+          type="button"
+          class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
+          @click="LoadCart"
+        >
+          Load Order
+        </button>
+        <button
+          type="button"
+          class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
+          @click="DeleteCart"
+        >
+          Delete saved order
+        </button>
+      </div>
       <div v-if="!isAuthed">
-          
-        <login-popup :show="showModal" @close="showModal = false" transition="fadeIn"></login-popup>
-          
+        <login-popup
+          :show="showModal"
+          @close="showModal = false"
+          transition="fadeIn"
+        ></login-popup>
       </div>
     </form>
   </div>
@@ -139,7 +188,31 @@ export default {
       }
     },
   },
-  methods: {},
+  methods: {
+    SaveCart(e) {
+      const axios = require("axios");
+      e.preventDefault();
+      let currentObj = this;
+      axios
+        .post("/savecart", {
+          user: this.auth_user,
+          cart: this.cart,
+        })
+        .then(function (response) {
+          currentObj.output = response.data;
+        })
+        .catch(function (error) {
+          currentObj.output = error;
+        });
+      console.log("posted");
+    },
+    LoadCart(e){
+        //
+    },
+    DeleteCart(e){
+        //
+    }
+  },
 
   filters: {
     capitalize: function (value) {

@@ -11,14 +11,9 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div id="app">
                         @if ($cart == null)
-                            <p class="text-center">{{ 'Your cart is currently empty!' }}</p>
-                            <br>
-                            <div class="text-center">
-                                <a href="/order" role="button" class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600">
-                                    Start an order
-                                </a>
-                            </div>
+                            <emptycart v-bind:auth_user="{{ $auth_user }}">
                         @else
+                        <emptycart>
                             <cart v-bind:auth_user="{{ $auth_user }}" v-bind:cart="{{ json_encode($cart) }}" v-bind:errors="{{ $errors }}" v-bind:activedeals="{{ json_encode($activedeals) }}"></cart>
                         @endif
                     </div>
