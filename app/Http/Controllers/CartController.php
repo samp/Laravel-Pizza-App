@@ -130,16 +130,12 @@ class CartController extends Controller
         if (Auth::check()) {
             // User is logged in
             $user = Auth::user();
-            $user->savedorder = $sessioncart;
+            $user->savedorder = null;
             $user->save();
-            return "Saved successfully.";
-            //$this->index();
-            //return view('cart')->with("savestatus", 'Saved successfully.');
+            return "Data deleted.";
         } else {
             // User is not logged in
             return "You must be logged in to do this.";
-            //$this->index();
-            //return view('cart')->with("savestatus", 'You must be logged in.');
         }
     }
 
