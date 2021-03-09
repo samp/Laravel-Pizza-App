@@ -144,6 +144,10 @@
         >
           Delete saved order
         </button>
+        <div v-if="saveStatus">
+          <br />
+          <p>{{ saveStatus }}</p>
+        </div>
       </div>
       <div v-if="!isAuthed">
         <login-popup
@@ -170,6 +174,7 @@ export default {
         .getAttribute("content"),
       selectedMethod: "",
       showModal: false,
+      saveStatus: null,
     };
   },
   computed: {
@@ -192,26 +197,51 @@ export default {
     SaveCart(e) {
       const axios = require("axios");
       e.preventDefault();
-      let currentObj = this;
       axios
         .post("/savecart", {
           user: this.auth_user,
           cart: this.cart,
         })
-        .then(function (response) {
-          currentObj.output = response.data;
+        .then((response) => {
+          this.saveStatus = response.data;
         })
         .catch(function (error) {
-          currentObj.output = error;
+          this.saveStatus = error;
         });
-      console.log("posted");
+      console.log("posted save");
     },
-    LoadCart(e){
-        //
+    LoadCart(e) {
+      const axios = require("axios");
+      e.preventDefault();
+      axios
+        .post("/loadcart", {
+          user: this.auth_user,
+          cart: this.cart,
+        })
+        .then((response) => {
+          this.saveStatus = response.data;
+        })
+        .catch(function (error) {
+          this.saveStatus = error;
+        });
+      console.log("posted load");
     },
-    DeleteCart(e){
-        //
-    }
+    DeleteCart(e) {
+      const axios = require("axios");
+      e.preventDefault();
+      axios
+        .post("/deletecart", {
+          user: this.auth_user,
+          cart: this.cart,
+        })
+        .then((response) => {
+          this.saveStatus = response.data;
+        })
+        .catch(function (error) {
+          this.saveStatus = error;
+        });
+      console.log("posted delete");
+    },
   },
 
   filters: {

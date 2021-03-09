@@ -47,6 +47,7 @@ class OrderController extends Controller
 
         // Store order in session
         $orderstring = serialize($order);
+        //ddd($orderstring);
         $request->session()->push("cart", $orderstring);
 
         return redirect('cart');

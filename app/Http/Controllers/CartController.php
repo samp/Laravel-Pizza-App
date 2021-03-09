@@ -15,7 +15,7 @@ class CartController extends Controller
         $user = Auth::user();
         $auth_user = json_encode($user);
 
-        if (Auth::check()) {
+        /*if (Auth::check()) {
             // User is logged in
             if ($user->savedorder) {
                 // User has an order saved
@@ -26,17 +26,18 @@ class CartController extends Controller
             };
         } else {
             $savedorder = null;
-        }
+        }*/
 
         // Get cart from storage
         $sessioncart = session('cart');
-
+        //ddd($sessioncart);
         if ($sessioncart == null) {
             // The cart is empty
             return view('cart')->with('auth_user', $auth_user)->with('cart', null);
         } else {
             // The cart is not empty
             $activedeals = session('deals');
+            //ddd(json_decode($sessioncart));
             $cart = $this->SessionToCart($sessioncart);
             if ($activedeals != null) {
                 $deals = $this->ValidateDeals($activedeals, $cart);
@@ -79,7 +80,6 @@ class CartController extends Controller
 
     public function SaveCart(Request $request)
     {
-
         if (Auth::check()) {
             // User is logged in
             // Get cart from storage
@@ -87,16 +87,59 @@ class CartController extends Controller
             if ($sessioncart != null) {
                 // Cart is not empty
                 $user = Auth::user();
+                $sessioncart = serialize($sessioncart);
                 $user->savedorder = $sessioncart;
                 $user->save();
-                return view('cart');
+                return "Saved successfully.";
             } else {
                 // Cart is empty
-                return view('cart')->withErrors('Your cart is empty.');
+                return "Your cart is empty.";
             }
         } else {
-            ddd($request);
             // User is not logged in
+            return "You must be logged in to do this.";
+        }
+    }
+
+    public function LoadCart(Request $request)
+    {
+        if (Auth::check()) {
+            // User is logged in
+            $user = Auth::user();
+            $cart = $user->savedorder;
+            if ($cart != null) {
+                // Cart is not empty
+                // Reformat data
+                $cart = unserialize($cart);
+                // Replace session storage
+                $request->session()->forget('cart');
+                session(['cart' => $cart]);
+                $this->index();
+            } else {
+                // Cart is empty
+                return "No saved cart.";
+            }
+        } else {
+            // User is not logged in
+            return "You must be logged in.";
+        }
+    }
+
+    public function DeleteCart(Request $request)
+    {
+        if (Auth::check()) {
+            // User is logged in
+            $user = Auth::user();
+            $user->savedorder = $sessioncart;
+            $user->save();
+            return "Saved successfully.";
+            //$this->index();
+            //return view('cart')->with("savestatus", 'Saved successfully.');
+        } else {
+            // User is not logged in
+            return "You must be logged in to do this.";
+            //$this->index();
+            //return view('cart')->with("savestatus", 'You must be logged in.');
         }
     }
 

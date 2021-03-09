@@ -11,9 +11,8 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     <div id="app">
                         @if ($cart == null)
-                            <emptycart v-bind:auth_user="{{ $auth_user }}">
+                            <emptycart v-bind:auth_user="{{ $auth_user }}" v-bind:cart="{{ json_encode($cart) }}">
                         @else
-                        <emptycart>
                             <cart v-bind:auth_user="{{ $auth_user }}" v-bind:cart="{{ json_encode($cart) }}" v-bind:errors="{{ $errors }}" v-bind:activedeals="{{ json_encode($activedeals) }}"></cart>
                         @endif
                     </div>

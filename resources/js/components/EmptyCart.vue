@@ -15,17 +15,14 @@
         <button
           type="button"
           class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
-          @click="SaveCart"
-        >
-          Save Order
-        </button>
-        <button
-          type="button"
-          class="focus:outline-none text-white py-2.5 px-5 rounded-md bg-blue-500 hover:bg-blue-600"
           @click="LoadCart"
         >
           Load Order
         </button>
+        <div v-if="saveStatus">
+          <br />
+          <p>{{ saveStatus }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -38,7 +35,7 @@ export default {
     console.log(this.errors);
   },
   data() {
-    return {};
+    return { saveStatus: null };
   },
   computed: {
     isAuthed() {
@@ -67,9 +64,21 @@ export default {
         });
       console.log("posted");
     },
-    LoadCart(e){
-        //
-    }
+    LoadCart(e) {
+      const axios = require("axios");
+      e.preventDefault();
+      axios
+        .post("/loadcart", {
+          user: this.auth_user,
+        })
+        .then((response) => {
+          this.saveStatus = response.data;
+        })
+        .catch(function (error) {
+          this.saveStatus = error;
+        });
+      console.log("posted load");
+    },
   },
 
   filters: {
