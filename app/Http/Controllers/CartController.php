@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Pizza;
 use App\Models\Topping;
+use App\Rules\DealMethod;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -43,12 +44,17 @@ class CartController extends Controller
     public function SubmitOrder(Request $request)
     {
         $this->validate($request, [
-            'deliveryRadios' => 'required|string'
+            'deliveryRadios' => 'required|string',
+            'deals' => new DealMethod($request->deliveryRadios),
         ]);
         $sessioncart = session('cart');
-        $request->session()->flush();
+        //$cart = $this->SessionToCart($sessioncart);
+        //$request->session()->forget('cart');
+        //$request->session()->forget('deals');
         $request->session()->flash('finalorder', $sessioncart);
         $request->session()->flash('method', $request->deliveryRadios);
+        $request->session()->flash('finalprice', $request->finalPrice);
+        //ddd($request->deliveryRadios);
         return redirect('success');
     }
 
@@ -56,13 +62,17 @@ class CartController extends Controller
     {
         $order = session('finalorder');
         $method = session('method');
+        $finalprice = session('finalprice');
         if ($order == null || $method == null) {
             // No order to display
             return view('success')->with('cart', null);
         } else {
             // Display order
             $cart = $this->SessionToCart($order);
-            return view('success')->with('cart', $cart)->with('method', $method);
+            return view('success')
+            ->with('cart', $cart)
+            ->with('finalprice', $finalprice)
+            ->with('method', $method);
         }
     }
 
@@ -338,7 +348,7 @@ class CartController extends Controller
             $pizzas = array_slice($pizzas, 0, 4);
 
             // Remove pizzas from cart - these are "free"
-            foreach ($pizzas as $pizza){
+            foreach ($pizzas as $pizza) {
                 if (($key = array_search($pizza, $cart)) !== false) {
                     unset($cart[$key]);
                 }
@@ -357,7 +367,7 @@ class CartController extends Controller
             // Trim so top 2 pizzas remain
             $pizzas = array_slice($pizzas, 0, 2);
             // Remove pizzas from cart - these are "free"
-            foreach ($pizzas as $pizza){
+            foreach ($pizzas as $pizza) {
                 if (($key = array_search($pizza, $cart)) !== false) {
                     unset($cart[$key]);
                 }
@@ -376,7 +386,7 @@ class CartController extends Controller
             // Trim so top 2 pizzas remain
             $pizzas = array_slice($pizzas, 0, 2);
             // Remove pizzas from cart - these are "free"
-            foreach ($pizzas as $pizza){
+            foreach ($pizzas as $pizza) {
                 if (($key = array_search($pizza, $cart)) !== false) {
                     unset($cart[$key]);
                 }
@@ -395,12 +405,15 @@ class CartController extends Controller
             // Trim so top 2 pizzas remain
             $pizzas = array_slice($pizzas, 0, 2);
             // Remove pizzas from cart - these are "free"
-            foreach ($pizzas as $pizza){
+            foreach ($pizzas as $pizza) {
                 if (($key = array_search($pizza, $cart)) !== false) {
                     unset($cart[$key]);
                 }
             }
             $price += 12;
+        }
+        foreach ($cart as $item) {
+            $price += $item["price"];
         }
 
         return $price;

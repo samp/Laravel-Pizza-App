@@ -2016,11 +2016,16 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["auth_user", "cart", "activedeals", "finalprice", "errors"],
   mounted: function mounted() {
     console.log(this.errors);
-    console.log(this.activedeals);
   },
   data: function data() {
     return {
@@ -2856,7 +2861,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["method", "cart"],
+  props: ["method", "cart", "finalprice"],
   mounted: function mounted() {
     console.log(this.errors);
   },
@@ -3739,36 +3744,51 @@ var render = function() {
         _vm.activedeals != null
           ? _c(
               "div",
-              _vm._l(_vm.activedeals, function(status, deal) {
-                return _c(
-                  "div",
-                  { key: deal.keys, staticClass: "leading-loose" },
-                  [
-                    _c("div", { staticClass: "grid grid-cols-10 pl-5" }, [
-                      _c("div", { staticClass: "col-span-5" }, [
-                        _c("p", [_vm._v(_vm._s(deal))])
-                      ]),
-                      _vm._v(" "),
-                      _c("div", { staticClass: "col-span-2" }, [
-                        status == true
-                          ? _c("p", [_vm._v(_vm._s("Deal applied"))])
-                          : _vm._e(),
+              [
+                _c("input", {
+                  attrs: { type: "hidden", name: "deals" },
+                  domProps: { value: JSON.stringify(_vm.activedeals) }
+                }),
+                _vm._v(" "),
+                _vm._l(_vm.activedeals, function(status, deal) {
+                  return _c(
+                    "div",
+                    { key: deal.keys, staticClass: "leading-loose" },
+                    [
+                      _c("div", { staticClass: "grid grid-cols-10 pl-5" }, [
+                        _c("div", { staticClass: "col-span-5" }, [
+                          _c("p", [_vm._v(_vm._s(deal))])
+                        ]),
                         _vm._v(" "),
-                        status == false
-                          ? _c("p", { staticClass: "text-red-600" }, [
-                              _vm._v(
-                                "\n              " +
-                                  _vm._s("Conditions not met") +
-                                  "\n            "
-                              )
-                            ])
-                          : _vm._e()
+                        _c("div", { staticClass: "col-span-2" }, [
+                          status == true
+                            ? _c("p", [_vm._v(_vm._s("Deal applied"))])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          status == false
+                            ? _c("p", { staticClass: "text-red-600" }, [
+                                _vm._v(
+                                  "\n              " +
+                                    _vm._s("Conditions not met") +
+                                    "\n            "
+                                )
+                              ])
+                            : _vm._e()
+                        ])
                       ])
+                    ]
+                  )
+                }),
+                _vm._v(" "),
+                this.errors.deals
+                  ? _c("p", { staticClass: "text-red-600" }, [
+                      _vm._v(
+                        "\n        Please check deal requirements.\n      "
+                      )
                     ])
-                  ]
-                )
-              }),
-              0
+                  : _vm._e()
+              ],
+              2
             )
           : _c("div", { staticClass: "leading-loose pl-5" }, [
               _c("p", [_vm._v("No deals selected.")])
@@ -3780,12 +3800,22 @@ var render = function() {
           ? _c("div", [
               _c("h3", [
                 _vm._v("Total: " + _vm._s("£" + _vm.finalprice.toFixed(2)))
-              ])
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                attrs: { type: "hidden", name: "finalPrice" },
+                domProps: { value: _vm.finalprice }
+              })
             ])
           : _c("div", [
               _c("h3", [
                 _vm._v("Total: " + _vm._s("£" + _vm.orderTotal.toFixed(2)))
-              ])
+              ]),
+              _vm._v(" "),
+              _c("input", {
+                attrs: { type: "hidden", name: "finalPrice" },
+                domProps: { value: _vm.orderTotal }
+              })
             ]),
         _vm._v(" "),
         _vm.isAuthed
@@ -4828,7 +4858,7 @@ var render = function() {
       _c("br"),
       _vm._v(" "),
       _c("div", [
-        _c("h3", [_vm._v("Total: " + _vm._s("£" + _vm.orderTotal.toFixed(2)))])
+        _c("h3", [_vm._v("Total: " + _vm._s("£" + _vm.finalprice.toFixed(2)))])
       ]),
       _vm._v(" "),
       _vm._m(0)

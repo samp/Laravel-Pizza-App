@@ -13,7 +13,8 @@
                         @if ($cart == null)
                             <p>Please <a href="/order">place an order</a> before submitting.</p>
                         @else
-                            <success v-bind:cart="{{ json_encode($cart) }}" v-bind:method="{{ $method }}">
+                        <?php //ddd($method) ?>
+                            <success v-bind:cart="{{ json_encode($cart) }}" v-bind:method="{{ json_encode($method) }}" v-bind:finalprice="{{ $finalprice }}">
                             </success>
 
                         @endif

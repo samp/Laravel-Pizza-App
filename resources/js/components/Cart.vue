@@ -78,6 +78,7 @@
       <br />
       <h3>Deals</h3>
       <div v-if="activedeals != null">
+        <input type="hidden" name="deals" :value="JSON.stringify(activedeals)" />
         <div
           class="leading-loose"
           v-for="(status, deal) in activedeals"
@@ -95,6 +96,9 @@
             </div>
           </div>
         </div>
+        <p class="text-red-600" v-if="this.errors.deals">
+          Please check deal requirements.
+        </p>
       </div>
       <div v-else class="leading-loose pl-5">
         <p>No deals selected.</p>
@@ -102,9 +106,11 @@
       <br />
       <div v-if="activedeals != null">
         <h3>Total: {{ "£" + finalprice.toFixed(2) }}</h3>
+        <input type="hidden" name="finalPrice" :value="finalprice">
       </div>
       <div v-else>
         <h3>Total: {{ "£" + orderTotal.toFixed(2) }}</h3>
+        <input type="hidden" name="finalPrice" :value="orderTotal"> 
       </div>
 
       <div class="text-center" v-if="isAuthed">
@@ -168,7 +174,6 @@ export default {
   props: ["auth_user", "cart", "activedeals", "finalprice", "errors"],
   mounted() {
     console.log(this.errors);
-    console.log(this.activedeals);
   },
   data() {
     return {

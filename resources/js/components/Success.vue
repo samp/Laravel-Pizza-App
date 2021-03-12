@@ -43,7 +43,7 @@
       <br />
 
       <div>
-        <h3>Total: {{ "£" + orderTotal.toFixed(2) }}</h3>
+        <h3>Total: {{ "£" + finalprice.toFixed(2) }}</h3>
       </div>
 
       <div class="text-center">
@@ -60,7 +60,7 @@
 
     <script>
 export default {
-  props: ["method", "cart"],
+  props: ["method", "cart", "finalprice"],
   mounted() {
     console.log(this.errors);
   },
