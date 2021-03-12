@@ -17,7 +17,7 @@ class DealController extends Controller
         }
     }
 
-    public function addremovedeal(Request $request)
+    public function AddRemoveDeal(Request $request)
     {
         // Isolate current deal
         $thisdeal = $request->all();

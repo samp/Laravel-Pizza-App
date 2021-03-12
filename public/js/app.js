@@ -2013,8 +2013,11 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["auth_user", "cart", "activedeals", "errors"],
+  props: ["auth_user", "cart", "activedeals", "finalprice", "errors"],
   mounted: function mounted() {
     console.log(this.errors);
     console.log(this.activedeals);
@@ -3773,11 +3776,17 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _c("div", [
-          _c("h3", [
-            _vm._v("Total: " + _vm._s("£" + _vm.orderTotal.toFixed(2)))
-          ])
-        ]),
+        _vm.activedeals != null
+          ? _c("div", [
+              _c("h3", [
+                _vm._v("Total: " + _vm._s("£" + _vm.finalprice.toFixed(2)))
+              ])
+            ])
+          : _c("div", [
+              _c("h3", [
+                _vm._v("Total: " + _vm._s("£" + _vm.orderTotal.toFixed(2)))
+              ])
+            ]),
         _vm._v(" "),
         _vm.isAuthed
           ? _c("div", { staticClass: "text-center" }, [

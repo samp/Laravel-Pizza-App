@@ -21,7 +21,7 @@ class OrderController extends Controller
             ->with('toppings', $toppings);
     }
 
-    public function addtocart(Request $request)
+    public function AddToCart(Request $request)
     {
         $this->validate($request, [
             'pizzaRadios' => 'required|string',

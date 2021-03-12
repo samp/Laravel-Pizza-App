@@ -15,40 +15,28 @@ class CartController extends Controller
         $user = Auth::user();
         $auth_user = json_encode($user);
 
-        /*if (Auth::check()) {
-            // User is logged in
-            if ($user->savedorder) {
-                // User has an order saved
-                $savedorder = $user->savedorder;
-            } else {
-                // User does not have an order saved
-                $savedorder = null;
-            };
-        } else {
-            $savedorder = null;
-        }*/
-
         // Get cart from storage
         $sessioncart = session('cart');
-        //ddd($sessioncart);
         if ($sessioncart == null) {
             // The cart is empty
             return view('cart')->with('auth_user', $auth_user)->with('cart', null);
         } else {
             // The cart is not empty
             $activedeals = session('deals');
-            //ddd(json_decode($sessioncart));
             $cart = $this->SessionToCart($sessioncart);
             if ($activedeals != null) {
                 $deals = $this->ValidateDeals($activedeals, $cart);
+                $finalprice = $this->ApplyDeals($deals, $cart);
             } else {
+                $finalprice = 0;
                 $deals = $activedeals;
             }
 
             return view('cart')
                 ->with('auth_user', $auth_user)
                 ->with('cart', $cart)
-                ->with('activedeals', $deals);
+                ->with('activedeals', $deals)
+                ->with('finalprice', $finalprice);
         }
     }
 
@@ -182,7 +170,8 @@ class CartController extends Controller
             // Two for one Tuesdays
             if ($deal == "twoforonetuesdays") {
                 $dealname = "Two for One Tuesdays";
-                if (date("l") == "Tuesday") {
+                //if (date("l") == "Tuesday") {
+                if (true) {
                     $mediumcount = 0;
                     $largecount = 0;
                     foreach ($cart as $item) {
@@ -207,6 +196,7 @@ class CartController extends Controller
             if ($deal == "threefortwothursdays") {
                 $dealname = "Three for Two Thursdays";
                 if (date("l") == "Thursday") {
+                    //if (true) {
                     $mediumcount = 0;
                     foreach ($cart as $item) {
                         if ($item["size"] == "Medium") {
@@ -292,5 +282,127 @@ class CartController extends Controller
             }
         }
         return $validateddeals;
+    }
+
+    public function ApplyDeals($deals, $cart)
+    {
+        // Pizzas being charged for
+        $price = 0;
+
+        // Two for one Tuesdays
+        if (array_key_exists("Two for One Tuesdays", $deals) && $deals["Two for One Tuesdays"] == true) {
+            $pizzas = [];
+            foreach ($cart as $item) {
+                if ($item["size"] == "Medium" || $item["size"] == "Large") {
+                    $pizzas[] = $item;
+                }
+            }
+
+            array_multisort(array_column($pizzas, 'price'), SORT_DESC, $pizzas);
+            // Charge for highest priced pizza
+            $price += $pizzas[0]["price"];
+            // Remove the second highest priced pizza from cart (it is free)
+            if (($key = array_search($pizzas[0], $cart)) !== false) {
+                unset($cart[$key]);
+            }
+        }
+
+        // Three for two Thursdays
+        if (array_key_exists("Three for Two Thursdays", $deals) && $deals["Three for Two Thursdays"] == true) {
+            $pizzas = [];
+            foreach ($cart as $item) {
+                if ($item["size"] == "Medium") {
+                    $pizzas[] = $item;
+                }
+            }
+            array_multisort(array_column($pizzas, 'price'), SORT_DESC, $pizzas);
+            // Charge for 2 highest pizzas
+            $price += $pizzas[0]["price"];
+            $price += $pizzas[1]["price"];
+            // Remove pizza 3 from cart (it is free)
+            if (($key = array_search($pizzas[2], $cart)) !== false) {
+                unset($cart[$key]);
+            }
+        }
+
+        // Family Friday
+        if (array_key_exists("Family Friday", $deals) && $deals["Family Friday"] == true) {
+            $pizzas = [];
+            foreach ($cart as $item) {
+                if ($item["size"] == "Medium" && $item["name"] != "Create your Own") {
+                    $pizzas[] = $item;
+                }
+            }
+            array_multisort(array_column($pizzas, 'price'), SORT_DESC, $pizzas);
+            // Trim so top 4 pizzas remain
+            $pizzas = array_slice($pizzas, 0, 4);
+
+            // Remove pizzas from cart - these are "free"
+            foreach ($pizzas as $pizza){
+                if (($key = array_search($pizza, $cart)) !== false) {
+                    unset($cart[$key]);
+                }
+            }
+            $price += 30;
+        }
+
+        // Two Large
+        if (array_key_exists("Two Large", $deals) && $deals["Two Large"] == true) {
+            $pizzas = [];
+            foreach ($cart as $item) {
+                if ($item["size"] == "Large" && $item["name"] != "Create your Own") {
+                    $pizzas[] = $item;
+                }
+            }
+            // Trim so top 2 pizzas remain
+            $pizzas = array_slice($pizzas, 0, 2);
+            // Remove pizzas from cart - these are "free"
+            foreach ($pizzas as $pizza){
+                if (($key = array_search($pizza, $cart)) !== false) {
+                    unset($cart[$key]);
+                }
+            }
+            $price += 30;
+        }
+
+        // Two Medium
+        if (array_key_exists("Two Medium", $deals) && $deals["Two Medium"] == true) {
+            $pizzas = [];
+            foreach ($cart as $item) {
+                if ($item["size"] == "Medium" && $item["name"] != "Create your Own") {
+                    $pizzas[] = $item;
+                }
+            }
+            // Trim so top 2 pizzas remain
+            $pizzas = array_slice($pizzas, 0, 2);
+            // Remove pizzas from cart - these are "free"
+            foreach ($pizzas as $pizza){
+                if (($key = array_search($pizza, $cart)) !== false) {
+                    unset($cart[$key]);
+                }
+            }
+            $price += 18;
+        }
+
+        // Two Small
+        if (array_key_exists("Two Small", $deals) && $deals["Two Small"] == true) {
+            $pizzas = [];
+            foreach ($cart as $item) {
+                if ($item["size"] == "Small" && $item["name"] != "Create your Own") {
+                    $pizzas[] = $item;
+                }
+            }
+            // Trim so top 2 pizzas remain
+            $pizzas = array_slice($pizzas, 0, 2);
+            // Remove pizzas from cart - these are "free"
+            foreach ($pizzas as $pizza){
+                if (($key = array_search($pizza, $cart)) !== false) {
+                    unset($cart[$key]);
+                }
+            }
+            $price += 12;
+        }
+
+        return $price;
     }
 }

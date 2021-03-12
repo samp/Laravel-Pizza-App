@@ -13,7 +13,7 @@
                         @if ($cart == null)
                             <emptycart v-bind:auth_user="{{ $auth_user }}" v-bind:cart="{{ json_encode($cart) }}">
                         @else
-                            <cart v-bind:auth_user="{{ $auth_user }}" v-bind:cart="{{ json_encode($cart) }}" v-bind:errors="{{ $errors }}" v-bind:activedeals="{{ json_encode($activedeals) }}"></cart>
+                            <cart v-bind:auth_user="{{ $auth_user }}" v-bind:cart="{{ json_encode($cart) }}" v-bind:errors="{{ $errors }}" v-bind:activedeals="{{ json_encode($activedeals) }}" v-bind:finalprice="{{ $finalprice }}"></cart>
                         @endif
                     </div>
                 </div>

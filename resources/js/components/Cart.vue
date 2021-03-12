@@ -100,7 +100,10 @@
         <p>No deals selected.</p>
       </div>
       <br />
-      <div>
+      <div v-if="activedeals != null">
+        <h3>Total: {{ "£" + finalprice.toFixed(2) }}</h3>
+      </div>
+      <div v-else>
         <h3>Total: {{ "£" + orderTotal.toFixed(2) }}</h3>
       </div>
 
@@ -162,7 +165,7 @@
 
     <script>
 export default {
-  props: ["auth_user", "cart", "activedeals", "errors"],
+  props: ["auth_user", "cart", "activedeals", "finalprice", "errors"],
   mounted() {
     console.log(this.errors);
     console.log(this.activedeals);
