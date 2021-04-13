@@ -1,22 +1,20 @@
 <?php
 namespace App\Classes;
 
-use App\Models\Pizza;
-
 class CartHandler
 {
     // Properties
     public $items;
 
     // Methods
-    function add_item($item)
+    public function add_item($item)
     {
         $this->items[] = $item;
         $orderstring = serialize($item);
         session()->push("cart", $orderstring);
     }
 
-    function get_cart()
+    public function get_cart()
     {
         $cartstring = $this->get_cart_string();
         if ($cartstring == null) {
@@ -30,18 +28,18 @@ class CartHandler
         }
     }
 
-    function clear_cart()
+    public function clear_cart()
     {
         $this->items = [];
         session()->forget('cart');
     }
 
-    function get_cart_string(){
+    public function get_cart_string(){
         $cartstring = session('cart');
         return $cartstring;
     }
 
-    function session_to_object($cartstring){
+    public function session_to_object($cartstring){
         foreach ($cartstring as $item) {
             $cart[] = unserialize($item);
         }

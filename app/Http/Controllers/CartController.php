@@ -10,6 +10,7 @@ use App\Rules\DealMethod;
 use Illuminate\Support\Facades\Auth;
 
 use App\Classes\CartHandler;
+use App\Classes\DealHandler;
 
 class CartController extends Controller
 {
@@ -28,7 +29,8 @@ class CartController extends Controller
             return view('cart')->with('auth_user', $auth_user)->with('cart', null);
         } else {
             // The cart is not empty
-            $activedeals = session('deals');
+            $dealhandler = new DealHandler;
+            $activedeals = $dealhandler->get_deals();
             if ($activedeals != null) {
                 $deals = $this->ValidateDeals($activedeals, $cart);
                 $finalprice = $this->ApplyDeals($deals, $cart);
@@ -123,7 +125,7 @@ class CartController extends Controller
                 foreach ($cart as $item) {
                     $carthandler->add_item($item);
                 }
-                
+
                 return "Loaded successfully";
             } else {
                 // Cart is empty
@@ -151,119 +153,62 @@ class CartController extends Controller
 
     public function ValidateDeals(array $activedeals, array $cart)
     {
+        $dealhandler = new DealHandler;
+        $activedeals = $dealhandler->get_deals();
         $validateddeals = [];
         foreach ($activedeals as $deal) {
             // Two for one Tuesdays
             if ($deal == "twoforonetuesdays") {
-                $dealname = "Two for One Tuesdays";
-                if (date("l") == "Tuesday") {
-                    //if (true) {
-                    $mediumcount = 0;
-                    $largecount = 0;
-                    foreach ($cart as $item) {
-                        if ($item["size"] == "Medium") {
-                            $mediumcount++;
-                        }
-                        if ($item["size"] == "Large") {
-                            $largecount++;
-                        }
-                    }
-                    if ($mediumcount >= 2 || $largecount >= 2) {
-                        $validateddeals[$dealname] = true;
-                    } else {
-                        $validateddeals[$dealname] = false;
-                    }
+                if ($dealhandler->two_for_one_tuesdays($deal, $cart) == true) {
+                    $validateddeals["Two for One Tuesdays"] = true;
                 } else {
-                    $validateddeals[$dealname] = false;
+                    $validateddeals["Two for One Tuesdays"] = false;
                 }
             }
 
             // Three for two Thursdays
             if ($deal == "threefortwothursdays") {
-                $dealname = "Three for Two Thursdays";
-                if (date("l") == "Thursday") {
-                    //if (true) {
-                    $mediumcount = 0;
-                    foreach ($cart as $item) {
-                        if ($item["size"] == "Medium") {
-                            $mediumcount++;
-                        }
-                    }
-                    if ($mediumcount >= 3) {
-                        $validateddeals[$dealname] = true;
-                    } else {
-                        $validateddeals[$dealname] = false;
-                    }
+                if ($dealhandler->three_for_two_thursdays($deal, $cart) == true) {
+                    $validateddeals["Three for Two Thursdays"] = true;
                 } else {
-                    $validateddeals[$dealname] = false;
+                    $validateddeals["Three for Two Thursdays"] = false;
                 }
             }
 
             // Family Friday
             if ($deal == "familyfriday") {
-                $dealname = "Family Friday";
-                if (date("l") == "Friday") {
-                    $mediumcount = 0;
-                    foreach ($cart as $item) {
-                        if ($item["size"] == "Medium" && $item["name"] != "Create your own") {
-                            $mediumcount++;
-                        }
-                    }
-                    if ($mediumcount >= 4) {
-                        $validateddeals[$dealname] = true;
-                    } else {
-                        $validateddeals[$dealname] = false;
-                    }
+                if ($dealhandler->family_friday($deal, $cart) == true) {
+                    $validateddeals["Family Friday"] = true;
                 } else {
-                    $validateddeals[$dealname] = false;
+                    $validateddeals["Family Friday"] = false;
                 }
             }
 
             // Two Large
             if ($deal == "twolarge") {
-                $dealname = "Two Large";
-                $largecount = 0;
-                foreach ($cart as $item) {
-                    if ($item["size"] == "Large" && $item["name"] != "Create your own") {
-                        $largecount++;
-                    }
-                }
-                if ($largecount >= 2) {
-                    $validateddeals[$dealname] = true;
+                if ($dealhandler->two_large($deal, $cart) == true) {
+                    $validateddeals["Two Large"] = true;
                 } else {
-                    $validateddeals[$dealname] = false;
+                    $validateddeals["Two Large"] = false;
                 }
             }
 
             // Two Medium
             if ($deal == "twomedium") {
                 $dealname = "Two Medium";
-                $mediumcount = 0;
-                foreach ($cart as $item) {
-                    if ($item["size"] == "Medium" && $item["name"] != "Create your own") {
-                        $mediumcount++;
-                    }
-                }
-                if ($mediumcount >= 2) {
-                    $validateddeals[$dealname] = true;
+                if ($dealhandler->two_medium($deal, $cart) == true) {
+                    $validateddeals["Two Medium"] = true;
                 } else {
-                    $validateddeals[$dealname] = false;
+                    $validateddeals["Two Medium"] = false;
                 }
             }
 
             // Two Small
             if ($deal == "twosmall") {
-                $dealname = "Two Small";
-                $smallcount = 0;
-                foreach ($cart as $item) {
-                    if ($item["size"] == "SMall" && $item["name"] != "Create your own") {
-                        $smallcount++;
-                    }
-                }
-                if ($smallcount >= 2) {
-                    $validateddeals[$dealname] = true;
+                if ($dealhandler->two_small($deal, $cart) == true) {
+                    $validateddeals["Two Small"] = true;
                 } else {
-                    $validateddeals[$dealname] = false;
+                    $validateddeals["Two Small"] = false;
                 }
             }
         }
