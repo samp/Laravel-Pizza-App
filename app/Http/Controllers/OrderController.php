@@ -8,6 +8,8 @@ use App\Models\Pizza;
 use App\Models\Topping;
 use Illuminate\Support\Facades\Auth;
 
+use App\Classes\CartHandler;
+
 class OrderController extends Controller
 {
     public function index()
@@ -45,8 +47,8 @@ class OrderController extends Controller
         }
 
         // Store order in session
-        $orderstring = serialize($order);
-        $request->session()->push("cart", $orderstring);
+        $cart = new CartHandler;
+        $cart->add_item($order);
         return redirect('cart');
     }
 }

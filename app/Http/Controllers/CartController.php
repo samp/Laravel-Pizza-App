@@ -9,6 +9,8 @@ use App\Models\Topping;
 use App\Rules\DealMethod;
 use Illuminate\Support\Facades\Auth;
 
+use App\Classes\CartHandler;
+
 class CartController extends Controller
 {
     public function index()
@@ -16,15 +18,17 @@ class CartController extends Controller
         $user = Auth::user();
         $auth_user = json_encode($user);
 
+        $carthandler = new CartHandler;
+
         // Get cart from storage
-        $sessioncart = session('cart');
-        if ($sessioncart == null) {
+        $cart = $carthandler->get_cart();
+
+        if ($cart == null) {
             // The cart is empty
             return view('cart')->with('auth_user', $auth_user)->with('cart', null);
         } else {
             // The cart is not empty
             $activedeals = session('deals');
-            $cart = $this->SessionToCart($sessioncart);
             if ($activedeals != null) {
                 $deals = $this->ValidateDeals($activedeals, $cart);
                 $finalprice = $this->ApplyDeals($deals, $cart);
@@ -47,14 +51,15 @@ class CartController extends Controller
             'deliveryRadios' => 'required|string',
             'deals' => new DealMethod($request->deliveryRadios),
         ]);
-        $sessioncart = session('cart');
-        //$cart = $this->SessionToCart($sessioncart);
-        //$request->session()->forget('cart');
-        //$request->session()->forget('deals');
-        $request->session()->flash('finalorder', $sessioncart);
+
+        $carthandler = new CartHandler;
+        $cartstring = $carthandler->get_cart_string();
+
+        $request->session()->flash('finalorder', $cartstring);
         $request->session()->flash('method', $request->deliveryRadios);
+        // TODO::: NOT THIS *****************************************************************************************
         $request->session()->flash('finalprice', $request->finalPrice);
-        //ddd($request->deliveryRadios);
+        // *******************************************************************************************
         return redirect('success');
     }
 
@@ -68,11 +73,12 @@ class CartController extends Controller
             return view('success')->with('cart', null);
         } else {
             // Display order
-            $cart = $this->SessionToCart($order);
+            $carthandler = new CartHandler;
+            $cart = $carthandler->session_to_object($order);
             return view('success')
-            ->with('cart', $cart)
-            ->with('finalprice', $finalprice)
-            ->with('method', $method);
+                ->with('cart', $cart)
+                ->with('finalprice', $finalprice)
+                ->with('method', $method);
         }
     }
 
@@ -81,12 +87,13 @@ class CartController extends Controller
         if (Auth::check()) {
             // User is logged in
             // Get cart from storage
-            $sessioncart = session('cart');
-            if ($sessioncart != null) {
+            $carthandler = new CartHandler;
+            $cartstring = $carthandler->get_cart_string();
+            if ($cartstring != null) {
                 // Cart is not empty
                 $user = Auth::user();
-                $sessioncart = serialize($sessioncart);
-                $user->savedorder = $sessioncart;
+                $cartstring = serialize($cartstring);
+                $user->savedorder = $cartstring;
                 $user->save();
                 return "Saved successfully.";
             } else {
@@ -104,15 +111,20 @@ class CartController extends Controller
         if (Auth::check()) {
             // User is logged in
             $user = Auth::user();
-            $cart = $user->savedorder;
-            if ($cart != null) {
+            $cartstring = $user->savedorder;
+            if ($cartstring != null) {
                 // Cart is not empty
                 // Reformat data
-                $cart = unserialize($cart);
+                $carthandler = new CartHandler;
+                $carthandler->clear_cart();
+                $cartstring = unserialize($cartstring);
+                $cart = $carthandler->session_to_object($cartstring);
                 // Replace session storage
-                $request->session()->forget('cart');
-                session(['cart' => $cart]);
-                $this->index();
+                foreach ($cart as $item) {
+                    $carthandler->add_item($item);
+                }
+                
+                return "Loaded successfully";
             } else {
                 // Cart is empty
                 return "No saved cart.";
@@ -137,42 +149,6 @@ class CartController extends Controller
         }
     }
 
-    public function SessionToCart(array $cartstring)
-    {
-        if ($cartstring == null) {
-            // The cart is empty
-            return null;
-        } else {
-            // The cart is not empty, convert data back to PHP objects
-            foreach ($cartstring as $item) {
-                $cart[] = unserialize($item);
-            }
-            // Get prices for each cart entry
-            foreach ($cart as $key => $item) {
-                $pizza = Pizza::where('name', $item["name"])->first();
-
-                if ($item["size"] == "Small") {
-                    $cart[$key]["price"] = (float)$pizza->smallprice;
-                } else if ($item["size"] == "Medium") {
-                    $cart[$key]["price"] = (float)$pizza->mediumprice;
-                } else if ($item["size"] == "Large") {
-                    $cart[$key]["price"] = (float)$pizza->largeprice;
-                }
-
-                if ($item["name"] == "Create your own" && !empty($item["toppings"])) {
-                    if ($item["size"] == "Small") {
-                        $cart[$key]["price"] += count($item["toppings"]) * 0.9;
-                    } else if ($item["size"] == "Medium") {
-                        $cart[$key]["price"] += count($item["toppings"]);
-                    } else if ($item["size"] == "Large") {
-                        $cart[$key]["price"] += count($item["toppings"]) * 1.15;
-                    }
-                }
-            }
-            return $cart;
-        }
-    }
-
     public function ValidateDeals(array $activedeals, array $cart)
     {
         $validateddeals = [];
@@ -180,8 +156,8 @@ class CartController extends Controller
             // Two for one Tuesdays
             if ($deal == "twoforonetuesdays") {
                 $dealname = "Two for One Tuesdays";
-                //if (date("l") == "Tuesday") {
-                if (true) {
+                if (date("l") == "Tuesday") {
+                    //if (true) {
                     $mediumcount = 0;
                     $largecount = 0;
                     foreach ($cart as $item) {
@@ -294,7 +270,7 @@ class CartController extends Controller
         return $validateddeals;
     }
 
-    public function ApplyDeals($deals, $cart)
+    public function ApplyDeals(array $deals, array $cart)
     {
         // Pizzas being charged for
         $price = 0;

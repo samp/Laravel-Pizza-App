@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
 
 class OrderTest extends TestCase
 {
@@ -14,15 +15,17 @@ class OrderTest extends TestCase
 
         $response->assertStatus(200);
     }
+
     public function test_named_pizza_can_be_added_to_cart()
     {
-        $response = $this->post("/addtocart", [
+        $user = User::factory()->create();
+
+        $this->followingRedirects()->actingAs($user)->post("/addtocart", [
             "pizzaRadios" => "Original",
             "sizeRadios" => "Medium",
-        ]);
-        $response->assertSessionHas("cart");
-        //$response->assertStatus(302);
+        ])->assertSessionHas("cart");
     }
+    
     public function custom_pizza_can_be_added_to_cart()
     {
         $response = $this->get('/order');
