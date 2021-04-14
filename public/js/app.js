@@ -1845,17 +1845,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-function _createForOfIteratorHelper(o, allowArrayLike) { var it; if (typeof Symbol === "undefined" || o[Symbol.iterator] == null) { if (Array.isArray(o) || (it = _unsupportedIterableToArray(o)) || allowArrayLike && o && typeof o.length === "number") { if (it) o = it; var i = 0; var F = function F() {}; return { s: F, n: function n() { if (i >= o.length) return { done: true }; return { done: false, value: o[i++] }; }, e: function e(_e) { throw _e; }, f: F }; } throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); } var normalCompletion = true, didErr = false, err; return { s: function s() { it = o[Symbol.iterator](); }, n: function n() { var step = it.next(); normalCompletion = step.done; return step; }, e: function e(_e2) { didErr = true; err = _e2; }, f: function f() { try { if (!normalCompletion && it["return"] != null) it["return"](); } finally { if (didErr) throw err; } } }; }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2036,25 +2025,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     };
   },
   computed: {
-    orderTotal: function orderTotal() {
-      var total = 0;
-
-      var _iterator = _createForOfIteratorHelper(this.cart),
-          _step;
-
-      try {
-        for (_iterator.s(); !(_step = _iterator.n()).done;) {
-          var item = _step.value;
-          total += item.price;
-        }
-      } catch (err) {
-        _iterator.e(err);
-      } finally {
-        _iterator.f();
-      }
-
-      return total;
-    },
     isAuthed: function isAuthed() {
       if (this.auth_user == null) {
         return false;
@@ -3796,27 +3766,11 @@ var render = function() {
         _vm._v(" "),
         _c("br"),
         _vm._v(" "),
-        _vm.activedeals != null
-          ? _c("div", [
-              _c("h3", [
-                _vm._v("Total: " + _vm._s("£" + _vm.finalprice.toFixed(2)))
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                attrs: { type: "hidden", name: "finalPrice" },
-                domProps: { value: _vm.finalprice }
-              })
-            ])
-          : _c("div", [
-              _c("h3", [
-                _vm._v("Total: " + _vm._s("£" + _vm.orderTotal.toFixed(2)))
-              ]),
-              _vm._v(" "),
-              _c("input", {
-                attrs: { type: "hidden", name: "finalPrice" },
-                domProps: { value: _vm.orderTotal }
-              })
-            ]),
+        _c("div", [
+          _c("h3", [
+            _vm._v("Total: " + _vm._s("£" + _vm.finalprice.toFixed(2)))
+          ])
+        ]),
         _vm._v(" "),
         _vm.isAuthed
           ? _c("div", { staticClass: "text-center" }, [

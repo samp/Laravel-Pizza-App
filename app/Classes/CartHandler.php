@@ -3,13 +3,10 @@ namespace App\Classes;
 
 class CartHandler
 {
-    // Properties
-    public $items;
 
     // Methods
     public function add_item($item)
     {
-        $this->items[] = $item;
         $orderstring = serialize($item);
         session()->push("cart", $orderstring);
     }
@@ -23,14 +20,12 @@ class CartHandler
         } else {
             // The cart is not empty, convert data back to PHP objects
             $cart = $this->session_to_object($cartstring);
-            $this->items = $cart;
             return $cart;
         }
     }
 
     public function clear_cart()
     {
-        $this->items = [];
         session()->forget('cart');
     }
 

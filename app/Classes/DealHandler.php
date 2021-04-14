@@ -4,9 +4,6 @@ namespace App\Classes;
 
 class DealHandler
 {
-    // Properties
-    public $deals;
-
     // Methods
     public function add_deal($dealname)
     {
@@ -48,7 +45,12 @@ class DealHandler
         return $dealstring;
     }
 
-    public function two_for_one_tuesdays(array $deal, array $cart)
+    public function clear_deals()
+    {
+        session()->forget('deals');
+    }
+
+    public function two_for_one_tuesdays(string $deal, array $cart)
     {
         // Two for one Tuesdays
         if ($deal == "twoforonetuesdays") {
@@ -75,7 +77,7 @@ class DealHandler
         }
     }
 
-    public function three_for_two_thursdays(array $deal, array $cart)
+    public function three_for_two_thursdays(string $deal, array $cart)
     {
         if ($deal == "twoforonetuesdays") {
             if (date("l") == "Thursday") {
@@ -97,7 +99,7 @@ class DealHandler
         }
     }
 
-    public function family_friday(array $deal, array $cart)
+    public function family_friday(string $deal, array $cart)
     {
         if ($deal == "familyfriday") {
             if (date("l") == "Friday") {
@@ -119,7 +121,7 @@ class DealHandler
         }
     }
 
-    public function two_large(array $deal, array $cart)
+    public function two_large(string $deal, array $cart)
     {
         if ($deal == "twolarge") {
             $largecount = 0;
@@ -136,7 +138,7 @@ class DealHandler
         }
     }
 
-    public function two_medium(array $deal, array $cart)
+    public function two_medium(string $deal, array $cart)
     {
         if ($deal == "twomedium") {
             $mediumcount = 0;
@@ -153,7 +155,7 @@ class DealHandler
         }
     }
 
-    public function two_small(array $deal, array $cart)
+    public function two_small(string $deal, array $cart)
     {
         if ($deal == "twosmall") {
             $smallcount = 0;

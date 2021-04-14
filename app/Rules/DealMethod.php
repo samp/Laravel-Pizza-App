@@ -28,6 +28,7 @@ class DealMethod implements Rule
     {
         $deals = json_decode($value);
         foreach ($deals as $deal) {
+            var_dump($deal);
             if ($deal == "Family Friday" || $deal == "Two Large" || $deal == "Two Medium" || $deal == "Two Small") {
                 if ($this->method == "Collection") {
                     return true;

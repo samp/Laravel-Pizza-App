@@ -33,9 +33,13 @@ class CartController extends Controller
             $activedeals = $dealhandler->get_deals();
             if ($activedeals != null) {
                 $deals = $this->ValidateDeals($activedeals, $cart);
-                $finalprice = $this->ApplyDeals($deals, $cart);
+
+                $totalprice = $this->ApplyDeals($deals, $cart);
             } else {
-                $finalprice = 0;
+                $totalprice = 0;
+                foreach ($cart as $item) {
+                    $totalprice += $item["price"];
+                }
                 $deals = $activedeals;
             }
 
@@ -43,7 +47,7 @@ class CartController extends Controller
                 ->with('auth_user', $auth_user)
                 ->with('cart', $cart)
                 ->with('activedeals', $deals)
-                ->with('finalprice', $finalprice);
+                ->with('finalprice', $totalprice);
         }
     }
 
@@ -59,9 +63,21 @@ class CartController extends Controller
 
         $request->session()->flash('finalorder', $cartstring);
         $request->session()->flash('method', $request->deliveryRadios);
-        // TODO::: NOT THIS *****************************************************************************************
-        $request->session()->flash('finalprice', $request->finalPrice);
-        // *******************************************************************************************
+
+        $cart = $carthandler->get_cart();
+        $dealhandler = new DealHandler;
+        $activedeals = $dealhandler->get_deals();
+        if ($activedeals != null) {
+            $deals = $this->ValidateDeals($activedeals, $cart);
+
+            $totalprice = $this->ApplyDeals($deals, $cart);
+        } else {
+            $totalprice = 0;
+            foreach ($cart as $item) {
+                $totalprice += $item["price"];
+            }
+        }
+        $request->session()->flash('finalprice', $totalprice);
         return redirect('success');
     }
 
@@ -70,6 +86,10 @@ class CartController extends Controller
         $order = session('finalorder');
         $method = session('method');
         $finalprice = session('finalprice');
+        $carthandler = new CartHandler;
+        $carthandler->clear_cart();
+        $dealhandler = new DealHandler;
+        $dealhandler->clear_deals();
         if ($order == null || $method == null) {
             // No order to display
             return view('success')->with('cart', null);
@@ -195,7 +215,6 @@ class CartController extends Controller
 
             // Two Medium
             if ($deal == "twomedium") {
-                $dealname = "Two Medium";
                 if ($dealhandler->two_medium($deal, $cart) == true) {
                     $validateddeals["Two Medium"] = true;
                 } else {
@@ -230,10 +249,16 @@ class CartController extends Controller
             }
 
             array_multisort(array_column($pizzas, 'price'), SORT_DESC, $pizzas);
+
             // Charge for highest priced pizza
             $price += $pizzas[0]["price"];
-            // Remove the second highest priced pizza from cart (it is free)
+            // Remove it from cart
             if (($key = array_search($pizzas[0], $cart)) !== false) {
+                unset($cart[$key]);
+            }
+
+            // Remove the second highest priced pizza from cart (it is free)
+            if (($key = array_search($pizzas[1], $cart)) !== false) {
                 unset($cart[$key]);
             }
         }
@@ -336,7 +361,6 @@ class CartController extends Controller
         foreach ($cart as $item) {
             $price += $item["price"];
         }
-
         return $price;
     }
 }

@@ -104,13 +104,8 @@
         <p>No deals selected.</p>
       </div>
       <br />
-      <div v-if="activedeals != null">
+      <div>
         <h3>Total: {{ "£" + finalprice.toFixed(2) }}</h3>
-        <input type="hidden" name="finalPrice" :value="finalprice">
-      </div>
-      <div v-else>
-        <h3>Total: {{ "£" + orderTotal.toFixed(2) }}</h3>
-        <input type="hidden" name="finalPrice" :value="orderTotal"> 
       </div>
 
       <div class="text-center" v-if="isAuthed">
@@ -186,13 +181,6 @@ export default {
     };
   },
   computed: {
-    orderTotal() {
-      let total = 0;
-      for (let item of this.cart) {
-        total += item.price;
-      }
-      return total;
-    },
     isAuthed() {
       if (this.auth_user == null) {
         return false;
