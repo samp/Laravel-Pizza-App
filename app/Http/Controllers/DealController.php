@@ -27,7 +27,6 @@ class DealController extends Controller
         unset($thisdeal["_token"]);
         $action = array_values($thisdeal)[0];
         $dealname = array_keys($thisdeal)[0];
-
         $dealhandler = new DealHandler;
         if ($action == "add") {
             // Add to session

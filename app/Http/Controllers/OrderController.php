@@ -30,25 +30,9 @@ class OrderController extends Controller
             'sizeRadios' => 'required|string'
         ]);
 
-        $pizzaname = $request->input('pizzaRadios');
-
-        $order = [
-            "name" => $request->pizzaRadios,
-            "size" => $request->sizeRadios,
-            "toppings" => [],
-        ];
-
-        // Get pizza toppings from DB
-        $pizza = Pizza::where('name', $pizzaname)->first();
-        if ($request->pizzaRadios != "Create your own") {
-            $order["toppings"] = explode(",", $pizza->toppings);
-        } else {
-            $order["toppings"] = $request->toppingCheckboxes;
-        }
-
         // Store order in session
         $cart = new CartHandler;
-        $cart->add_item($order);
+        $cart->add_item($request->pizzaRadios, $request->sizeRadios, $request->toppingCheckboxes);
         return redirect('cart');
     }
 }
