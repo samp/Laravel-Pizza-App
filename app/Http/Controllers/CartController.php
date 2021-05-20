@@ -70,7 +70,7 @@ class CartController extends Controller
         if ($activedeals != null) {
             $deals = $dealhandler->validate_deals($activedeals, $cart);
 
-            $totalprice = $this->ApplyDeals($deals, $cart);
+            $totalprice = $dealhandler->apply_deals($deals, $cart);
         } else {
             $totalprice = 0;
             foreach ($cart as $item) {
